@@ -1,4 +1,4 @@
-# Forgotten-Relics
+# Forgotten Relics
 Current Version: 1.1.0 Beta
 
 Minecraft Version: 1.7.10
