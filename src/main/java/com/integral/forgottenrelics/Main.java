@@ -152,8 +152,6 @@ public class Main {
 	
 	public static final int howCoolAmI = Integer.MAX_VALUE;
 	
-	//public static EnumRarity rarityCreation = EnumHelper.addRarity("CREATION", EnumChatFormatting.UNDERLINE, "Creation");
-	
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 		Main.proxy.registerDisplayInformation();
