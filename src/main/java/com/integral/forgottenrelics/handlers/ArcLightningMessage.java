@@ -88,8 +88,6 @@ public class ArcLightningMessage implements IMessage {
         public IMessage onMessage(ArcLightningMessage message, MessageContext ctx) {
             EntityPlayer player = FMLClientHandler.instance().getClientPlayerEntity();
             
-            System.out.println("Hello there: " + message.r + " " + message.g + " " + message.b);
-            
             Thaumcraft.proxy.arcLightning(player.worldObj,  message.x, message.y, message.z, message.destx, message.desty, message.destz, message.r, message.g, message.b, message.h);
             return null;
         }
