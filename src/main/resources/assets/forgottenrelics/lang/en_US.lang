@@ -71,12 +71,12 @@ item.FRVisPerCast.lore=§6Vis per cast:
 item.FRVisPerSecond.lore=§6Vis per second:
 item.FRVisPerTick.lore=§6Vis per tick:
 
-item.FRAerCost.lore=§eAer§r x 
-item.FRIgnisCost.lore=§cIgnis§r x 
-item.FRAquaCost.lore=§3Aqua§r x 
-item.FRTerraCost.lore=§2Terra§r x 
-item.FROrdoCost.lore=§7Ordo§r x 
-item.FRPerditioCost.lore=§8Perditio§r x 
+item.FRAerCost.lore=§eAer§r x
+item.FRIgnisCost.lore=§cIgnis§r x
+item.FRAquaCost.lore=§3Aqua§r x
+item.FRTerraCost.lore=§2Terra§r x
+item.FROrdoCost.lore=§7Ordo§r x
+item.FRPerditioCost.lore=§8Perditio§r x
 
 item.FRShiftTooltip.lore=§5Hold §6Shift§5 to see details.
 item.FRViscostTooltip.lore=§5Hold §6Ctrl§5 to see Vis cost.
@@ -124,7 +124,7 @@ item.ItemDormantArcanum2.lore=§5 §6Vis §5is yet required for re-awakening.
 item.ItemChaosCore1.lore=§5While possessing this relic, any incoming
 item.ItemChaosCore2.lore=§5damage is multiplied by a random value in
 item.ItemChaosCore3.lore=§5range between §60.0§5 and §62.0§5.
-item.ItemChaosCore4.lore=§5Provides §650% chance§5 to redirect any 
+item.ItemChaosCore4.lore=§5Provides §650% chance§5 to redirect any
 item.ItemChaosCore5.lore=§5damage you deal or receive to a random
 item.ItemChaosCore6.lore=§5entity within 16 blocks radius.
 item.ItemChaosCore7.lore=§5May apply random status effects to you.
@@ -147,7 +147,7 @@ item.ItemFateTome5.lore=§6This effect has 30-90 seconds cooldown.
 item.ItemFateTome6.lore=§5There is a chance that debuffs will be applied
 item.ItemFateTome7.lore=§5instead of buffs.
 item.ItemFateTome8.lore=§5Having more than one Tome of Broken Fates
-item.ItemFateTome9.lore=§5may lead to insanely disastrous consequences. 
+item.ItemFateTome9.lore=§5may lead to insanely disastrous consequences.
 item.ItemFateTomeCooldown.lore=Cooldown:
 item.FRSeconds.lore=seconds
 
@@ -202,7 +202,7 @@ item.ItemCrimsonSpell6_2.lore=§6damage§5.
 
 item.ItemObeliskDrainer1.lore=§5Can drain power from §6Eldritch Obelisk§5,
 item.ItemObeliskDrainer2.lore=§5if one is present within 16 blocks radius.
-item.ItemObeliskDrainer3.lore=§5Absorbed power regenerates your life, 
+item.ItemObeliskDrainer3.lore=§5Absorbed power regenerates your life,
 item.ItemObeliskDrainer4.lore=§5refills hunger and charges §6Vis§5 into wands
 item.ItemObeliskDrainer5.lore=§5within your inventory.
 
@@ -267,7 +267,7 @@ item.ItemApotheosis1.lore=§5Brings down an array of §6Babylon Weapons§5.
 item.ItemApotheosis2.lore=§5They are launched into the direction of your
 item.ItemApotheosis3.lore=§5sight, after a slight delay.
 item.ItemApotheosis4_1.lore=§5Each weapon deals§6
-item.ItemApotheosis4_2.lore=§6damage§5 on direct hit, 
+item.ItemApotheosis4_2.lore=§6damage§5 on direct hit,
 item.ItemApotheosis5_1.lore=§5and explodes on contact, dealing§6
 item.ItemApotheosis5_2.lore=§6damage§5
 item.ItemApotheosis6.lore=§5to all entities within impact zone.
@@ -307,14 +307,14 @@ fr.text.GenericTheory.1=You have already spent significant amount of time on res
 fr.text.GenericTheory.2=recreatable under any circumstances, but there's a lot of examples that directly disprove this assumption. Even the most unusual and powerful relics can exist in more than one example, and their copies is quite indistinguishable from original... If that "original" exists at all, and if it could be found among all copies, which is most of time only theoretically possible.<BR/>You now have incredibly fabulous, yet simple idea, that could explain this whole phenomenon - that there's no such things as "copy" of relic. All examples of it is true original, that is just capable to exist in limitless number of places at once. Even if you destroy all incarnations of it, erase knowledge about it from any piece of parchment in the whole world, it wouldn't then be lost
 fr.text.GenericTheory.3=forever - given the right conditions and components, it could be recreated once more...<BR/>Or, to say more technically correct, summoned. Therefore, they should remain embedded into the structure of reality itself, and it makes you questioning - if any mortal like you was ever able to create something truly unique, or we all are just recreating something that already existed before we were even born?<BR/>By now, though, you assume that an edge between mundane items and the relics exist, no matter how blurred it may seem. The first just don't possess any "specialty", and almost anyone with right knowledge is capable to forge a hundreds of iron swords, that would be quite similar in their appearance - but they
 fr.text.GenericTheory.4=wouldn't be the same, just made of same materials and forged into similar shape. Relics, though, have something more in them, that allows them to manifest in such unusual way. Something that could be described as... "Soul"? "Essence"? "Mind"? Whatever.<BR/>After thinking for a while, you found this theory incredibly fascinating. Not only it resolves all this riddle around the nature of some artifacts - if you would be able to understand it more deeply, you might be capable to get a lot profits of this knowledge. This research could be one of the hardest (and probably, the most dangerous) ones you ever faced, but potential reward is more than worthy of all the effort... So, what are you waiting for?
-fr.text.GenericTheory.5= 
+fr.text.GenericTheory.5=
 
 fr.name.SpellbookTheory=Basics of Spellbook Mastery
 fr.tag.SpellbookTheory=All new is well forgotten old
 fr.text.SpellbookTheory.1=Until now, wand focuses seemed a perfect and elegant solution to shape and unfold almost any kind of magic. Mayble, not in every single case, but most of the time they do their job, especially when talking about offensive magics.<BR/>But, of course, there is always "but". Being a relatively recent discovery, spellbooks are one of the most ancient means to channel magic forces, used in times far before thaumaturgy even came to existence. Of course, it's not nearly possible to make them as compact and handy as wand focuses, and to this very moment you hesitated if it is possible at all to adapt them to thaumaturgical means, but the
 fr.text.SpellbookTheory.2=researches on this topic has proven it's possible - in theory, at least.<BR/>Though they might feel quite clumsy, they definitely possess some upsides that wand focuses will never be able to offer. The first and the mort important - power. Spellbooks seem to be much more capable of holding and channeling colossal forces, that would tear apart any trivial wand focus, whatever it is made of. Well, greater power always means greater Vis costs, but didn't you faced countless situations where your ability to destroy enemy as quickly as possible were far more important than how much Vis it would cost?<BR/>Some spellbooks might also offer more than one function, while it is not very common among their direct counterpart.
 fr.text.SpellbookTheory.3=Another upside is that they could drain Vis from basically any source in your inventory - including scepters.<BR/>And after all, though it's not possible to upgrade them in Focal Manipulator (would be strange otherwise, isn't it), or enchant in any other way, most of the time their initial power and functionality is more than enough to fully cover all costs and efforts on their creation.<BR/>Though it all remains a pure theory for now, and is still rather questionable, nothing can stop your scientific interest to this theory, and so, one day it will definitely turn into practice.
-fr.text.SpellbookTheory.4= 
+fr.text.SpellbookTheory.4=
 
 fr.name.MiningCharm=Mining Charm
 fr.tag.MiningCharm=Everything genial is simple
@@ -379,7 +379,7 @@ fr.name.NebulousCore=Nebulous Core
 fr.tag.NebulousCore=The power of cosmos rests in your hands...
 fr.text.NebulousCore.1=The undoubted link of Primordial Pearl with primal magic energies has lead you to probably the most obvious way to use it - recreation of relic, that benefits on this link.<BR/>Nebulous Core uses oscillations of Primordial Pearl to extract Vis energy from surrounding aura, which is too weak and unstable to extract energy from it in the other ways. The resulting inflow of Vis is not very consistent or powerful, but as a rule, it is fully capable of reliably supplying your wands with enough energy to perform everyday tasks — especially given the significant Vis discount, allowing you to use this energy with much greater efficiency.
 fr.text.NebulousCore.2=Fulfilled with energies of The End, it also replicates one of the abilities of Endermans, with even greater efficiency - when someone or something tries to attack you, with great chance core teleports you right from impact, allowing to avoid taking damage.<BR/>The only significant downside of Nebulous Core can be considered its property of switching to inactive state from time to time, absorbing Vis for re-awakening. You assume, that it might happen because of imperfection in process of extracting Vis from aura, which instability causes negative energies to accumulate in the core - which are sooner or later released in the moment of overload.
-fr.text.NebulousCore.3=Sometimes, it could also teleport you to somewhere around without apparent reason. 
+fr.text.NebulousCore.3=Sometimes, it could also teleport you to somewhere around without apparent reason.
 
 fr.name.DeificAmulet=Deific Amulet
 fr.tag.DeificAmulet=Don't leave it close to open sources of holyfire
@@ -431,7 +431,7 @@ fr.text.CrimsonSpell.3=If, of course, you have a ruler, a goniometer, a little b
 fr.name.NuclearFury=Nuclear Fury
 fr.tag.NuclearFury=Not really nuclear, but still quite furious
 fr.text.NuclearFury.1=Although in fact, this relic is an ideological inheritor of Rod of the Unstable Reservoid, at first glance they have incredibly little in common. This is the direct (and quite successful) result of attempts to combine the convenient and controllable nature of this rod with the destructive power of Tome of Primal Chaos.<BR/>The very idea of such experiment seemed incredibly insane, but the power of Primordial Pearl allowed you to harness unstable energies, combining them accordingly to your design.<BR/>The resulting relic is capable to create huge amounts of charges, that
-fr.text.NuclearFury.2=resemble Orbs of Primal Energy - but unlike them, their behavior is way more controllable and predictable. These charges immediately aim at any living beings in large radius (excluding you, of course), dealing significant damage on contact. If there's no targets nearby, they just move chaotically through space, dissipating after some time.<BR/>It should be noted, that an important feature of these charges is their etheric nature - because of which, they are able to freely pass through most solid objects, like through an empty space.<BR/>However, this imposes certain restrictions, disallowing to infuse them with greater amounts of energy to increase damage dealt - 
+fr.text.NuclearFury.2=resemble Orbs of Primal Energy - but unlike them, their behavior is way more controllable and predictable. These charges immediately aim at any living beings in large radius (excluding you, of course), dealing significant damage on contact. If there's no targets nearby, they just move chaotically through space, dissipating after some time.<BR/>It should be noted, that an important feature of these charges is their etheric nature - because of which, they are able to freely pass through most solid objects, like through an empty space.<BR/>However, this imposes certain restrictions, disallowing to infuse them with greater amounts of energy to increase damage dealt -
 fr.text.NuclearFury.3=otherwise, they will simply lose their stability, and either dissipate or behave too unpredictable.
 
 fr.name.LunarFlares=Tome of Lunar Flares
@@ -441,10 +441,10 @@ fr.text.LunarFlares.2=Though this tome consumes a huge amount of Vis, it is quit
 
 fr.name.Apotheosis=The Apotheosis
 fr.tag.Apotheosis=Where is your god now?..
-fr.text.Apotheosis.1=Key of the King's Law rightfully takes the place of one of the most powerful relics in history. A lot of legends were made about it and its power ... What made your mind languish from anticipation and the desire to finally get this relic in your hands.<BR/>Needless to say, what a great disappointment you experienced after the first tests. With its many flaws, this key was not very convenient for use in most cases, and its destructive power is hardly close to what you've expected to see.<BR/>Apotheosis is the result of long and meticulous attempts to give a better life to this relic. This discovery 
-fr.text.Apotheosis.2=required a tremendous amount of time to be made - but this is justified by the fact that any mortal, including you, can only possess one incarnation of the Key of the King's Law... And therefore, you didn't have the right to make a mistake.<BR/>Now, however, it is safe to say that the result exceeded all expectations. Having absorbed the magic underlying the functioning of the Key, Apotheosis significantly alters and increases it. As a result, there is some functional differences from the original. Weapons summoned by Apotheosis possess much greater destructive power - but this power only affects living beings, ignoring inanimate objects. Besides this, Apotheosis continuously summons them while using, automatically launching in the direction of sight after a few 
+fr.text.Apotheosis.1=Key of the King's Law rightfully takes the place of one of the most powerful relics in history. A lot of legends were made about it and its power ... What made your mind languish from anticipation and the desire to finally get this relic in your hands.<BR/>Needless to say, what a great disappointment you experienced after the first tests. With its many flaws, this key was not very convenient for use in most cases, and its destructive power is hardly close to what you've expected to see.<BR/>Apotheosis is the result of long and meticulous attempts to give a better life to this relic. This discovery
+fr.text.Apotheosis.2=required a tremendous amount of time to be made - but this is justified by the fact that any mortal, including you, can only possess one incarnation of the Key of the King's Law... And therefore, you didn't have the right to make a mistake.<BR/>Now, however, it is safe to say that the result exceeded all expectations. Having absorbed the magic underlying the functioning of the Key, Apotheosis significantly alters and increases it. As a result, there is some functional differences from the original. Weapons summoned by Apotheosis possess much greater destructive power - but this power only affects living beings, ignoring inanimate objects. Besides this, Apotheosis continuously summons them while using, automatically launching in the direction of sight after a few
 fr.text.Apotheosis.3=moments - unlike the Key of the King's Law, the use of which can be conditionally divided into summoning and launch phase.<BR/>As a result, Apotheosis is capable to bring down on your enemies a continious stream of projectiles, each of which has enough power to instantly destroy most potential targets. Without a doubt, this relic alone will be enough to destroy an entire army in a deal of few minutes.<BR/>Legends will be made about it's uncontainable power... And you will be the hero of the first of them.
-fr.text.Apotheosis.4= 
+fr.text.Apotheosis.4=
 
 fr.name.FalseJustice=False Justice
 fr.tag.FalseJustice=The Divine Comedy
