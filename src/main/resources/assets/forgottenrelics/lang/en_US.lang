@@ -2,7 +2,7 @@ itemGroup.tabForgottenRelics=Forgotten Relics
 
 ### DEATH MESSAGES ###
 
-death.attack.trueDamage=%1$s was judged to death by %2$s.
+death.attack.trueDamage=%1$s was judjed to death by %2$s.
 death.attack.trueDamageUndef=%1$s was judged to death.
 death.attack.attackOblivion=%1$s's soul was consumed by Oblivion.
 death.attack.attackFate=%1$s has suffered the fateful paradox.
