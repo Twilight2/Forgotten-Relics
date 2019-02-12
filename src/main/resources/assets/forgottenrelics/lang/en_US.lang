@@ -124,7 +124,7 @@ item.ItemDormantArcanum2.lore=§5 §6Vis §5is yet required for re-awakening.
 item.ItemChaosCore1.lore=§5While possessing this relic, any incoming
 item.ItemChaosCore2.lore=§5damage is multiplied by a random value in
 item.ItemChaosCore3.lore=§5range between §60.0§5 and §62.0§5.
-item.ItemChaosCore4.lore=§5Provides §650% chance§5 to redirect any 
+item.ItemChaosCore4.lore=§5Provides §650% chance§5 to redirect any
 item.ItemChaosCore5.lore=§5damage you deal or receive to a random
 item.ItemChaosCore6.lore=§5entity within 16 blocks radius.
 item.ItemChaosCore7.lore=§5May apply random status effects to you.
@@ -147,7 +147,7 @@ item.ItemFateTome5.lore=§6This effect has 30-90 seconds cooldown.
 item.ItemFateTome6.lore=§5There is a chance that debuffs will be applied
 item.ItemFateTome7.lore=§5instead of buffs.
 item.ItemFateTome8.lore=§5Having more than one Tome of Broken Fates
-item.ItemFateTome9.lore=§5may lead to insanely disastrous consequences. 
+item.ItemFateTome9.lore=§5may lead to insanely disastrous consequences.
 item.ItemFateTomeCooldown.lore=Cooldown:
 item.FRSeconds.lore=seconds
 
@@ -202,7 +202,7 @@ item.ItemCrimsonSpell6_2.lore=§6damage§5.
 
 item.ItemObeliskDrainer1.lore=§5Can drain power from §6Eldritch Obelisk§5,
 item.ItemObeliskDrainer2.lore=§5if one is present within 16 blocks radius.
-item.ItemObeliskDrainer3.lore=§5Absorbed power regenerates your life, 
+item.ItemObeliskDrainer3.lore=§5Absorbed power regenerates your life,
 item.ItemObeliskDrainer4.lore=§5refills hunger and charges §6Vis§5 into wands
 item.ItemObeliskDrainer5.lore=§5within your inventory.
 
@@ -267,7 +267,7 @@ item.ItemApotheosis1.lore=§5Brings down an array of §6Babylon Weapons§5.
 item.ItemApotheosis2.lore=§5They are launched into the direction of your
 item.ItemApotheosis3.lore=§5sight, after a slight delay.
 item.ItemApotheosis4_1.lore=§5Each weapon deals§6
-item.ItemApotheosis4_2.lore=§6damage§5 on direct hit, 
+item.ItemApotheosis4_2.lore=§6damage§5 on direct hit,
 item.ItemApotheosis5_1.lore=§5and explodes on contact, dealing§6
 item.ItemApotheosis5_2.lore=§6damage§5
 item.ItemApotheosis6.lore=§5to all entities within impact zone.
@@ -379,7 +379,7 @@ fr.name.NebulousCore=Nebulous Core
 fr.tag.NebulousCore=The power of cosmos rests in your hands...
 fr.text.NebulousCore.1=The undoubted link of Primordial Pearl with primal magic energies has lead you to probably the most obvious way to use it - recreation of relic, that benefits on this link.<BR/>Nebulous Core uses oscillations of Primordial Pearl to extract Vis energy from surrounding aura, which is too weak and unstable to extract energy from it in the other ways. The resulting inflow of Vis is not very consistent or powerful, but as a rule, it is fully capable of reliably supplying your wands with enough energy to perform everyday tasks — especially given the significant Vis discount, allowing you to use this energy with much greater efficiency.
 fr.text.NebulousCore.2=Fulfilled with energies of The End, it also replicates one of the abilities of Endermans, with even greater efficiency - when someone or something tries to attack you, with great chance core teleports you right from impact, allowing to avoid taking damage.<BR/>The only significant downside of Nebulous Core can be considered its property of switching to inactive state from time to time, absorbing Vis for re-awakening. You assume, that it might happen because of imperfection in process of extracting Vis from aura, which instability causes negative energies to accumulate in the core - which are sooner or later released in the moment of overload.
-fr.text.NebulousCore.3=Sometimes, it could also teleport you to somewhere around without apparent reason. 
+fr.text.NebulousCore.3=Sometimes, it could also teleport you to somewhere around without apparent reason.
 
 fr.name.DeificAmulet=Deific Amulet
 fr.tag.DeificAmulet=Don't leave it close to open sources of holyfire
