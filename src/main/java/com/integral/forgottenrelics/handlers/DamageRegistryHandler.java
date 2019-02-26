@@ -1,7 +1,6 @@
 package com.integral.forgottenrelics.handlers;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 
@@ -56,7 +55,6 @@ public class DamageRegistryHandler {
 	public static class DamageSourceTLightning extends EntityDamageSource {
         public DamageSourceTLightning(final Entity entity) {
             super("attackLightning", entity);
-            this.setMagicDamage();
         }
 	}
 	
@@ -65,6 +63,25 @@ public class DamageRegistryHandler {
             super("attackDarkMatter", entity);
             this.setMagicDamage();
             this.setDamageBypassesArmor();
+        }
+	}
+	
+	public static class DamageSourceMagic extends EntityDamageSource {
+        public DamageSourceMagic(final Entity entity) {
+            super("forgottenMagic", entity);
+            this.setMagicDamage();
+        }
+	}
+	
+	public static class DamageSourceSuperposition extends DamageSource {
+        public DamageSourceSuperposition() {
+            super("superpositionedDamage");
+        }
+	}
+	
+	public static class DamageSourceSuperpositionDefined extends EntityDamageSource {
+        public DamageSourceSuperpositionDefined(Entity entity) {
+            super("superpositionedDamage", entity);
         }
 	}
 

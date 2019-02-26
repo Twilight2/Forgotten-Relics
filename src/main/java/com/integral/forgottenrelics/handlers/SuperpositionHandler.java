@@ -5,6 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
+import com.integral.forgottenrelics.packets.ArcLightningMessage;
+import com.integral.forgottenrelics.packets.BurstMessage;
+import com.integral.forgottenrelics.packets.ICanSwingMySwordMessage;
+import com.integral.forgottenrelics.packets.LightningMessage;
+import com.integral.forgottenrelics.packets.NotificationMessage;
 
 import baubles.api.BaubleType;
 import baubles.common.container.InventoryBaubles;
@@ -12,8 +17,11 @@ import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,13 +35,52 @@ import net.minecraft.world.World;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.items.wands.WandManager;
+import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
 public class SuperpositionHandler {
+	
+	public static void sendNotification(EntityPlayer player, int type) {
+		if (!player.worldObj.isRemote)
+		Main.packetInstance.sendTo(new NotificationMessage(type), (EntityPlayerMP) player);
+	}
+	
+	public static void cryHavoc(World world, EntityPlayer player, int RANGE) {
+		
+		/*
+		List<IMob> mobs = world.getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(player.posX - RANGE, player.posY - RANGE, player.posZ - RANGE, player.posX + RANGE + 1, player.posY + RANGE + 1, player.posZ + RANGE + 1));
+		if(mobs.size() > 1)
+			for(IMob mob : mobs) {
+				if(mob instanceof EntityLiving) {
+					EntityLiving recast = (EntityLiving) mob;
+					EntityLivingBase newTarget = (EntityLivingBase) mob;
+					
+					if (recast.getAttackTarget() != null & recast.getAttackTarget() != player)
+						break;
+					
+					while (newTarget == recast || newTarget == player)
+					newTarget = (EntityLiving) mobs.get((int) (Math.random() * mobs.size()));
+					
+					recast.setAttackTarget(newTarget);
+				}
+		}
+		*/
+		
+		List<IMob> mobs = world.getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(player.posX - RANGE, player.posY - RANGE, player.posZ - RANGE, player.posX + RANGE + 1, player.posY + RANGE + 1, player.posZ + RANGE + 1));
+		if(mobs.size() > 1)
+			for(IMob mob : mobs) {
+				if(mob instanceof EntityLiving) {
+					EntityLiving entity1 = (EntityLiving) mob;
+					if(SubTileHeiseiDream.brainwashEntity(entity1, mobs)) {
+						break;
+					}
+				}
+		}
+		
+	}
 	
 	public static void imposeArcLightning(World world, int dimension, double x, double y, double z, double destX, double destY, double destZ, float r, float g, float b, float h) {
 		if (!world.isRemote)
@@ -48,6 +95,65 @@ public class SuperpositionHandler {
 	public static void imposeBurst(World world, int dimension, double x, double y, double z, float size) {
 		if (!world.isRemote)
 		Main.packetInstance.sendToAllAround(new BurstMessage(x, y, z, size), new TargetPoint(dimension, x, y, z, 128.0D));
+	}
+	
+	/**
+	 * Checks if given position is valid for teleportation of regular entity,
+	 * given that it has solid block under and at least two blocks space over
+	 * it to avoid teleporting into the walls.
+	 * @return True if position is valid, false otherwise.
+	 */
+	
+	public static boolean validatePosition(World world, int x, int y, int z) {
+		
+		if (!world.isAirBlock(x, y-1, z) & world.getBlock(x, y-1, z).isCollidable() & world.isAirBlock(x, y, z) & world.isAirBlock(x, y+1, z)) {
+			return true;
+		} else {
+		return false;
+		}
+	}
+	
+	/**
+	 * Checks if given player has active casting cooldown.
+	 * @return True if yes, false if no.
+	 */
+	
+	public static boolean isOnCoodown(EntityPlayer player) {
+		if (player.worldObj.isRemote)
+			return false;
+		
+		int cooldown;
+		
+		try {
+			cooldown = Main.castingCooldowns.get(player);
+		}
+		catch (NullPointerException ex) {
+			Main.castingCooldowns.put(player, 0);
+			cooldown = 0;
+		}
+		
+		if (cooldown != 0)
+			return true;
+		else
+			return false;
+		
+	}
+	
+	/**
+	 * Sets the player casting cooldown to given number and, optionally, swings the item player is holding.
+	 */
+		
+	public static void setCasted(EntityPlayer player, int cooldown, boolean swing) {
+		if(!player.worldObj.isRemote) {
+		Main.castingCooldowns.put(player, cooldown);
+		
+		if (swing) { 
+		player.swingItem();
+		Main.packetInstance.sendTo(new ICanSwingMySwordMessage(true), (EntityPlayerMP) player);
+		}
+		
+		}
+		
 	}
 	
 	/**

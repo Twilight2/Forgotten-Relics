@@ -1,53 +1,58 @@
 package com.integral.forgottenrelics.handlers;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.items.ItemFateTome;
 
-import baubles.api.BaubleType;
-import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
-import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.items.wands.WandManager;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class RelicsEventHandler {
+	
+	@SubscribeEvent
+	public void livingTick(LivingEvent.LivingUpdateEvent event) {
+		
+		/*
+		 * Handler for decrementing player's casting cooldown on each tick.
+		 */
+		
+		if (event.entity instanceof EntityPlayer & !event.entity.worldObj.isRemote) {
+			EntityPlayer player = (EntityPlayer) event.entity;
+			
+			if (Main.castingCooldowns.containsKey(player)) {
+				int cooldown = Main.castingCooldowns.get(player);
+				if (cooldown > 0) {
+					cooldown--;
+					Main.castingCooldowns.put(player, cooldown);
+					return;
+				} else {
+					return;
+				}
+				
+			} else {
+				Main.castingCooldowns.put(player, 0);
+			}
+			
+		}
+		
+	}
 	
 	@SubscribeEvent
 	public void miningStuff(PlayerEvent.BreakSpeed event) {
@@ -205,7 +210,7 @@ public class RelicsEventHandler {
 		 * Hanlder for converting damage dealt BY owners of False Justice.
 		 */
 		
-		else if (event.source.getEntity() instanceof EntityPlayer & !event.isCanceled()) {
+		if (event.source.getEntity() instanceof EntityPlayer & !event.isCanceled()) {
 			EntityPlayer attackerPlayer = (EntityPlayer) event.source.getEntity();
 			
 			if (attackerPlayer.inventory.hasItem(Main.itemFalseJustice) & !SuperpositionHandler.isDamageTypeAbsolute(event.source)) {
@@ -233,6 +238,7 @@ public class RelicsEventHandler {
 			 */
 			
 			if (!event.isCanceled() & event.ammount > 100.0F & SuperpositionHandler.hasBauble(player, Main.itemDarkSunRing)) {
+				SuperpositionHandler.sendNotification(player, 2);
 				event.setCanceled(true);
 			}
 			
@@ -271,7 +277,22 @@ public class RelicsEventHandler {
 			 * among all other wearers, if any exist.
 			 */
 			
+			if (!(event.source instanceof DamageRegistryHandler.DamageSourceSuperposition) & !(event.source instanceof DamageRegistryHandler.DamageSourceSuperpositionDefined))
 			if (SuperpositionHandler.hasBauble(player, Main.itemSuperpositionRing) & !event.isCanceled()) {
+				
+				DamageSource altSource;
+				
+				if (event.source.getEntity() != null)
+					altSource = new DamageRegistryHandler.DamageSourceSuperpositionDefined(event.source.getEntity());
+				else 
+					altSource = new DamageRegistryHandler.DamageSourceSuperposition();
+					
+				if (event.source.isUnblockable())
+					altSource.setDamageBypassesArmor();
+				if (event.source.isDamageAbsolute())
+					altSource.setDamageIsAbsolute();
+				
+				altSource.damageType = event.source.getDamageType();
 				
 				List superpositioned = SuperpositionHandler.getBaubleOwnersList(player.worldObj, Main.itemSuperpositionRing);
 				if (superpositioned.contains(player))
@@ -283,7 +304,7 @@ public class RelicsEventHandler {
 				
 				for (int counter = superpositioned.size() - 1; counter >= 0; counter--) {
 					EntityPlayer cPlayer = (EntityPlayer) superpositioned.get(counter);
-					cPlayer.attackEntityFrom(event.source, splitAmount/superpositioned.size());
+					cPlayer.attackEntityFrom(altSource, splitAmount/superpositioned.size());
 				}
 				
 				event.ammount -= splitAmount;
@@ -343,7 +364,7 @@ public class RelicsEventHandler {
 
 			if(player.inventory.hasItem(Main.itemOmegaCore)) {
 				event.setCanceled(true);
-				player.setHealth(player.getMaxHealth());
+				player.setHealth(1);
 			}
 			
 			/*

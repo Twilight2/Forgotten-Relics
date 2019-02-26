@@ -63,10 +63,34 @@ public class RelicsConfigHandler {
 	public static float advancedMiningCharmBoost;
 	public static float advancedMiningCharmReach;
 	
+	public static float damageThunderpealDirect;
+	public static float damageThunderpealBolt;
+	public static float thunderpealVisMult;
+	
+	public static float overthrowerVisMult;
+	
+	public static int runicCost;
+	public static int runicRechargeDelay;
+	public static int runicRechargeSpeed;
+	
+	public static int notificationDelay;
+	
 	public void configDisposition(FMLPreInitializationEvent event) {
 		
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 	    config.load();
+	    
+	    this.notificationDelay = config.getInt("notificationDelay", "Thaumcraft Overrides", 2000, 0, 32768, 
+	    		"Determines how fast notifications scroll downwards. Overrides respective option in default Thaumcraft config.");
+	    
+	    this.runicRechargeSpeed = config.getInt("runicRechargeSpeed", "Thaumcraft Overrides", 750, 0, 32768, 
+	    		"How many milliseconds pass between Runic Shield recharge ticks. Setting this value lower than 50 is not recommended. Overrides respective option in default Thaumcraft config.");
+	    
+	    this.runicRechargeDelay = config.getInt("runicRechargeDelay", "Thaumcraft Overrides", 40, 0, 32768, 
+	    		"How many game ticks pass after Runic Shield has been reduced to zero before it can start recharging again. Overrides respective option in default Thaumcraft config.");
+	    
+	    this.runicCost = config.getInt("runicCost", "Thaumcraft Overrides", 10, 0, 32768, 
+	    		"How much Aer and Terra centi-vis (0.01 vis) it costs to reacharge a single unit of Runic Shield. Overrides respective option in default Thaumcraft config.");
 	    
 	    this.advancedMiningCharmReach = config.getFloat("advancedMiningCharmReach", "Generic Config", 4.0F, 0.0F, 32.0F, 
 	    		"Block reach increase for Ethereal Mining Charm.");
@@ -119,6 +143,12 @@ public class RelicsConfigHandler {
 	    this.falseJusticeEnabled = config.getBoolean("falseJusticeEnabled", "Generic Config", true,
 	    		"Whether or not False Justice should be enabled. Note that it will only remove respective research, so it would be impossible to create this relic legally - it won't remove existing copies from world or prevent it's spawning from Creative Mode.");
 		
+	    this.damageThunderpealDirect = config.getFloat("damageThunderpealDirect", "Damage Values", 24.0F, 0F, 32000.0F,
+	    		"How much damage inflicts direct hit of Thunderpeal's electrical orbs.");
+	    
+	    this.damageThunderpealBolt = config.getFloat("damageThunderpealBolt", "Damage Values", 16.0F, 0F, 32000.0F,
+	    		"How much damage deal lightning bolts of Thunderpeal's electrical orbs.");
+	    
 	    this.damageApotheosisDirect = config.getFloat("damageApotheosisDirect", "Damage Values", 100.0F, 0F, 32000.0F,
 	    		"How much damage inflicts direct hit of Babylon Weapons, summoned by Apotheosis.");
 	    
@@ -202,6 +232,12 @@ public class RelicsConfigHandler {
 	    
 	    this.weatherStoneVisMult = config.getFloat("weatherStoneVisCost", "Vis Costs", 1.0F, 0F, 1024.0F,
 	    		"Vis cost multiplier for Runic Stone.");
+	    
+	    this.thunderpealVisMult = config.getFloat("thunderpealVisCost", "Vis Costs", 1.0F, 0F, 1024.0F,
+	    		"Vis cost multiplier for Thunderpeal.");
+	    
+	    this.overthrowerVisMult = config.getFloat("overthrowerVisCost", "Vis Costs", 1.0F, 0F, 1024.0F,
+	    		"Vis cost multiplier for Edict of Eternal Banishment.");
 	    
 	    config.save();
 	}
