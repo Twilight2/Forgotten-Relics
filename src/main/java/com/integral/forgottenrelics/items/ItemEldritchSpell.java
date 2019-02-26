@@ -1,50 +1,31 @@
 package com.integral.forgottenrelics.items;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.entities.EntityDarkMatterOrb;
-import com.integral.forgottenrelics.entities.EntityCrimsonOrb;
-import com.integral.forgottenrelics.entities.EntityRageousMissile;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
+import com.integral.forgottenrelics.handlers.SuperpositionHandler;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.config.Config;
-import thaumcraft.common.entities.EntityAspectOrb;
-import thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss;
-import thaumcraft.common.entities.projectile.EntityEldritchOrb;
-import thaumcraft.common.entities.projectile.EntityGolemOrb;
 import thaumcraft.common.items.wands.WandManager;
-import thaumcraft.common.tiles.TileEldritchObelisk;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.entity.EntityDoppleganger;
 
 /**
  * Well, this one is not quite original, but...
@@ -128,7 +109,7 @@ public class ItemEldritchSpell extends Item implements IWarpingGear {
 			Vector3 vector = originalPos.add(new Vector3(player.getLookVec()).multiply(1.0F));
 			vector.y += 0.5;
 			
-			Vector3 motion = new Vector3(player.getLookVec()).multiply(1.25F);
+			Vector3 motion = new Vector3(player.getLookVec()).multiply(1.5F);
 			
 			EntityDarkMatterOrb orb = new EntityDarkMatterOrb(world, player);
 			orb.setPosition(vector.x, vector.y, vector.z);
@@ -149,7 +130,7 @@ public class ItemEldritchSpell extends Item implements IWarpingGear {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		
-		if (player.xpCooldown == 0) {
+		if (!SuperpositionHandler.isOnCoodown(player)) {
 			
 			if (WandManager.consumeVisFromInventory(player, new AspectList().add(Aspect.ENTROPY, this.PerditioCost))) {
 				
@@ -159,8 +140,7 @@ public class ItemEldritchSpell extends Item implements IWarpingGear {
 			}
 			
 			spawnOrb(world, player);
-			player.xpCooldown = 20;
-			player.swingItem();
+			SuperpositionHandler.setCasted(player, 20, true);
 			
 		}
 			

@@ -1,23 +1,26 @@
 package com.integral.forgottenrelics.entities;
 
-import net.minecraft.entity.projectile.*;
-
 import java.util.List;
 
+import com.integral.forgottenrelics.handlers.DamageRegistryHandler;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import com.integral.forgottenrelics.handlers.SuperpositionHandler;
 
-import cpw.mods.fml.common.registry.*;
-import net.minecraft.world.*;
-import io.netty.buffer.*;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockGrass;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLiquid;
-import net.minecraft.entity.*;
-import thaumcraft.common.*;
-import net.minecraft.util.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
+import net.minecraft.world.World;
 
 public class EntityCrimsonOrb extends EntityThrowable implements IEntityAdditionalSpawnData
 {
@@ -86,7 +89,7 @@ public class EntityCrimsonOrb extends EntityThrowable implements IEntityAddition
     
     protected void onImpact(final MovingObjectPosition mop) {
         if (!this.worldObj.isRemote && this.getThrower() != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
-            mop.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage((Entity)this, (Entity)this.getThrower()), (float) (RelicsConfigHandler.crimsonSpellDamageMIN + (Math.random() * (RelicsConfigHandler.crimsonSpellDamageMAX - RelicsConfigHandler.crimsonSpellDamageMIN))));
+            mop.entityHit.attackEntityFrom(new DamageRegistryHandler.DamageSourceMagic(this.getThrower()), (float) (RelicsConfigHandler.crimsonSpellDamageMIN + (Math.random() * (RelicsConfigHandler.crimsonSpellDamageMAX - RelicsConfigHandler.crimsonSpellDamageMIN))));
             
             this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "thaumcraft:shock", 1.0f, 1.0f + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2f);
             SuperpositionHandler.imposeBurst(this.worldObj, this.dimension, this.posX, this.posY, this.posZ, 1.0f);

@@ -3,18 +3,15 @@ package com.integral.forgottenrelics.items;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
-import com.integral.forgottenrelics.handlers.PortalTraceMessage;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import com.integral.forgottenrelics.handlers.SuperpositionHandler;
-import com.integral.forgottenrelics.proxy.ClientProxy;
+import com.integral.forgottenrelics.packets.PortalTraceMessage;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,17 +23,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import thaumcraft.api.IRepairable;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.items.wands.WandManager;
 import thaumcraft.common.lib.utils.EntityUtils;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 
-public class ItemTeleportationTome extends Item implements IWarpingGear, IRepairable {
+public class ItemTeleportationTome extends Item implements IWarpingGear {
 
 	 public static final int AerCost = (int) (160*RelicsConfigHandler.discordTomeVisMult);
 	 public static final int TerraCost = (int) (0*RelicsConfigHandler.discordTomeVisMult);
@@ -57,15 +51,12 @@ public class ItemTeleportationTome extends Item implements IWarpingGear, IRepair
  @Override
  public void registerIcons(IIconRegister iconRegister)
  {
- itemIcon = iconRegister.registerIcon("forgottenrelics:Teleportation_Tome");
+	 itemIcon = iconRegister.registerIcon("forgottenrelics:Teleportation_Tome");
  }
  
  @Override
  public void onUpdate(ItemStack stack, World world, Entity par3Entity, int p_77663_4_, boolean p_77663_5_) {
-	 
-	 if (ItemNBTHelper.getInt(stack, "ICooldown", 0) > 0)
-		 ItemNBTHelper.setInt(stack, "ICooldown", ItemNBTHelper.getInt(stack, "ICooldown", 0) - 1);
-	 
+	 // I COMMAND YOU TO DO NOTHING!
  }
 
 
@@ -98,10 +89,7 @@ public class ItemTeleportationTome extends Item implements IWarpingGear, IRepair
  @Override
  public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 	 
-	 if (ItemNBTHelper.getInt(stack, "ICooldown", 0) != 0)
-		 return stack;
-	 
-	 if (true) {
+	 if (!SuperpositionHandler.isOnCoodown(player) & !world.isRemote) {
 	 
 	 Entity pointedEntity = EntityUtils.getPointedEntity(world, player, 0.0D, 128.0D, 4F);
 	 
@@ -139,7 +127,7 @@ public class ItemTeleportationTome extends Item implements IWarpingGear, IRepair
 		 if (!world.isRemote)
 		 Main.packetInstance.sendToAllAround(new PortalTraceMessage(primalVec.x, primalVec.y, primalVec.z, finalVec.x, finalVec.y, finalVec.z, player.getDistance(primalVec.x, primalVec.y, primalVec.z)), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 128.0D));
 		 
-		 ItemNBTHelper.setInt(stack, "ICooldown", 20);
+		 SuperpositionHandler.setCasted(player, 20, false);
 		 
 		 return stack;
 		 
@@ -167,7 +155,7 @@ public class ItemTeleportationTome extends Item implements IWarpingGear, IRepair
 		 if (!world.isRemote)
 		 Main.packetInstance.sendToAllAround(new PortalTraceMessage(primalVec.x, primalVec.y, primalVec.z, finalVec.x, finalVec.y, finalVec.z, player.getDistance(primalVec.x, primalVec.y, primalVec.z)), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 128.0D));
 		 
-		 ItemNBTHelper.setInt(stack, "ICooldown", 20);
+		 SuperpositionHandler.setCasted(player, 20, false);
 		 
 		 return stack;
 		 
@@ -208,7 +196,7 @@ public class ItemTeleportationTome extends Item implements IWarpingGear, IRepair
 						if (!world.isRemote)
 						Main.packetInstance.sendToAllAround(new PortalTraceMessage(primalVec.x, primalVec.y, primalVec.z, finalVec.x, finalVec.y, finalVec.z, player.getDistance(primalVec.x, primalVec.y, primalVec.z)), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 128.0D));
 						
-						ItemNBTHelper.setInt(stack, "ICooldown", 20);
+						SuperpositionHandler.setCasted(player, 20, false);
 						
 						return stack;
 					}

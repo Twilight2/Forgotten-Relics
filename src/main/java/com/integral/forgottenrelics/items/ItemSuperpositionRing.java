@@ -11,21 +11,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.WorldServer;
-import thaumcraft.api.IRepairable;
-import thaumcraft.api.IWarpingGear;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.items.wands.WandManager;
 import vazkii.botania.common.core.helper.Vector3;
 
 public class ItemSuperpositionRing extends ItemBaubleBase implements IBauble {
@@ -84,7 +76,7 @@ public void onWornTick(ItemStack itemstack, EntityLivingBase entity) {
 	
 	if (entity.ticksExisted % 600 == 0 & !entity.worldObj.isRemote & entity instanceof EntityPlayer) {
 		
-		if (Math.random() >= 0.05) {
+		if (Math.random() <= 0.025) {
 			List <EntityPlayer> players = SuperpositionHandler.getBaubleOwnersList(entity.worldObj, Main.itemSuperpositionRing);
 			if (players.contains(entity))
 				players.remove(entity);

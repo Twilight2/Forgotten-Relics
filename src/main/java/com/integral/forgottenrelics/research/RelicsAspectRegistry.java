@@ -234,7 +234,8 @@ public class RelicsAspectRegistry {
 		ItemStack oblivionAmulet = new ItemStack(Main.itemOblivionAmulet, 1, 0);
 		ItemStack ghastlySkull = new ItemStack(Main.itemGhastlySkull, 1, 0);
 		ItemStack omegaCore = new ItemStack(Main.itemOmegaCore, 1, 0);
-		ItemStack dormantNebulousCore = new ItemStack(Main.itemDormantArcanum);
+		ItemStack dormantNebulousCore = new ItemStack(Main.itemDormantArcanum, 1, 0);
+		ItemStack thunderpeal = new ItemStack(Main.itemThunderpeal, 1, 0);
 		
 		ThaumcraftApi.registerObjectTag(weatherStone, new AspectList().add(Aspect.ENERGY, 12).add(Aspect.WEATHER, 10).add(Aspect.EXCHANGE, 8).add(Aspect.AIR, 7).add(Aspect.WATER, 7).add(Aspect.MAGIC, 5));
 		ThaumcraftApi.registerObjectTag(miningCharm, new AspectList().add(Aspect.MINE, 15).add(Aspect.TOOL, 10).add(Aspect.MOTION, 8).add(Aspect.MAGIC, 8).add(Aspect.METAL, 6));
@@ -263,6 +264,7 @@ public class RelicsAspectRegistry {
 		ThaumcraftApi.registerObjectTag(dormantNebulousCore, new AspectList().add(Aspect.VOID, 8).add(Aspect.DARKNESS, 8));
 		ThaumcraftApi.registerObjectTag(ghastlySkull, new AspectList().add(Aspect.DEATH, 16).add(Aspect.SOUL, 14).add(Aspect.DARKNESS, 14).add(Aspect.ENTROPY, 10).add(Aspect.VOID, 8).add(Aspect.MAGIC, 8));
 		ThaumcraftApi.registerObjectTag(omegaCore, new AspectList().add(Aspect.MAGIC, 32).add(Aspect.AURA, 32).add(Aspect.ENERGY, 32).add(Aspect.LIGHT, 32).add(Aspect.EXCHANGE, 32).add(Aspect.VOID, 32));
+		ThaumcraftApi.registerObjectTag(thunderpeal, new AspectList().add(Aspect.ENERGY, 12).add(Aspect.AIR, 9).add(Aspect.MAGIC, 8).add(Aspect.EXCHANGE, 5).add(Aspect.ORDER, 3));
 		
 	}
 	

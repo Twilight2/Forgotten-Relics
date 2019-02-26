@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.entities.EntityCrimsonOrb;
-import com.integral.forgottenrelics.entities.EntityRageousMissile;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
+import com.integral.forgottenrelics.handlers.SuperpositionHandler;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -14,34 +14,20 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.entities.EntityAspectOrb;
-import thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss;
-import thaumcraft.common.entities.projectile.EntityGolemOrb;
 import thaumcraft.common.items.wands.WandManager;
-import thaumcraft.common.tiles.TileEldritchObelisk;
-import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.entity.EntityDoppleganger;
 
 /**
  * I just can't believe that no one ever made such a thing.
@@ -148,7 +134,8 @@ public class ItemCrimsonSpell extends Item implements IWarpingGear {
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 			
-		if (player.xpCooldown == 0) {
+		if (!world.isRemote)
+		if (!SuperpositionHandler.isOnCoodown(player)) {
 			
 			int gRange = 32;
 			
@@ -209,8 +196,7 @@ public class ItemCrimsonSpell extends Item implements IWarpingGear {
 				target = null;
 			
 			spawnOrb(world, player, target);
-			player.xpCooldown = 30;
-			player.swingItem();
+			SuperpositionHandler.setCasted(player, 30, true);
 			
 			}
 			

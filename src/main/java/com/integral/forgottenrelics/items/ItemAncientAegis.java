@@ -1,8 +1,16 @@
 package com.integral.forgottenrelics.items;
 
-import net.minecraft.client.Minecraft;
+import java.util.List;
+
+import com.google.common.collect.Multimap;
+import com.integral.forgottenrelics.Main;
+import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
+import com.integral.forgottenrelics.handlers.SuperpositionHandler;
+
+import baubles.api.BaubleType;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -10,26 +18,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraftforge.client.event.RenderPlayerEvent;
-
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
-import vazkii.botania.api.item.IBaubleRender;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.lib.LibItemNames;
-import baubles.api.BaubleType;
-
-import com.google.common.collect.Multimap;
-import com.integral.forgottenrelics.Main;
-import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
-import com.integral.forgottenrelics.handlers.SuperpositionHandler;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemAncientAegis extends ItemBaubleBaseModifier {
 

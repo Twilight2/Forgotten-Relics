@@ -1,12 +1,14 @@
 package com.integral.forgottenrelics.entities;
 
-import net.minecraft.client.particle.*;
-import net.minecraft.world.*;
-import cpw.mods.fml.client.*;
-import net.minecraft.entity.*;
-import net.minecraft.client.renderer.*;
-import org.lwjgl.opengl.*;
-import net.minecraft.util.*;
+import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.client.FMLClientHandler;
+import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.MathHelper;
+import net.minecraft.world.World;
 
 public class FXWisp extends EntityFX
 {

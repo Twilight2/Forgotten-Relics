@@ -6,8 +6,9 @@ death.attack.trueDamage=%1$s was judged to death by %2$s.
 death.attack.trueDamageUndef=%1$s was judged to death.
 death.attack.attackOblivion=%1$s's soul was consumed by Oblivion.
 death.attack.attackFate=%1$s has suffered the fateful paradox.
-death.attack.attackLightning=%2$s has destroyed %1$s using powerful lightning discharge.
+death.attack.attackLightning=%2$s has destroyed %1$s with a powerful lightning discharge.
 death.attack.attackDarkMatter=%1$s's soul drowned in the primordial darkness.
+death.attack.forgottenMagic=%1$s was destroyed by %2$s using magic.
 
 ### ITEM NAMES ###
 
@@ -40,7 +41,19 @@ item.ItemApotheosis.name=Apotheosis
 item.ItemChaosTome.name=Tome of Primal Chaos
 item.ItemXPTome.name=Tome of Ageless Wisdom
 item.ItemOmegaCore.name=The Omega Core
-item.ItemDevastationBlade.name=Eye of Devastation
+item.ItemWastelayer.name=The Wastelayer
+item.ItemOverthrower.name=Edict of Eternal Banishment
+item.ItemThunderpeal.name=Thunderpeal
+item.ItemTerrorCrown.name=Crown of Terror
+
+### NOTIFICATIONS ###
+
+notification.soul_gain=Souls consumed:
+notification.fate_cooldown_over=§6Tome of Broken Fates' cooldown is over.
+notification.overdamage_block=§5You have just withstood a truly devastating blow.
+
+message.overthrown1=has overthrown
+message.overthrown2=into the Nether.
 
 ### TOOLTIP OPTIONS ###
 
@@ -297,6 +310,29 @@ item.ItemXPTomeAbsorption.lore=§6Absorption
 item.ItemXPTomeExtraction.lore=§6Extraction
 item.ItemXPTomeDeactivated.lore=§6Deactivated
 
+item.ItemThunderpeal1.lore=§5Invokes powerful §6Orb of Electrical Energy§5.
+item.ItemThunderpeal2.lore=§5Orb is affected by gravity and explodes on
+item.ItemThunderpeal3_1.lore=§5collision, dealing§6
+item.ItemThunderpeal3_2.lore=§6damage§5 on contact and
+item.ItemThunderpeal4.lore=§5striking nearby creatures with electric bolts.
+item.ItemThunderpeal5_1.lore=§5Bolts deal§6
+item.ItemThunderpeal5_2.lore=§6damage§5 an are capable of
+item.ItemThunderpeal6.lore=§5impacting up to 3 additional targets, dealing
+item.ItemThunderpeal7.lore=§5half as much damage to each of them.
+
+item.ItemTerrorCrown1.lore=§5Wreaks havoc on your enemies, forcing monsters
+item.ItemTerrorCrown2.lore=§5within §624 blocks§5 radius to attack each other.
+item.ItemTerrorCrown3.lore=§5Inflicts debuffs on creatures you are looking at.
+item.ItemTerrorCrown4.lore=§5Doubles as Goggles of Revealing.
+
+item.ItemOverthrower1.lore=§5Allows you to overthrow any entity you
+item.ItemOverthrower2.lore=§5are looking at into the §6Nether§5.
+item.ItemOverthrower3.lore=§5After targeting an entity, a few seconds
+item.ItemOverthrower4.lore=§5will be required to focus Edict's power.
+item.ItemOverthrower5.lore=§5Entity's position in the Nether could be
+item.ItemOverthrower6.lore=§5chosen anywhere within §610,000§5 blocks
+item.ItemOverthrower7.lore=§5from the center of the world.
+
 ### RESEARCH CATEGORY ###
 
 tc.research_category.ForgottenRelics=Forgotten Relics
@@ -450,3 +486,26 @@ fr.name.FalseJustice=False Justice
 fr.tag.FalseJustice=The Divine Comedy
 fr.text.FalseJustice.1=...you saw it in one of your long-forgotten dreams. Then you didn’t know that it was more than just a dream, but some of the details strongly crashed into the memory, as if knowing about their destiny.<BR/>You have seen gods were slain by the mortals, who were fortunate enough to possess it. This picture was both terrifying and exciting - you knew that this was a crime against the laws of reality, but the possibility of breaking them never before was so magnificent.<BR/>You observed as the weakest gained monstrous power, and the hunters were hunted. This relic changed the natural order of things in any world
 fr.text.FalseJustice.2=into which it fell, but sooner or later it became a nightmare for everyone without exception.<BR/>The idea of it's recreation was both insane and attractive... Eventually, it became insanely attractive. At some point you have discovered that you are no longer able to resist this attraction. It seemed that the mind left you, obeying the destiny defined long before you were born. It was like the symbols were born from under your feather without even your participation, when you were working on this research.<BR/>And you have succeeded. Now you know how to recreate it... There's only one, last step to take - to do it.
+
+fr.name.Thunderpeal=Thunderpeal
+fr.tag.Thunderpeal=Electricity! Obey my command!
+fr.text.Thunderpeal.1=Despite the primitive design, shock focus has some potential. It became obvious after discovery of Focal Manipulator, where among other upgrades, you can alter it's functionality completely - making the focus create orbs of electrical energy instead of lightnings. Those orbs explode on contact, dealing damage to any entities around, and leaving ground nearby dangerously electrified for some time.<BR/>This upgrade has become the foundation, that was laid in creation of Thunderpeal. In fact, it does exactly the same as Wand Focus: Shock with Earth Shock upgrade - only more and better.
+fr.text.Thunderpeal.2=The orbs it creates are also affected by gravity, but they possess greater initial speed, deal much more damage and strike creatures nearby the point of impact with lightnings.<BR/>This weapon could be especially effective in closed spaces and against multiple targets, potentially stacking up to enormous damage.<BR/>Unlike ones created by wand focus with respective upgrade, orbs invoked by Thunderpeal do not affect inanimate objects (e.g. dropped items). Also, they don't leave residual electricity - which in some cases could also be an advantage.
+fr.text.Thunderpeal.3= 
+
+fr.name.Overthrower=Edict of Eternal Banishment
+fr.tag.Overthrower=One-way ticket... not exactly to the moon.
+fr.text.Overthrower.1=If you ever wished to possess an exquisite way to get rid of annoying creatures that are chasing you - be it some kind of undead or some kind of thaumaturge - your wish now came true.<BR/>Edict of Eternal Banishment constantly remains in extreme resonance with the Nether dimension, allowing you to easily send there almost any entity within your sight. It will only require a few secons of focusing on chosen target, and neglegible Vis costs - a lightning strike to the point where the subject just was will signify that everything worked perfectly. Due to wide distribution of possible positions, it's unlikely that you will ever
+fr.text.Overthrower.2=encounter banished creature again - even if you really want to.<BR/>There is a legend, that Zombie Pigmans descended from the first humans, overthrown into the Nether - doomed to wander eternally across it's burned wastes, searching for unexistent exit. Subjected to the influence of hellish energies and feeding on other inhabitants of this dimension, they eventually lost their human appearance and became what we know them today. Unfortunalely, this legend does not explain the enormous number of their population, or why those processes cannot be recreated in modern conditions - although such experiments were actively carried out by magicians who rejected moral prejudices, for only a several centuries ago.
+fr.text.Overthrower.3=Whatever is was, it's probably not a good idea to test effects of this Edict on your friends.
+
+fr.name.TerrorCrown=Crown of Terror
+fr.tag.TerrorCrown=Deliver me from all of this
+fr.text.TerrorCrown.1=You face one of the most famous relics of former times, that firmly secured it's significant place in history. In times of mighty, ancient kingdoms, when most of civilization wasn't yet obliterated by some mysterious cataclysm, it was considered to be a sign of true kings - although was worn by the latter quite rarely, due to the nature of its effects.<BR/>The crown was capable to awaken feeling of anger and revenge in nearby monsters, turning them against each other. The only sight of its wearer was enough to disorient and significantly weaken his opponents, slowly killing them.
+fr.text.TerrorCrown.2=Unfortunately, this last effect fully affects people, making no difference between friends and enemies.<BR/>You've also managed to provide it with vital for you functionality of Goggles of Revealing, having used it as a base for recreating the relic - despite all expectations, it wasn't very hard.<BR/>In opposition to all its advantages, this crown has some downsides. First of all, of course, it cannot be worn alongside with some other helmet or hood - you would have to choose.<BR/>Secondly, for some reason it cannot be enchanted throught usual means, which in sum with it's low protection capabilities could make you somewhat vulnerable while wearing it.
+fr.text.TerrorCrown.3=Although the durability of Crown of Terror is quite high, it is still limited. But you can repair it using mundane gold and the anvil. It is also capable of recovering it's durability using mana.
+
+fr.name.PechFocus=Wand Focus: Pech's Curse
+fr.tag.PechFocus=Portable brewing stand of sorts
+fr.text.PechFocus.1=Pech's Curse was always a mystery agitating your mind. Although pechs don't seem very sentient and you can hardly imagine that they could understand at least a little in thaumaturgy - there are magicians among them, using this focus along with wands of primitive design.<BR/>You thought that it would be as a piece of cake for you to create something that these pitiful creatures coped with - but how wrong you were. Only now you've finally found a way to recreate Pech's Curse, using a wide range of arcane ingredients that are usually used in potions brewing. The copy obtained this way is quite indistinguishable from original -
+fr.text.PechFocus.2=similarly to it, it also creates small orbs of unstable magical energy, that cause insignificant amount of damage on contact with living beings, and apply random debuffs to them.<BR/>Although this focus does not seem particularly useful, it may become a basis for creating something greater in the future.

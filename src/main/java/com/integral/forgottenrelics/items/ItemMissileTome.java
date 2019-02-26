@@ -10,14 +10,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import thaumcraft.api.IWarpingGear;
@@ -25,16 +22,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.items.wands.WandManager;
-import vazkii.botania.api.item.IAvatarTile;
-import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.api.item.IManaProficiencyArmor;
-import vazkii.botania.api.mana.IManaUsingItem;
-import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.entity.EntityMagicMissile;
-import vazkii.botania.common.item.ItemMod;
-import vazkii.botania.common.lib.LibItemNames;
 
 /**
  * This code is heavily based on such of Rod of Unstable Reservoir from Botania,

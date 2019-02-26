@@ -1,8 +1,5 @@
 package com.integral.forgottenrelics.items;
 
-import thaumcraft.api.IRepairable;
-import thaumcraft.api.IWarpingGear;
-
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
@@ -20,6 +17,8 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import thaumcraft.api.IRepairable;
+import thaumcraft.api.IWarpingGear;
 
 public class ItemParadox extends ItemSword implements IRepairable, IWarpingGear
 {

@@ -1,18 +1,19 @@
 package com.integral.forgottenrelics.proxy;
 
-import net.minecraft.client.renderer.entity.*;
-import java.util.*;
-import net.minecraft.entity.*;
-import net.minecraft.client.renderer.*;
-import org.lwjgl.opengl.*;
+import java.util.Random;
+
+import org.lwjgl.opengl.GL11;
 
 import com.integral.forgottenrelics.entities.EntityCrimsonOrb;
 
-import thaumcraft.client.fx.*;
-import thaumcraft.client.lib.*;
-import thaumcraft.common.entities.projectile.*;
-import net.minecraft.util.*;
-import net.minecraft.client.entity.*;
+import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
+import thaumcraft.client.fx.ParticleEngine;
+import thaumcraft.client.lib.UtilsFX;
 
 public class RenderCrimsonOrb extends Render
 {

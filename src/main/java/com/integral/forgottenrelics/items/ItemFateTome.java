@@ -1,32 +1,24 @@
 package com.integral.forgottenrelics.items;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import com.integral.forgottenrelics.handlers.SuperpositionHandler;
 
-import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import thaumcraft.api.IRepairable;
 import thaumcraft.api.IWarpingGear;
-import thaumcraft.client.lib.UtilsFX;
-import thaumcraft.common.Thaumcraft;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class ItemFateTome extends Item implements IWarpingGear {
@@ -113,6 +105,10 @@ public class ItemFateTome extends Item implements IWarpingGear {
 				if (ItemNBTHelper.verifyExistance(itemstack, "IFateCooldown")) {
 					if (ItemNBTHelper.getInt(itemstack, "IFateCooldown", 0) > 0) {
 						ItemNBTHelper.setInt(itemstack, "IFateCooldown", ItemNBTHelper.getInt(itemstack, "IFateCooldown", 0) - 1);
+						
+						if (ItemNBTHelper.getInt(itemstack, "IFateCooldown", 0) == 0)
+							SuperpositionHandler.sendNotification((EntityPlayer) entity, 1);
+						
 						((EntityPlayer)entity).inventoryContainer.detectAndSendChanges();
 					}
 				}

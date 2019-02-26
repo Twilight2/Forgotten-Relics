@@ -3,28 +3,22 @@ package com.integral.forgottenrelics.entities;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.integral.forgottenrelics.handlers.DamageRegistryHandler;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import thaumcraft.common.Thaumcraft;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.LibObfuscation;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.ReflectionHelper;
 
 /**
  * Advanced implementation of EntityMagicMissile from Botania.
@@ -42,7 +36,7 @@ public class EntityRageousMissile extends EntityThrowable {
 
 	public EntityRageousMissile(World world) {
 		super(world);
-		setSize(0.15F, 0.15F);
+		//setSize(0.15F, 0.15F);
 	}
 
 	public EntityRageousMissile(EntityPlayer thrower, boolean evil) {
@@ -244,7 +238,7 @@ public class EntityRageousMissile extends EntityThrowable {
 			EntityPlayer thrower = getTrueThrower();
 			if(thrower != null) {
 				EntityPlayer player = thrower instanceof EntityPlayer ? (EntityPlayer) thrower : null;
-				pos.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, thrower), (float) (RelicsConfigHandler.nuclearFuryDamageMIN + (Math.random() * (RelicsConfigHandler.nuclearFuryDamageMAX - RelicsConfigHandler.nuclearFuryDamageMIN))));
+				pos.entityHit.attackEntityFrom(new DamageRegistryHandler.DamageSourceMagic(this.getThrower()), (float) (RelicsConfigHandler.nuclearFuryDamageMIN + (Math.random() * (RelicsConfigHandler.nuclearFuryDamageMAX - RelicsConfigHandler.nuclearFuryDamageMIN))));
 			}
 			this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "random.fizz", 2.0F, (float) (0.8F + (Math.random() * 0.2F)));
 			setDead();

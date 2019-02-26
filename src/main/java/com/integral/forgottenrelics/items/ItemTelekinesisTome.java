@@ -7,6 +7,7 @@ import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.handlers.DamageRegistryHandler;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import com.integral.forgottenrelics.handlers.SuperpositionHandler;
+import com.integral.forgottenrelics.packets.PlayerMotionUpdateMessage;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -14,7 +15,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
@@ -31,7 +31,6 @@ import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.common.items.wands.WandManager;
-import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -296,6 +295,11 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 		entity.motionX = finalVector.x * modifier;
 		entity.motionY = finalVector.y * modifier;
 		entity.motionZ = finalVector.z * modifier;
+		
+		// This is required due to player's motion being handled on respective client side.
+		if (entity instanceof EntityPlayer & !entity.worldObj.isRemote) {
+			Main.packetInstance.sendTo(new PlayerMotionUpdateMessage(finalVector.x * modifier, finalVector.y * modifier, finalVector.z * modifier), (EntityPlayerMP) entity);
+		}
 	}
 	
 	

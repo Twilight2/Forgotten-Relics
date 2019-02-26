@@ -1,20 +1,23 @@
 package com.integral.forgottenrelics.entities;
 
-import net.minecraft.entity.projectile.*;
-import net.minecraft.world.*;
-import thaumcraft.common.*;
-import thaumcraft.common.config.Config;
-import net.minecraft.util.*;
+import java.util.List;
+
+import com.integral.forgottenrelics.handlers.DamageRegistryHandler;
+import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLiquid;
-import net.minecraft.entity.*;
-import net.minecraft.potion.*;
-import java.util.*;
-
-import com.integral.forgottenrelics.handlers.DamageRegistryHandler;
-import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.World;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.config.Config;
 
 public class EntityDarkMatterOrb extends EntityThrowable
 {
@@ -41,9 +44,9 @@ public class EntityDarkMatterOrb extends EntityThrowable
         Math.abs(absMotionY);
         Math.abs(absMotionZ);
         
-        if (this.ticksExisted > 1000) {
+        if (this.ticksExisted >= 200) {
             this.setDead();
-        } else if (this.ticksExisted >= 20 & absMotionX < 0.01D & absMotionY < 0.01D & absMotionZ < 0.01D) {
+        } else if (this.ticksExisted >= 100 & absMotionX < 0.01D & absMotionY < 0.01D & absMotionZ < 0.01D) {
         	MovingObjectPosition mop = new MovingObjectPosition(this);
         	this.onImpact(mop);
         }
@@ -51,6 +54,7 @@ public class EntityDarkMatterOrb extends EntityThrowable
         Thaumcraft.proxy.wispFXEG(this.worldObj, this.posX, (double)(float)(this.posY + 0.22 * this.height), this.posZ, (Entity)this);
     }
     
+    @Override
     public void handleHealthUpdate(final byte b) {
         if (b == 16) {
             if (this.worldObj.isRemote) {
@@ -69,13 +73,17 @@ public class EntityDarkMatterOrb extends EntityThrowable
     
     protected void onImpact(final MovingObjectPosition mop) {
     	
-    	// TODO Immediately destroy orb on block impact
-    	
     	Block block = this.worldObj.getBlock(mop.blockX, mop.blockY, mop.blockZ);
     	
-    	if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
-    	if (block instanceof BlockBush || block instanceof BlockLeaves || block instanceof BlockLiquid) {
-    		return;
+    	if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+    		if (block instanceof BlockBush || block instanceof BlockLeaves || block instanceof BlockLiquid) {
+    			return;
+    		} else {
+    			this.worldObj.playSoundAtEntity((Entity)this, "random.fizz", 0.5f, 2.6f + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.8f);
+    			this.ticksExisted = 200;
+    			this.worldObj.setEntityState((Entity)this, (byte)16);
+    			return;
+    		}
     	}
     	
         if (!this.worldObj.isRemote && this.getThrower() != null) {
@@ -110,7 +118,7 @@ public class EntityDarkMatterOrb extends EntityThrowable
                 }
             }
             this.worldObj.playSoundAtEntity((Entity)this, "random.fizz", 0.5f, 2.6f + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.8f);
-            this.ticksExisted = 1000;
+            this.ticksExisted = 199;
             this.worldObj.setEntityState((Entity)this, (byte)16);
         }
     }

@@ -3,31 +3,25 @@ package com.integral.forgottenrelics.items;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
-import com.integral.forgottenrelics.handlers.BurstMessage;
-import com.integral.forgottenrelics.handlers.PortalTraceMessage;
+import com.integral.forgottenrelics.packets.BurstMessage;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import thaumcraft.api.IRepairable;
 import thaumcraft.api.IWarpingGear;
-import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.client.lib.PlayerNotifications;
 import vazkii.botania.common.core.helper.Vector3;
 
-public class ItemGhastlySkull extends Item implements IWarpingGear, IRepairable {
-
- public void registerRenderers() {}
-
+public class ItemGhastlySkull extends Item implements IWarpingGear {
+	
  public ItemGhastlySkull() {
 
 	 this.maxStackSize = 1;
@@ -66,9 +60,14 @@ public class ItemGhastlySkull extends Item implements IWarpingGear, IRepairable 
 		
 		Vector3 vec = Vector3.fromEntityCenter(player);
 		
-		if (!world.isRemote)
-		Main.packetInstance.sendToAllAround(new BurstMessage(vec.x, vec.y, vec.z, 1.0F), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 128.0D));
- 		
+		if (world.isRemote)
+		PlayerNotifications.addNotification(StatCollector.translateToLocal("notification.soul_gain") + " " + 20.0F);
+		
+		if (!world.isRemote) {
+			Main.packetInstance.sendToAllAround(new BurstMessage(vec.x, vec.y, vec.z, 1.0F), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 128.0D));
+			Main.castingCooldowns.put(player, 20);
+			//player.attackEntityFrom(new DamageRegistryHandler.DamageSourceMagic(player), 100.0F);
+		}
  		return stack;
  		
  		/*

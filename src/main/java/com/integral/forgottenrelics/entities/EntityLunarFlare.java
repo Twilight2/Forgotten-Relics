@@ -1,30 +1,22 @@
 package com.integral.forgottenrelics.entities;
 
-import net.minecraft.entity.projectile.*;
-
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
-import com.integral.forgottenrelics.handlers.LunarBurstMessage;
-import com.integral.forgottenrelics.handlers.LunarFlaresParticleMessage;
+import com.integral.forgottenrelics.handlers.DamageRegistryHandler;
+import com.integral.forgottenrelics.packets.LunarBurstMessage;
+import com.integral.forgottenrelics.packets.LunarFlaresParticleMessage;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
-import cpw.mods.fml.common.registry.*;
-import net.minecraft.world.*;
-import io.netty.buffer.*;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockGrass;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.client.particle.EntityFX;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.*;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
-import net.minecraft.util.*;
 
 public class EntityLunarFlare extends EntityThrowable implements IEntityAdditionalSpawnData
 {
@@ -74,7 +66,7 @@ public class EntityLunarFlare extends EntityThrowable implements IEntityAddition
     	if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
     		
     		if (mop.entityHit != this.getThrower())
-    		mop.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.getThrower()), 100.0F);
+    		mop.entityHit.attackEntityFrom(new DamageRegistryHandler.DamageSourceMagic(this.getThrower()), 100.0F);
     	}
     	
     	if (mop.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
@@ -88,7 +80,7 @@ public class EntityLunarFlare extends EntityThrowable implements IEntityAddition
         		
         		for (int counter = affectedEntities.size() - 1; counter >= 0; counter--) {
         			if (!affectedEntities.get(counter).isDead & !this.worldObj.isRemote) {
-        			affectedEntities.get(counter).attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.getThrower()), 75.0F);
+        			affectedEntities.get(counter).attackEntityFrom(new DamageRegistryHandler.DamageSourceMagic(this.getThrower()), 75.0F);
         			
         			Vector3 targetPos = Vector3.fromEntityCenter(affectedEntities.get(counter));
         			Vector3 thisPos = Vector3.fromEntityCenter(this);

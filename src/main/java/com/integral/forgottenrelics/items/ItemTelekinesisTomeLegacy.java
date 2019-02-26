@@ -2,12 +2,9 @@ package com.integral.forgottenrelics.items;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.handlers.DamageRegistryHandler;
-import com.integral.forgottenrelics.handlers.SuperpositionHandler;
-import com.integral.forgottenrelics.proxy.ClientProxy;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -15,7 +12,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.attributes.BaseAttributeMap;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,16 +28,13 @@ import net.minecraft.world.World;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.entities.EntityAspectOrb;
 import thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss;
 import thaumcraft.common.items.wands.WandManager;
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.entity.EntityThrownItem;
 
 
 public class ItemTelekinesisTomeLegacy extends Item implements IWarpingGear {

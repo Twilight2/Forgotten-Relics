@@ -3,9 +3,6 @@ package com.integral.forgottenrelics.items;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
-import com.integral.forgottenrelics.entities.EntityAIProjectileBase;
-import com.integral.forgottenrelics.entities.EntityCrimsonOrb;
-import com.integral.forgottenrelics.entities.EntityDarkMatterOrb;
 import com.integral.forgottenrelics.entities.EntitySoulEnergy;
 import com.integral.forgottenrelics.handlers.DamageRegistryHandler;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
@@ -14,8 +11,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -29,10 +24,7 @@ import thaumcraft.api.IRepairable;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.items.wands.WandManager;
-import thaumcraft.common.lib.utils.EntityUtils;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 
 public class ItemSoulTome extends Item implements IWarpingGear, IRepairable {

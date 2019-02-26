@@ -1,27 +1,15 @@
 package com.integral.forgottenrelics.entities;
 
-import net.minecraft.entity.projectile.*;
-
 import java.util.List;
 
-import com.integral.forgottenrelics.Main;
-
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.registry.*;
-import net.minecraft.world.*;
-import io.netty.buffer.*;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockGrass;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.client.particle.EntityFX;
-import net.minecraft.entity.*;
-import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.*;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
-import net.minecraft.util.*;
 
 public class EntityShinyEnergy extends EntityThrowable implements IEntityAdditionalSpawnData
 {

@@ -1,20 +1,25 @@
 package com.integral.forgottenrelics.entities;
 
-import net.minecraft.entity.projectile.*;
-import cpw.mods.fml.common.registry.*;
-import net.minecraft.world.*;
-import io.netty.buffer.*;
-import net.minecraft.block.material.*;
-import net.minecraft.entity.*;
-import thaumcraft.common.*;
-import net.minecraft.util.*;
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
+import com.integral.forgottenrelics.handlers.DamageRegistryHandler;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 
-import thaumcraft.common.lib.world.*;
-import thaumcraft.common.lib.utils.*;
-import thaumcraft.common.config.*;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.World;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.config.ConfigBlocks;
+import thaumcraft.common.lib.utils.EntityUtils;
+import thaumcraft.common.lib.utils.Utils;
+import thaumcraft.common.lib.world.ThaumcraftWorldGenerator;
 
 /**
  * A direct copy of EntityPrimalOrb, tweaked to work with...
@@ -144,7 +149,7 @@ public class EntityChaoticOrb extends EntityThrowable implements IEntityAddition
             }
             
             if (mop.entityHit != null & this.getThrower() != null)
-            	mop.entityHit.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.getThrower()), (float) (1.0F + (Math.random() * RelicsConfigHandler.chaosTomeDamageCap)));
+            	mop.entityHit.attackEntityFrom(new DamageRegistryHandler.DamageSourceMagic(this.getThrower()), (float) (1.0F + (Math.random() * RelicsConfigHandler.chaosTomeDamageCap)));
             
             this.worldObj.createExplosion((Entity)null, this.posX, this.posY, this.posZ, (float) (1.0F + (Math.random() * 6.0F)), true);
             if (!this.seeker && this.rand.nextInt(100) <= specialchance) {

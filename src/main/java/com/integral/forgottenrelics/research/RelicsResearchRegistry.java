@@ -8,6 +8,7 @@ import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
 import thaumcraft.api.crafting.InfusionRecipe;
@@ -17,10 +18,6 @@ import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
-import thaumcraft.api.ItemApi;
-import thaumcraft.api.ThaumcraftApi;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.aspects.AspectList;
 
 public class RelicsResearchRegistry {
 	
@@ -258,13 +255,23 @@ public class RelicsResearchRegistry {
 		
 		ThaumcraftApi.addWarpToResearch("FateTome", 8);
 		
+		new ForgottenRelicsResearchItem("Thunderpeal", "ForgottenRelics", 
+				new AspectList().add(Aspect.ENERGY, 5).add(Aspect.AIR, 4).add(Aspect.MAGIC, 4).add(Aspect.MIND, 3),
+				0, 4, 2,
+				new ItemStack(Main.itemThunderpeal))
+				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IThunderpeal")), new ResearchPage("2"), new ResearchPage("3") })
+				.setParents("SpellbookTheory")
+				.setParentsHidden("DiscordTome", "FOCUSSHOCK", "FOCALMANIPULATION")
+				.setConcealed()
+				.registerResearchItem();
+		
 		new ForgottenRelicsResearchItem("TelekinesisTome", "ForgottenRelics", 
 				new AspectList().add(Aspect.MOTION, 8).add(Aspect.FLIGHT, 6).add(Aspect.TRAP, 6).add(Aspect.MIND, 4).add(Aspect.MAGIC, 4),
 				-4, 7, 2,
 				new ItemStack(Main.itemTelekinesisTome))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("ITelekinesisTome")), new ResearchPage("2"), new ResearchPage("3") })
 				.setParents("DiscordTome")
-				.setParentsHidden("ELDRITCHMINOR", "FOCUSSHOCK", "AdvancedMiningCharm")
+				.setParentsHidden("ELDRITCHMINOR", "Thunderpeal", "AdvancedMiningCharm")
 				.registerResearchItem();
 		
 		new ForgottenRelicsResearchItem("ObeliskDrainer", "ForgottenRelics", 
@@ -307,7 +314,7 @@ public class RelicsResearchRegistry {
 		
 		new ForgottenRelicsResearchItem("ChaosTome", "ForgottenRelics", 
 				new AspectList().add(Aspect.AIR, 8).add(Aspect.WATER, 8).add(Aspect.FIRE, 8).add(Aspect.EARTH, 8).add(Aspect.ORDER, 8).add(Aspect.ENTROPY, 8).add(Aspect.MIND, 4).add(Aspect.MAGIC, 4),
-				2, 4, 2,
+				2, 3, 2,
 				new ItemStack(Main.itemChaosTome))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IChaosTome")), new ResearchPage("2") })
 				.setParents("EldritchSpell")
@@ -422,15 +429,26 @@ public class RelicsResearchRegistry {
 				.setHidden()
 				.registerResearchItem();
 		
+		new ForgottenRelicsResearchItem("TerrorCrown", "ForgottenRelics", 
+				new AspectList().add(Aspect.ELDRITCH, 8).add(Aspect.WEAPON, 6).add(Aspect.ENTROPY, 6).add(Aspect.ARMOR, 4).add(Aspect.SENSES, 2),
+				-6, -5, 3,
+				new ItemStack(Main.itemTerrorCrown))
+				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("ITerrorCrown")), new ResearchPage("2"), new ResearchPage("3") })
+				.setParents("XPTome")
+				.setParentsHidden("ELDRITCHMAJOR", "OCULUS")
+				.setItemTriggers(netherStar)
+				.setHidden()
+				.registerResearchItem();
+		
+		ThaumcraftApi.addWarpToResearch("TerrorCrown", 4);
+		
 		new ForgottenRelicsResearchItem("OblivionAmulet", "ForgottenRelics", 
 				new AspectList().add(Aspect.DARKNESS, 12).add(Aspect.DEATH, 10).add(Aspect.ARMOR, 8).add(Aspect.EXCHANGE, 8).add(Aspect.VOID, 8).add(Aspect.SOUL, 4),
 				-3, -4, 3,
 				new ItemStack(Main.itemOblivionAmulet))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IOblivionAmulet")), new ResearchPage("2"), new ResearchPage("3") })
 				.setParents("XPTome")
-				.setParentsHidden("ELDRITCHMAJOR", "OCULUS", "PRIMPEARL")
-				.setItemTriggers(netherStar)
-				.setHidden()
+				.setParentsHidden("TerrorCrown", "PRIMPEARL")
 				.setConcealed()
 				.setSpecial()
 				.registerResearchItem();
@@ -462,6 +480,30 @@ public class RelicsResearchRegistry {
 		
 		ThaumcraftApi.addWarpToResearch("FalseJustice", 4);
 		}
+		
+		new ForgottenRelicsResearchItem("Overthrower", "ForgottenRelics", 
+				new AspectList().add(Aspect.FIRE, 10).add(Aspect.TRAVEL, 8).add(Aspect.DARKNESS, 8).add(Aspect.MAGIC, 6).add(Aspect.MIND, 4).add(Aspect.SOUL, 4),
+				-5, 5, 2,
+				new ItemStack(Main.itemOverthrower))
+				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IOverthrower")), new ResearchPage("2"), new ResearchPage("3") })
+				.setParents("DiscordTome")
+				.setParentsHidden("FOCUSHELLBAT")
+				.setSecondary()
+				.setSpecial()
+				.setConcealed()
+				.registerResearchItem();
+		
+		ThaumcraftApi.addWarpToResearch("Overthrower", 3);
+		
+		new ForgottenRelicsResearchItem("PechFocus", "ForgottenRelics", 
+				new AspectList().add(Aspect.EXCHANGE, 8).add(Aspect.ENTROPY, 6).add(Aspect.MAGIC, 4).add(Aspect.SENSES, 4),
+				-1, -2, 2,
+				new ItemStack(ConfigItems.itemFocusPech))
+				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IPechFocus")), new ResearchPage("2") })
+				.setParents("WeatherStone")
+				.setParentsHidden("FOCUSFIRE", "FOCUSFROST")
+				.setSecondary()
+				.registerResearchItem();
 		
 		ThaumcraftApi.addWarpToItem(chaosTome, 4);
 		ThaumcraftApi.addWarpToItem(fateTome, 6);
@@ -504,6 +546,9 @@ public class RelicsResearchRegistry {
 		ItemStack discordTome = new ItemStack(Main.itemTeleportationTome, 1, 0);
 		ItemStack XPTome = new ItemStack(Main.itemXPTome, 1, 0);
 		ItemStack oblivionAmulet = new ItemStack(Main.itemOblivionAmulet, 1, 0);
+		ItemStack terrorCrown = new ItemStack(Main.itemTerrorCrown, 1, 0);
+		ItemStack thunderpeal = new ItemStack(Main.itemThunderpeal, 1, 0);
+		ItemStack overthrower = new ItemStack(Main.itemOverthrower, 1, 0);
 		
 		ItemStack enderEye = new ItemStack(Items.ender_eye, 1, 0);
 		ItemStack salisMundus = new ItemStack(ConfigItems.itemResource, 1, 14);
@@ -521,6 +566,7 @@ public class RelicsResearchRegistry {
 		ItemStack entropyShard = new ItemStack(ConfigItems.itemShard, 1, 5);
 		ItemStack balancedShard = new ItemStack(ConfigItems.itemShard, 1, 6);
 		
+		ItemStack revealingGoggles = new ItemStack(ConfigItems.itemGoggles, 1, 0);
 		ItemStack knowledgeFragment = new ItemStack(ConfigItems.itemResource, 1, 9);
 		ItemStack inkwell = new ItemStack(ConfigItems.itemInkwell, 1, 0);
 		ItemStack arcaneStone = new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6);
@@ -578,6 +624,14 @@ public class RelicsResearchRegistry {
 		ItemStack missileRod = new ItemStack(ModItems.missileRod, 1, 0);
 		ItemStack kingKey = new ItemStack(ModItems.kingKey, 1, 0);
 		ItemStack emerald = new ItemStack(Items.emerald, 1, 0);
+		ItemStack wrathRune = new ItemStack(ModItems.rune, 1, 13);
+		ItemStack prideRune = new ItemStack(ModItems.rune, 1, 15);
+		ItemStack manaPearl = new ItemStack(ModItems.manaResource, 1, 1);
+		ItemStack netherBrick = new ItemStack(Items.netherbrick, 1, 0);
+		ItemStack netherWart = new ItemStack(Items.nether_wart, 1, 0);
+		ItemStack sugar = new ItemStack(Items.sugar, 1, 0);
+		ItemStack fermentedSpiderEye = new ItemStack(Items.fermented_spider_eye, 1, 0);
+		ItemStack quartz = new ItemStack(Items.quartz, 1, 0);
 		
 		RelicsResearchRegistry.recipes.put("ISuperpositionRing", ThaumcraftApi.addInfusionCraftingRecipe("SuperpositionRing", 
 			superpositionRing, 4, new AspectList()
@@ -734,6 +788,30 @@ public class RelicsResearchRegistry {
 				.add(Aspect.LIGHT, 120).add(Aspect.GREED, 24).add(Aspect.WEAPON, 40).add(Aspect.TOOL, 36).add(Aspect.MAN, 52).add(Aspect.MAGIC, 36).add(Aspect.EXCHANGE, 72).add(Aspect.SOUL, 48).add(Aspect.DARKNESS, 45),
 				writableBook,
 				new ItemStack[]{ nitor, goldIngot, netherStar, knowledgeFragment, primordialPearl, knowledgeFragment, netherStar, goldIngot }));
+		
+		RelicsResearchRegistry.recipes.put("ITerrorCrown", ThaumcraftApi.addInfusionCraftingRecipe("TerrorCrown", 
+				terrorCrown, 8, new AspectList()
+				.add(Aspect.ELDRITCH, 50).add(Aspect.WEAPON, 32).add(Aspect.SENSES, 24).add(Aspect.DEATH, 42).add(Aspect.SOUL, 16).add(Aspect.ENTROPY, 20).add(Aspect.MAGIC, 36).add(Aspect.ARMOR, 16),
+				revealingGoggles,
+				new ItemStack[]{ netherStar, prideRune, goldIngot, gaiaSpirit, enderEye, gaiaSpirit, goldIngot, wrathRune }));
+		
+		RelicsResearchRegistry.recipes.put("IThunderpeal", ThaumcraftApi.addInfusionCraftingRecipe("Thunderpeal", 
+				thunderpeal, 4, new AspectList()
+				.add(Aspect.ENERGY, 32).add(Aspect.MAGIC, 24).add(Aspect.AIR, 24).add(Aspect.MIND, 10).add(Aspect.FIRE, 16),
+				writableBook,
+				new ItemStack[]{ primalCharm, pixieDust, manaPearl, salisMundus, shockFocus, salisMundus, manaPearl, pixieDust }));
+		
+		RelicsResearchRegistry.recipes.put("IOverthrower", ThaumcraftApi.addInfusionCraftingRecipe("Overthrower", 
+				overthrower, 8, new AspectList()
+				.add(Aspect.FIRE, 70).add(Aspect.TRAVEL, 40).add(Aspect.MAGIC, 36).add(Aspect.MIND, 24).add(Aspect.DARKNESS, 48),
+				writableBook,
+				new ItemStack[]{ primalCharm, blazePowder, netherBrick, salisMundus, netherWart, enderEye, netherWart, salisMundus, netherBrick, blazePowder }));
+		
+		RelicsResearchRegistry.recipes.put("IPechFocus", ThaumcraftApi.addInfusionCraftingRecipe("PechFocus", 
+				pechFocus, 4, new AspectList()
+				.add(Aspect.EXCHANGE, 25).add(Aspect.POISON, 20).add(Aspect.MAGIC, 16).add(Aspect.ENTROPY, 12).add(Aspect.SENSES, 8),
+				primalCharm,
+				new ItemStack[]{ emerald, blazePowder, quartz, ghastTear, sugar, quartz, redstone, netherWart, quartz, fermentedSpiderEye }));
 	}
 
 }

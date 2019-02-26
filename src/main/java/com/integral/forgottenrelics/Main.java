@@ -1,30 +1,9 @@
 package com.integral.forgottenrelics;
 
-import net.minecraftforge.common.MinecraftForge;
-
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.World;
-import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemRecord;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityEnderCrystal;
-import net.minecraft.entity.player.EntityPlayer;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
-import com.integral.forgottenrelics.entities.EntityAIProjectileBase;
 import com.integral.forgottenrelics.entities.EntityBabylonWeaponSS;
 import com.integral.forgottenrelics.entities.EntityChaoticOrb;
 import com.integral.forgottenrelics.entities.EntityCrimsonOrb;
@@ -33,14 +12,8 @@ import com.integral.forgottenrelics.entities.EntityLunarFlare;
 import com.integral.forgottenrelics.entities.EntityRageousMissile;
 import com.integral.forgottenrelics.entities.EntityShinyEnergy;
 import com.integral.forgottenrelics.entities.EntitySoulEnergy;
-import com.integral.forgottenrelics.handlers.SuperpositionHandler;
-import com.integral.forgottenrelics.handlers.ApotheosisParticleMessage;
-import com.integral.forgottenrelics.handlers.ArcLightningMessage;
-import com.integral.forgottenrelics.handlers.BurstMessage;
-import com.integral.forgottenrelics.handlers.LightningMessage;
-import com.integral.forgottenrelics.handlers.LunarBurstMessage;
-import com.integral.forgottenrelics.handlers.LunarFlaresParticleMessage;
-import com.integral.forgottenrelics.handlers.PortalTraceMessage;
+import com.integral.forgottenrelics.entities.EntityThunderpealOrb;
+import com.integral.forgottenrelics.handlers.RelicsChunkLoadCallback;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import com.integral.forgottenrelics.handlers.RelicsEventHandler;
 import com.integral.forgottenrelics.handlers.RelicsMaterialHandler;
@@ -62,49 +35,68 @@ import com.integral.forgottenrelics.items.ItemGhastlySkull;
 import com.integral.forgottenrelics.items.ItemLunarFlares;
 import com.integral.forgottenrelics.items.ItemMiningCharm;
 import com.integral.forgottenrelics.items.ItemMissileTome;
-import com.integral.forgottenrelics.items.ItemOmegaCore;
 import com.integral.forgottenrelics.items.ItemObeliskDrainer;
 import com.integral.forgottenrelics.items.ItemOblivionAmulet;
+import com.integral.forgottenrelics.items.ItemOmegaCore;
+import com.integral.forgottenrelics.items.ItemOverthrower;
 import com.integral.forgottenrelics.items.ItemParadox;
 import com.integral.forgottenrelics.items.ItemShinyStone;
 import com.integral.forgottenrelics.items.ItemSoulTome;
 import com.integral.forgottenrelics.items.ItemSuperpositionRing;
 import com.integral.forgottenrelics.items.ItemTelekinesisTome;
 import com.integral.forgottenrelics.items.ItemTeleportationTome;
+import com.integral.forgottenrelics.items.ItemTerrorCrown;
+import com.integral.forgottenrelics.items.ItemThunderpeal;
+import com.integral.forgottenrelics.items.ItemWastelayer;
 import com.integral.forgottenrelics.items.ItemWeatherStone;
 import com.integral.forgottenrelics.items.ItemXPTome;
+import com.integral.forgottenrelics.packets.ApotheosisParticleMessage;
+import com.integral.forgottenrelics.packets.ArcLightningMessage;
+import com.integral.forgottenrelics.packets.BanishmentCastingMessage;
+import com.integral.forgottenrelics.packets.BurstMessage;
+import com.integral.forgottenrelics.packets.EntityStateMessage;
+import com.integral.forgottenrelics.packets.ICanSwingMySwordMessage;
+import com.integral.forgottenrelics.packets.InfernalParticleMessage;
+import com.integral.forgottenrelics.packets.ItemUseMessage;
+import com.integral.forgottenrelics.packets.LightningBoltMessage;
+import com.integral.forgottenrelics.packets.LightningMessage;
+import com.integral.forgottenrelics.packets.LunarBurstMessage;
+import com.integral.forgottenrelics.packets.LunarFlaresParticleMessage;
+import com.integral.forgottenrelics.packets.NotificationMessage;
+import com.integral.forgottenrelics.packets.OverthrowChatMessage;
+import com.integral.forgottenrelics.packets.PlayerMotionUpdateMessage;
+import com.integral.forgottenrelics.packets.PortalTraceMessage;
 import com.integral.forgottenrelics.proxy.CommonProxy;
 import com.integral.forgottenrelics.research.RelicsAspectRegistry;
 import com.integral.forgottenrelics.research.RelicsResearchRegistry;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.common.network.FMLEmbeddedChannel;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.IWorldGenerator;
-import cpw.mods.fml.common.IFuelHandler;
-import net.minecraftforge.common.util.EnumHelper;
-import thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss;
-import vazkii.botania.common.entity.EntityDoppleganger;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.util.DamageSource;
+import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.MinecraftForge;
+import thaumcraft.common.config.Config;
 
 @Mod(modid = Main.MODID, version = Main.VERSION, name = Main.NAME, dependencies = "required-after:Thaumcraft@[4.2.3.5,);required-after:Botania@[r1.8-237,)")
 public class Main {
 
 	public static final String MODID = "ForgottenRelics";
-	public static final String VERSION = "1.1.0";
+	public static final String VERSION = "1.2.0";
 	public static final String NAME = "Forgotten Relics";
 	
 	public static SimpleNetworkWrapper packetInstance;
@@ -115,6 +107,14 @@ public class Main {
 	@Instance(MODID)
 	public static Main instance;
 	public static List<String> darkRingDamageNegations = new ArrayList();
+	
+	/**
+	 * Hash Map, containing players' casting cooldowns (used for some spellbooks).
+	 * If any value above 0 is put there, it will be decremented by 1 each respective
+	 * player's tick, until eventually reaches zero.
+	 * Only effective on the server side.
+	 */
+	public static HashMap<EntityPlayer, Integer> castingCooldowns = new HashMap<EntityPlayer, Integer>();
 	
 	public static Item itemFalseJustice;
 	public static Item itemDeificAmulet;
@@ -148,10 +148,15 @@ public class Main {
 	public static Item itemOmegaCore;
 	public static Item itemXPTome;
 	
+	public static Item itemThunderpeal;
+	public static Item itemTerrorCrown;
+	public static Item itemWastelayer;
+	public static Item itemOverthrower;
+	
 	public RelicsConfigHandler configHandler = new RelicsConfigHandler();
 	
 	public static final int howCoolAmI = Integer.MAX_VALUE;
-	
+
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 		Main.proxy.registerDisplayInformation();
@@ -170,8 +175,6 @@ public class Main {
 	public void preInit(FMLPreInitializationEvent event) {
 		configHandler.configDisposition(event);
 		
-		// TODO Throw all this message stuff into induvidual package
-		
 		packetInstance = NetworkRegistry.INSTANCE.newSimpleChannel("RelicsChannel");
 		packetInstance.registerMessage(PortalTraceMessage.Handler.class, PortalTraceMessage.class, 1, Side.CLIENT);
 		packetInstance.registerMessage(BurstMessage.Handler.class, BurstMessage.class, 2, Side.CLIENT);
@@ -180,6 +183,15 @@ public class Main {
 		packetInstance.registerMessage(LunarFlaresParticleMessage.Handler.class, LunarFlaresParticleMessage.class, 5, Side.CLIENT);
 		packetInstance.registerMessage(LightningMessage.Handler.class, LightningMessage.class, 6, Side.CLIENT);
 		packetInstance.registerMessage(ArcLightningMessage.Handler.class, ArcLightningMessage.class, 7, Side.CLIENT);
+		packetInstance.registerMessage(ICanSwingMySwordMessage.Handler.class, ICanSwingMySwordMessage.class, 8, Side.CLIENT);
+		packetInstance.registerMessage(EntityStateMessage.Handler.class, EntityStateMessage.class, 9, Side.CLIENT);
+		packetInstance.registerMessage(LightningBoltMessage.Handler.class, LightningBoltMessage.class, 10, Side.CLIENT);
+		packetInstance.registerMessage(InfernalParticleMessage.Handler.class, InfernalParticleMessage.class, 11, Side.CLIENT);
+		packetInstance.registerMessage(ItemUseMessage.Handler.class, ItemUseMessage.class, 12, Side.CLIENT);
+		packetInstance.registerMessage(BanishmentCastingMessage.Handler.class, BanishmentCastingMessage.class, 13, Side.CLIENT);
+		packetInstance.registerMessage(PlayerMotionUpdateMessage.Handler.class, PlayerMotionUpdateMessage.class, 14, Side.CLIENT);
+		packetInstance.registerMessage(NotificationMessage.Handler.class, NotificationMessage.class, 15, Side.CLIENT);
+		packetInstance.registerMessage(OverthrowChatMessage.Handler.class, OverthrowChatMessage.class, 16, Side.CLIENT);
 		
 		RelicsAspectRegistry.registerItemAspectsFirst();
 		
@@ -212,6 +224,10 @@ public class Main {
 		itemChaosTome = new ItemChaosTome();
 		itemOmegaCore = new ItemOmegaCore();
 		itemXPTome = new ItemXPTome();
+		itemThunderpeal = new ItemThunderpeal();
+		itemTerrorCrown = new ItemTerrorCrown(0, RelicsMaterialHandler.materialNobleGold);
+		itemWastelayer = new ItemWastelayer(RelicsMaterialHandler.materialParadoxicalStuff);
+		itemOverthrower = new ItemOverthrower();
 		
 		GameRegistry.registerItem(itemFalseJustice, "ItemFalseJustice");
 		GameRegistry.registerItem(itemDeificAmulet, "ItemDeificAmulet");
@@ -242,6 +258,9 @@ public class Main {
 		GameRegistry.registerItem(itemChaosTome, "ItemChaosTome");
 		GameRegistry.registerItem(itemOmegaCore, "ItemOmegaCore");
 		GameRegistry.registerItem(itemXPTome, "ItemXPTome");
+		GameRegistry.registerItem(itemThunderpeal, "ItemThunderpeal");
+		GameRegistry.registerItem(itemTerrorCrown, "ItemTerrorCrown");
+		GameRegistry.registerItem(itemOverthrower, "ItemOverthrower");
 		
 		EntityRegistry.registerModEntity(EntityRageousMissile.class, "SomeVeryRageousStuff", 237, Main.instance, 64, 20, true);
 		EntityRegistry.registerModEntity(EntityCrimsonOrb.class, "EntityCrimsonOrb", 238, Main.instance, 64, 20, true);
@@ -251,6 +270,7 @@ public class Main {
 		EntityRegistry.registerModEntity(EntityShinyEnergy.class, "EntityShinyEnergy", 242, Main.instance, 64, 20, true);
 		EntityRegistry.registerModEntity(EntityBabylonWeaponSS.class, "EntityBabylonWeaponSS", 243, Main.instance, 64, 20, true);
 		EntityRegistry.registerModEntity(EntityChaoticOrb.class, "EntityChaoticOrb", 245, Main.instance, 64, 20, true);
+		EntityRegistry.registerModEntity(EntityThunderpealOrb.class, "EntityThunderpealOrb", 246, Main.instance, 64, 20, true);
 		
 		MinecraftForge.EVENT_BUS.register(new RelicsEventHandler());
 		proxy.registerRenderers(this);
@@ -262,6 +282,13 @@ public class Main {
 		RelicsResearchRegistry.integrateInfusion();
 		RelicsAspectRegistry.registerItemAspectsLast();
 		RelicsResearchRegistry.integrateResearch();
+		
+		Config.shieldRecharge = RelicsConfigHandler.runicRechargeSpeed;
+		Config.shieldWait = RelicsConfigHandler.runicRechargeDelay;
+		Config.shieldCost = RelicsConfigHandler.runicCost;
+		Config.notificationDelay = RelicsConfigHandler.notificationDelay;
+		
+		ForgeChunkManager.setForcedChunkLoadingCallback(instance, new RelicsChunkLoadCallback());
 	}
 	
 	

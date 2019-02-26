@@ -6,10 +6,10 @@ import com.integral.forgottenrelics.entities.EntityChaoticOrb;
 import com.integral.forgottenrelics.entities.EntityCrimsonOrb;
 import com.integral.forgottenrelics.entities.EntityDarkMatterOrb;
 import com.integral.forgottenrelics.entities.EntityRageousMissile;
+import com.integral.forgottenrelics.entities.EntityThunderpealOrb;
 import com.integral.forgottenrelics.entities.FXBurst;
 import com.integral.forgottenrelics.entities.FXWisp;
 
-import baubles.api.BaubleType;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import net.minecraft.client.Minecraft;
@@ -17,18 +17,12 @@ import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.particle.EntityPortalFX;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import thaumcraft.client.fx.ParticleEngine;
 import thaumcraft.client.fx.bolt.FXLightningBolt;
 import thaumcraft.client.renderers.entity.RenderEldritchOrb;
 import thaumcraft.client.renderers.entity.RenderElectricOrb;
 import thaumcraft.client.renderers.entity.RenderPrimalOrb;
-import thaumcraft.client.renderers.entity.RenderWisp;
-import vazkii.botania.client.render.entity.RenderBabylonWeapon;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.entity.EntityBabylonWeapon;
 
 public class ClientProxy extends CommonProxy {
 
@@ -43,6 +37,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler((Class)EntityCrimsonOrb.class, (Render)new RenderCrimsonOrb());
 		RenderingRegistry.registerEntityRenderingHandler((Class)EntityDarkMatterOrb.class, (Render)new RenderEldritchOrb());
 		RenderingRegistry.registerEntityRenderingHandler((Class)EntityBabylonWeaponSS.class, (Render)new RenderBabylonWeaponSS());
+		RenderingRegistry.registerEntityRenderingHandler((Class)EntityThunderpealOrb.class, (Render)new RenderElectricOrb());
 	}
 	
 	@Override

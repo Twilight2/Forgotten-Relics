@@ -2,6 +2,10 @@ package com.integral.forgottenrelics.proxy;
 
 import java.util.Random;
 
+import org.lwjgl.opengl.GL11;
+
+import com.integral.forgottenrelics.entities.EntityBabylonWeaponSS;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -11,14 +15,8 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
-
-import com.integral.forgottenrelics.entities.EntityBabylonWeaponSS;
-
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.entity.EntityBabylonWeapon;
 import vazkii.botania.common.item.relic.ItemKingKey;
 
 public class RenderBabylonWeaponSS extends Render {

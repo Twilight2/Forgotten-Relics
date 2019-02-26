@@ -1,23 +1,19 @@
 package com.integral.forgottenrelics.entities;
 
-import net.minecraft.entity.projectile.*;
-
 import java.util.List;
 
-import cpw.mods.fml.common.registry.*;
-import net.minecraft.world.*;
-import io.netty.buffer.*;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockGrass;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockLiquid;
-import net.minecraft.entity.*;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import thaumcraft.common.*;
+import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
-import net.minecraft.util.*;
 
 public class EntitySoulEnergy extends EntityThrowable implements IEntityAdditionalSpawnData
 {

@@ -9,18 +9,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.Container;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import thaumcraft.api.IRepairable;
-import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.common.items.wands.ItemWandCasting;
 
@@ -64,7 +59,21 @@ public class ItemOmegaCore extends Item {
 		}
 		
 		}
-		 
+		 /*
+		 int RANGE = 16;
+		 final int cost = 100;
+
+			List<IMob> mobs = world.getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(player.posX - RANGE, player.posY - RANGE, player.posZ - RANGE, player.posX + RANGE + 1, player.posY + RANGE + 1, player.posZ + RANGE + 1));
+			if(mobs.size() > 1)
+				for(IMob mob : mobs) {
+					if(mob instanceof EntityLiving) {
+						EntityLiving entity1 = (EntityLiving) mob;
+						if(SubTileHeiseiDream.brainwashEntity(entity1, mobs)) {
+							break;
+						}
+					}
+			}
+		 */
 	 }
 	 
  }

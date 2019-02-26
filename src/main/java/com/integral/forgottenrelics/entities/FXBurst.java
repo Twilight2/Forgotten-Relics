@@ -1,12 +1,13 @@
 package com.integral.forgottenrelics.entities;
 
-import net.minecraft.client.particle.*;
-import net.minecraft.world.*;
-import net.minecraft.client.renderer.*;
-import org.lwjgl.opengl.*;
-import thaumcraft.client.renderers.tile.*;
-import thaumcraft.client.lib.*;
-import net.minecraft.client.*;
+import org.lwjgl.opengl.GL11;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.world.World;
+import thaumcraft.client.lib.UtilsFX;
+import thaumcraft.client.renderers.tile.TileNodeRenderer;
 
 public class FXBurst extends EntityFX
 {

@@ -3,33 +3,26 @@ package com.integral.forgottenrelics.entities;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
-import com.integral.forgottenrelics.handlers.ApotheosisParticleMessage;
-import com.integral.forgottenrelics.handlers.BurstMessage;
+import com.integral.forgottenrelics.handlers.DamageRegistryHandler;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import com.integral.forgottenrelics.handlers.SuperpositionHandler;
+import com.integral.forgottenrelics.packets.ApotheosisParticleMessage;
 
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLiquid;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import thaumcraft.common.Thaumcraft;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityThrowableCopy;
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.item.relic.ItemKingKey;
 
 /**
  * A direct copy of EntityBabylonWeapon, tweaked to work with Apotheosis.
@@ -127,9 +120,9 @@ public class EntityBabylonWeaponSS extends EntityThrowableCopy {
 					if(living == thrower)
 						continue;
 
-					if(living.hurtTime == 0) {
+					if(!living.isDead) {
 						if(player != null)
-						living.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, player), RelicsConfigHandler.damageApotheosisDirect);
+						living.attackEntityFrom(new DamageRegistryHandler.DamageSourceMagic(player), RelicsConfigHandler.damageApotheosisDirect);
 						
 						 Vector3 targetPos = Vector3.fromEntityCenter(living);
 						 Vector3 thisPos = Vector3.fromEntityCenter(this);
@@ -174,7 +167,7 @@ public class EntityBabylonWeaponSS extends EntityThrowableCopy {
 		 
 		 for (int counterS = targets.size()-1; counterS >= 0; counterS--) {
 			 if (!targets.get(counterS).isDead & !this.worldObj.isRemote) {
-			 targets.get(counterS).attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, this.getThrower()), RelicsConfigHandler.damageApotheosisImpact);
+			 targets.get(counterS).attackEntityFrom(new DamageRegistryHandler.DamageSourceMagic(this.getThrower()), RelicsConfigHandler.damageApotheosisImpact);
 			 Vector3 targetPos = Vector3.fromEntityCenter(targets.get(counterS));
 			 Vector3 thisPos = Vector3.fromEntityCenter(this);
 			 Vector3 diff = targetPos.copy().sub(thisPos);

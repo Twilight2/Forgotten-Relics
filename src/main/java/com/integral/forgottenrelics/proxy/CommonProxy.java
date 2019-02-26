@@ -2,7 +2,6 @@ package com.integral.forgottenrelics.proxy;
 
 import com.integral.forgottenrelics.Main;
 
-import baubles.api.BaubleType;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
