@@ -9,7 +9,7 @@ This addon brings up a variety of powerful relics, mostly oriented to expand the
 
 It was originally created by Integral. But, guess what? This nickname seems to be already taken almost everywhere. So he is also known as "Extegral", "VictorShadow", "VictorShadow_" and some more names.
 
-TO DO List for the nearest future:
+To-Do List for the nearest future:
 1. Implement the Wastelayer.
 2. Add some of relics themed around Runic Shield.
 3. Invent alternative Runic Shield handler (for previously mentioned relics).
