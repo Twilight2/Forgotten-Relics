@@ -14,3 +14,5 @@ To-Do List for the nearest future:
 2. Add some of relics themed around Runic Shield.
 3. Invent alternative Runic Shield handler (for previously mentioned relics).
 4. Review overall balancing.
+
+Funny Fact #192-17MK2: Ironically, Superposition Handler has nothing to do with Ring of Superposition. Not directly, at least.
