@@ -9,6 +9,7 @@ import com.integral.forgottenrelics.entities.EntityRageousMissile;
 import com.integral.forgottenrelics.entities.EntityThunderpealOrb;
 import com.integral.forgottenrelics.entities.FXBurst;
 import com.integral.forgottenrelics.entities.FXWisp;
+import com.integral.forgottenrelics.handlers.RelicsKeybindHandler;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -25,6 +26,11 @@ import thaumcraft.client.renderers.entity.RenderElectricOrb;
 import thaumcraft.client.renderers.entity.RenderPrimalOrb;
 
 public class ClientProxy extends CommonProxy {
+	
+	@Override
+	public void registerKeybinds() {
+		RelicsKeybindHandler.registerKeybinds();
+	}
 
 	@Override
 	public void registerRenderers(Main ins) {

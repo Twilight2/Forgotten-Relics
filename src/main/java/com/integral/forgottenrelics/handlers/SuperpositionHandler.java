@@ -1,12 +1,14 @@
 package com.integral.forgottenrelics.handlers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.packets.ArcLightningMessage;
 import com.integral.forgottenrelics.packets.BurstMessage;
+import com.integral.forgottenrelics.packets.ForgottenResearchMessage;
 import com.integral.forgottenrelics.packets.ICanSwingMySwordMessage;
 import com.integral.forgottenrelics.packets.LightningMessage;
 import com.integral.forgottenrelics.packets.NotificationMessage;
@@ -15,6 +17,9 @@ import baubles.api.BaubleType;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -23,6 +28,7 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
@@ -35,18 +41,80 @@ import net.minecraft.world.World;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.api.research.ScanResult;
+import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.items.wands.WandManager;
+import thaumcraft.common.lib.network.PacketHandler;
+import thaumcraft.common.lib.network.playerdata.PacketResearchComplete;
+import thaumcraft.common.lib.research.ResearchManager;
+import thaumcraft.common.lib.research.ScanManager;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
 public class SuperpositionHandler {
 	
+	public static JusticeBringerHandler justiceHandler = null;
+	
+	/**
+	 * Executes the Justice Handler, ensuring
+	 * that no other threads of this handler
+	 * exist at the moment.
+	 */
+	
+	public static void bringTheJustice(EntityPlayer player) {
+		
+		if (player.worldObj.isRemote)
+			return;
+		
+		try {
+			
+		if (!justiceHandler.isAlive()) {
+			justiceHandler = new JusticeBringerHandler(player);
+			justiceHandler.start();
+		}
+		
+		} catch (NullPointerException ex) {
+			justiceHandler = new JusticeBringerHandler(player);
+			justiceHandler.start();
+		}
+
+	}
+	
+	/**
+	 * Adds specified research to the list of forgotten knowledge,
+	 * alongside with all items required to unlock it.
+	 * The research must already be .setHidden() or .setLost()
+	 * in order for this to take any effect.
+	 * 
+	 * Once player have all specified items scanned with thaumometer,
+	 * the research could be chosen to be made available for
+	 * researching by them with next execution of Justice Handler.
+	 * 
+	 * @param researchKey String key of the research.
+	 * @param stacks All items to be set up as triggers for research.
+	 */
+	
+	public static void setupResearchTriggers(String researchKey, ItemStack... stacks) {
+		List<ItemStack> stackList = new ArrayList<ItemStack>(Arrays.asList(stacks));
+		Main.forgottenKnowledge.put(researchKey, stackList);
+	}
+	
+	/**
+	 * Sends custom notification to a player,
+	 * @param player
+	 * @param type
+	 */
+	
 	public static void sendNotification(EntityPlayer player, int type) {
 		if (!player.worldObj.isRemote)
 		Main.packetInstance.sendTo(new NotificationMessage(type), (EntityPlayerMP) player);
 	}
+	
+	/**
+	 * Basically, does the same thing as Heisei Dream.
+	 */
 	
 	public static void cryHavoc(World world, EntityPlayer player, int RANGE) {
 		
@@ -169,6 +237,16 @@ public class SuperpositionHandler {
 		}
 		
 	}
+	
+	/**
+	 * Checks if given Damage Source is instance of absolute damage.
+	 * Absolute damage types include True Damage, Soul Drain Damage,
+	 * damage dealt by Amulet of Oblivion or Tome of Broken Fates,
+	 * and vanilla ones like Void Damage.
+	 * 
+	 * This is used by some features to prevent them from decreasing
+	 * those damage types or negating them completely.
+	 */
 	
 	public static boolean isDamageTypeAbsolute(DamageSource source) {
 		if (source == DamageSource.outOfWorld || source == DamageSource.starve || source instanceof DamageRegistryHandler.DamageSourceFate || source instanceof DamageRegistryHandler.DamageSourceOblivion || source instanceof DamageRegistryHandler.DamageSourceSoulDrain || source instanceof DamageRegistryHandler.DamageSourceTrueDamage || source instanceof DamageRegistryHandler.DamageSourceTrueDamageUndef)

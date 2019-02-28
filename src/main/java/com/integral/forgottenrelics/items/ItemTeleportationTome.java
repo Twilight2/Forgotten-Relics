@@ -26,6 +26,7 @@ import net.minecraft.world.World;
 import thaumcraft.api.IWarpingGear;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.config.Config;
 import thaumcraft.common.items.wands.WandManager;
 import thaumcraft.common.lib.utils.EntityUtils;
 import vazkii.botania.common.core.helper.Vector3;
@@ -88,6 +89,9 @@ public class ItemTeleportationTome extends Item implements IWarpingGear {
  
  @Override
  public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+	 
+	 if (player.dimension == Config.dimensionOuterId)
+		 return stack;
 	 
 	 if (!SuperpositionHandler.isOnCoodown(player) & !world.isRemote) {
 	 

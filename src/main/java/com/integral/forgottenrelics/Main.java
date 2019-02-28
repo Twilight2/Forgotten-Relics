@@ -1,7 +1,9 @@
 package com.integral.forgottenrelics;
 
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.integral.forgottenrelics.entities.EntityBabylonWeaponSS;
@@ -16,6 +18,7 @@ import com.integral.forgottenrelics.entities.EntityThunderpealOrb;
 import com.integral.forgottenrelics.handlers.RelicsChunkLoadCallback;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import com.integral.forgottenrelics.handlers.RelicsEventHandler;
+import com.integral.forgottenrelics.handlers.RelicsKeybindHandler;
 import com.integral.forgottenrelics.handlers.RelicsMaterialHandler;
 import com.integral.forgottenrelics.items.ItemAdvancedMiningCharm;
 import com.integral.forgottenrelics.items.ItemAncientAegis;
@@ -27,6 +30,7 @@ import com.integral.forgottenrelics.items.ItemCrimsonSpell;
 import com.integral.forgottenrelics.items.ItemDarkSunRing;
 import com.integral.forgottenrelics.items.ItemDeificAmulet;
 import com.integral.forgottenrelics.items.ItemDimensionalMirror;
+import com.integral.forgottenrelics.items.ItemDiscordRing;
 import com.integral.forgottenrelics.items.ItemDormantArcanum;
 import com.integral.forgottenrelics.items.ItemEldritchSpell;
 import com.integral.forgottenrelics.items.ItemFalseJustice;
@@ -54,7 +58,9 @@ import com.integral.forgottenrelics.packets.ApotheosisParticleMessage;
 import com.integral.forgottenrelics.packets.ArcLightningMessage;
 import com.integral.forgottenrelics.packets.BanishmentCastingMessage;
 import com.integral.forgottenrelics.packets.BurstMessage;
+import com.integral.forgottenrelics.packets.DiscordKeybindMessage;
 import com.integral.forgottenrelics.packets.EntityStateMessage;
+import com.integral.forgottenrelics.packets.ForgottenResearchMessage;
 import com.integral.forgottenrelics.packets.ICanSwingMySwordMessage;
 import com.integral.forgottenrelics.packets.InfernalParticleMessage;
 import com.integral.forgottenrelics.packets.ItemUseMessage;
@@ -66,10 +72,14 @@ import com.integral.forgottenrelics.packets.NotificationMessage;
 import com.integral.forgottenrelics.packets.OverthrowChatMessage;
 import com.integral.forgottenrelics.packets.PlayerMotionUpdateMessage;
 import com.integral.forgottenrelics.packets.PortalTraceMessage;
+import com.integral.forgottenrelics.packets.TelekinesisAttackMessage;
+import com.integral.forgottenrelics.packets.TelekinesisParticleMessage;
+import com.integral.forgottenrelics.packets.TelekinesisUseMessage;
 import com.integral.forgottenrelics.proxy.CommonProxy;
 import com.integral.forgottenrelics.research.RelicsAspectRegistry;
 import com.integral.forgottenrelics.research.RelicsResearchRegistry;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -87,6 +97,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -96,7 +107,7 @@ import thaumcraft.common.config.Config;
 public class Main {
 
 	public static final String MODID = "ForgottenRelics";
-	public static final String VERSION = "1.2.0";
+	public static final String VERSION = "1.3.0";
 	public static final String NAME = "Forgotten Relics";
 	
 	public static SimpleNetworkWrapper packetInstance;
@@ -116,6 +127,12 @@ public class Main {
 	 */
 	public static HashMap<EntityPlayer, Integer> castingCooldowns = new HashMap<EntityPlayer, Integer>();
 	
+	/**
+	 * Hash Map used for containing hidden researches and their respective item triggers.
+	 * View Superposition Handler to see methods that are used to interact with it.
+	 */
+	public static HashMap<String, List<ItemStack>> forgottenKnowledge = new HashMap<String, List<ItemStack>>();
+	
 	public static Item itemFalseJustice;
 	public static Item itemDeificAmulet;
 	public static Item itemParadox;
@@ -127,7 +144,7 @@ public class Main {
 	public static Item itemChaosCore;
 	public static Item itemMiningCharm;
 	public static Item itemAdvancedMiningCharm;
-	public static Item itemTelekinesisTome;
+	public static ItemTelekinesisTome itemTelekinesisTome;
 	public static Item itemAncientAegis;
 	public static Item itemMissileTome;
 	public static Item itemCrimsonSpell;
@@ -152,6 +169,7 @@ public class Main {
 	public static Item itemTerrorCrown;
 	public static Item itemWastelayer;
 	public static Item itemOverthrower;
+	public static Item itemDiscordRing;
 	
 	public RelicsConfigHandler configHandler = new RelicsConfigHandler();
 	
@@ -192,6 +210,11 @@ public class Main {
 		packetInstance.registerMessage(PlayerMotionUpdateMessage.Handler.class, PlayerMotionUpdateMessage.class, 14, Side.CLIENT);
 		packetInstance.registerMessage(NotificationMessage.Handler.class, NotificationMessage.class, 15, Side.CLIENT);
 		packetInstance.registerMessage(OverthrowChatMessage.Handler.class, OverthrowChatMessage.class, 16, Side.CLIENT);
+		packetInstance.registerMessage(DiscordKeybindMessage.Handler.class, DiscordKeybindMessage.class, 17, Side.SERVER);
+		packetInstance.registerMessage(ForgottenResearchMessage.Handler.class, ForgottenResearchMessage.class, 18, Side.CLIENT);
+		packetInstance.registerMessage(TelekinesisAttackMessage.Handler.class, TelekinesisAttackMessage.class, 19, Side.SERVER);
+		packetInstance.registerMessage(TelekinesisUseMessage.Handler.class, TelekinesisUseMessage.class, 20, Side.SERVER);
+		packetInstance.registerMessage(TelekinesisParticleMessage.Handler.class, TelekinesisParticleMessage.class, 21, Side.CLIENT);
 		
 		RelicsAspectRegistry.registerItemAspectsFirst();
 		
@@ -228,6 +251,7 @@ public class Main {
 		itemTerrorCrown = new ItemTerrorCrown(0, RelicsMaterialHandler.materialNobleGold);
 		itemWastelayer = new ItemWastelayer(RelicsMaterialHandler.materialParadoxicalStuff);
 		itemOverthrower = new ItemOverthrower();
+		itemDiscordRing = new ItemDiscordRing();
 		
 		GameRegistry.registerItem(itemFalseJustice, "ItemFalseJustice");
 		GameRegistry.registerItem(itemDeificAmulet, "ItemDeificAmulet");
@@ -261,6 +285,7 @@ public class Main {
 		GameRegistry.registerItem(itemThunderpeal, "ItemThunderpeal");
 		GameRegistry.registerItem(itemTerrorCrown, "ItemTerrorCrown");
 		GameRegistry.registerItem(itemOverthrower, "ItemOverthrower");
+		GameRegistry.registerItem(itemDiscordRing, "ItemDiscordRing");
 		
 		EntityRegistry.registerModEntity(EntityRageousMissile.class, "SomeVeryRageousStuff", 237, Main.instance, 64, 20, true);
 		EntityRegistry.registerModEntity(EntityCrimsonOrb.class, "EntityCrimsonOrb", 238, Main.instance, 64, 20, true);
@@ -272,7 +297,11 @@ public class Main {
 		EntityRegistry.registerModEntity(EntityChaoticOrb.class, "EntityChaoticOrb", 245, Main.instance, 64, 20, true);
 		EntityRegistry.registerModEntity(EntityThunderpealOrb.class, "EntityThunderpealOrb", 246, Main.instance, 64, 20, true);
 		
+		proxy.registerKeybinds();
+		
+		FMLCommonHandler.instance().bus().register(new RelicsKeybindHandler());
 		MinecraftForge.EVENT_BUS.register(new RelicsEventHandler());
+		
 		proxy.registerRenderers(this);
 		
 	}

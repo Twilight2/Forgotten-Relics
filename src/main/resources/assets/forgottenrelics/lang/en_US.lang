@@ -45,17 +45,23 @@ item.ItemWastelayer.name=The Wastelayer
 item.ItemOverthrower.name=Edict of Eternal Banishment
 item.ItemThunderpeal.name=Thunderpeal
 item.ItemTerrorCrown.name=Crown of Terror
+item.ItemDiscordRing.name=Ring of Discord
+
 
 ### NOTIFICATIONS ###
 
 notification.soul_gain=Souls consumed:
-notification.fate_cooldown_over=§6Tome of Broken Fates' cooldown is over.
+notification.fate_cooldown_over=§5Tome of Broken Fates' cooldown is over.
 notification.overdamage_block=§5You have just withstood a truly devastating blow.
+notification.research_triggered=§6The key to forgotten knowledge was revealed to you...
 
 message.overthrown1=has overthrown
 message.overthrown2=into the Nether.
 
 ### TOOLTIP OPTIONS ###
+
+key.categories.forgottenrelics=Forgotten Relics
+key.discordRing=Ring of Discord
 
 item.FRCode0.lore=§0
 item.FRCode1.lore=§1
@@ -156,7 +162,8 @@ item.ItemFateTome1.lore=§5While possessing this relic, if you should take
 item.ItemFateTome2.lore=§5lethal damage, instead replenishes your health
 item.ItemFateTome3.lore=§5to maximum and applies protective buffs to you
 item.ItemFateTome4.lore=§5at the cost of §6Vis§5.
-item.ItemFateTome5.lore=§6This effect has 30-90 seconds cooldown.
+item.ItemFateTome5_1.lore=§6This effect has
+item.ItemFateTome5_2.lore=§6seconds cooldown.
 item.ItemFateTome6.lore=§5There is a chance that debuffs will be applied
 item.ItemFateTome7.lore=§5instead of buffs.
 item.ItemFateTome8.lore=§5Having more than one Tome of Broken Fates
@@ -332,6 +339,11 @@ item.ItemOverthrower4.lore=§5will be required to focus Edict's power.
 item.ItemOverthrower5.lore=§5Entity's position in the Nether could be
 item.ItemOverthrower6.lore=§5chosen anywhere within §610,000§5 blocks
 item.ItemOverthrower7.lore=§5from the center of the world.
+
+item.ItemDiscordRing1.lore=§5If you have §6Tome of Discord§5 in your
+item.ItemDiscordRing2.lore=§5inventory, allows you to trigger its
+item.ItemDiscordRing3.lore=§5effects using specialized key.
+item.ItemDiscordRing4.lore=§dCurrent Keybind:
 
 ### RESEARCH CATEGORY ###
 
@@ -509,3 +521,8 @@ fr.name.PechFocus=Wand Focus: Pech's Curse
 fr.tag.PechFocus=Portable brewing stand of sorts
 fr.text.PechFocus.1=Pech's Curse was always a mystery agitating your mind. Although pechs don't seem very sentient and you can hardly imagine that they could understand at least a little in thaumaturgy - there are magicians among them, using this focus along with wands of primitive design.<BR/>You thought that it would be as a piece of cake for you to create something that these pitiful creatures coped with - but how wrong you were. Only now you've finally found a way to recreate Pech's Curse, using a wide range of arcane ingredients that are usually used in potions brewing. The copy obtained this way is quite indistinguishable from original -
 fr.text.PechFocus.2=similarly to it, it also creates small orbs of unstable magical energy, that cause insignificant amount of damage on contact with living beings, and apply random debuffs to them.<BR/>Although this focus does not seem particularly useful, it may become a basis for creating something greater in the future.
+
+fr.name.DiscordRing=Ring of Discord
+fr.tag.DiscordRing=Avoid gesticulating too much while wearing it
+fr.text.DiscordRing.1=If something is good, it never means you can't make it better. Tome of Discord was one of the most useful of your discoveries, but, ultimately, it also has some flaws.<BR/>Of course, you can always ask your enemies to wait a bit while you are looking for this tome across your inventory, take it in hand, and finally can use it to escape them... But as practice has shown, this doesn't always work. Usually, it's not so important, but in combat, where every moment plays a decisive role, a second of delay can cost you your life.<BR/>And that's why you came to the creation of this ring.
+fr.text.DiscordRing.2=While being worn, at the cost of slight effort of will it allows you to use Tome of Discord in any moment, as long as the latter remains in your inventory - with no need to search it and take to your hands.<BR/>Functionally, using the tome this way is not much different from utilizing it "manually".

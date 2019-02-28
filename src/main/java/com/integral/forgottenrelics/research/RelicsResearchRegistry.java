@@ -1,9 +1,12 @@
 package com.integral.forgottenrelics.research;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
+import com.integral.forgottenrelics.handlers.SuperpositionHandler;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -23,113 +26,122 @@ public class RelicsResearchRegistry {
 	
 	public static HashMap<String, InfusionRecipe> recipes = new HashMap<String, InfusionRecipe>();
 	
+	public static ItemStack superpositionRing = new ItemStack(Main.itemSuperpositionRing, 1, 0);
+	public static ItemStack weatherStone = new ItemStack(Main.itemWeatherStone, 1, 0);
+	public static ItemStack miningCharm = new ItemStack(Main.itemMiningCharm, 1, 0);
+	public static ItemStack advancedMiningCharm = new ItemStack(Main.itemAdvancedMiningCharm, 1, 0);
+	public static ItemStack ancientAegis = new ItemStack(Main.itemAncientAegis, 1, 0);
+	public static ItemStack apotheosis = new ItemStack(Main.itemApotheosis, 1, 0);
+	public static ItemStack nebulousCore  = new ItemStack(Main.itemArcanum, 1, 0);
+	public static ItemStack chaosCore = new ItemStack(Main.itemChaosCore, 1, 0);
+	public static ItemStack chaosTome = new ItemStack(Main.itemChaosTome, 1, 0);
+	public static ItemStack crimsonSpell = new ItemStack(Main.itemCrimsonSpell, 1, 0);
+	public static ItemStack darkSunRing = new ItemStack(Main.itemDarkSunRing, 1, 0);
+	public static ItemStack deificAmulet = new ItemStack(Main.itemDeificAmulet, 1, 0);
+	public static ItemStack dimensionalMirror = new ItemStack(Main.itemDimensionalMirror, 1, 0);
+	public static ItemStack eldritchSpell = new ItemStack(Main.itemEldritchSpell, 1, 0);
+	public static ItemStack falseJustice = new ItemStack(Main.itemFalseJustice, 1, 0);
+	public static ItemStack fateTome = new ItemStack(Main.itemFateTome, 1, 0);
+	public static ItemStack lunarFlares = new ItemStack(Main.itemLunarFlares, 1, 0);
+	public static ItemStack nuclearFury = new ItemStack(Main.itemMissileTome, 1, 0);
+	public static ItemStack obeliskDrainer = new ItemStack(Main.itemObeliskDrainer, 1, 0);
+	public static ItemStack theParadox = new ItemStack(Main.itemParadox, 1, 0);
+	public static ItemStack shinyStone = new ItemStack(Main.itemShinyStone, 1, 0);
+	public static ItemStack soulTome = new ItemStack(Main.itemSoulTome, 1, 0);
+	public static ItemStack telekinesisTome = new ItemStack(Main.itemTelekinesisTome, 1, 0);
+	public static ItemStack discordTome = new ItemStack(Main.itemTeleportationTome, 1, 0);
+	public static ItemStack XPTome = new ItemStack(Main.itemXPTome, 1, 0);
+	public static ItemStack oblivionAmulet = new ItemStack(Main.itemOblivionAmulet, 1, 0);
+	public static ItemStack terrorCrown = new ItemStack(Main.itemTerrorCrown, 1, 0);
+	public static ItemStack thunderpeal = new ItemStack(Main.itemThunderpeal, 1, 0);
+	public static ItemStack overthrower = new ItemStack(Main.itemOverthrower, 1, 0);
+	public static ItemStack discordRing = new ItemStack(Main.itemDiscordRing, 1, 0);
+	
+	public static ItemStack enderEye = new ItemStack(Items.ender_eye, 1, 0);
+	public static ItemStack salisMundus = new ItemStack(ConfigItems.itemResource, 1, 14);
+	public static ItemStack voidSeed = new ItemStack(ConfigItems.itemResource, 1, 17);
+	public static ItemStack enderAir = new ItemStack(ModItems.manaResource, 1, 15);
+	public static ItemStack primalCharm = new ItemStack(ConfigItems.itemResource, 1, 15);
+	public static ItemStack blankRing = new ItemStack(ConfigItems.itemBaubleBlanks, 1, 1);
+	public static ItemStack ghastTear = new ItemStack(Items.ghast_tear, 1, 0);
+	public static ItemStack airRune = new ItemStack(ModItems.rune, 1, 3);
+	public static ItemStack airShard = new ItemStack(ConfigItems.itemShard, 1, 0);
+	public static ItemStack fireShard = new ItemStack(ConfigItems.itemShard, 1, 1);
+	public static ItemStack waterShard = new ItemStack(ConfigItems.itemShard, 1, 2);
+	public static ItemStack earthShard = new ItemStack(ConfigItems.itemShard, 1, 3);
+	public static ItemStack orderShard = new ItemStack(ConfigItems.itemShard, 1, 4);
+	public static ItemStack entropyShard = new ItemStack(ConfigItems.itemShard, 1, 5);
+	public static ItemStack balancedShard = new ItemStack(ConfigItems.itemShard, 1, 6);
+	
+	public static ItemStack revealingGoggles = new ItemStack(ConfigItems.itemGoggles, 1, 0);
+	public static ItemStack knowledgeFragment = new ItemStack(ConfigItems.itemResource, 1, 9);
+	public static ItemStack inkwell = new ItemStack(ConfigItems.itemInkwell, 1, 0);
+	public static ItemStack arcaneStone = new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6);
+	public static ItemStack gaiaSpirit = new ItemStack(ModItems.manaResource, 1, 5);
+	public static ItemStack terrasteelIngot = new ItemStack(ModItems.manaResource, 1, 4);
+	public static ItemStack nitor = new ItemStack(ConfigItems.itemResource, 1, 1);
+	public static ItemStack elementalPickaxe = new ItemStack(ConfigItems.itemPickElemental, 1, 0);
+	public static ItemStack speedPotionII = new ItemStack(Items.potionitem, 1, 8226);
+	public static ItemStack reachRing = new ItemStack(ModItems.reachRing, 1, 0);
+	public static ItemStack dragonStone = new ItemStack(ModItems.manaResource, 1, 9);
+	public static ItemStack portableHole = new ItemStack(ConfigItems.itemFocusPortableHole, 1, 0);
+	public static ItemStack handMirror = new ItemStack(ConfigItems.itemHandMirror, 1, 0);
+	public static ItemStack glowstone = new ItemStack(Items.glowstone_dust, 1, 0);
+	public static ItemStack etherealEssence = new ItemStack(ConfigItems.itemWispEssence, 1, 0);
+	public static ItemStack elementiumIngot = new ItemStack(ModItems.manaResource, 1, 7);
+	public static ItemStack voidPickaxe = new ItemStack(ConfigItems.itemPickVoid, 1, 0);
+	public static ItemStack kineticRunicGirdle = new ItemStack(ConfigItems.itemGirdleRunic, 1, 1);
+	public static ItemStack tectonicGirdle = new ItemStack(ModItems.knockbackBelt, 1, 0);
+	public static ItemStack healPotionII = new ItemStack(Items.potionitem, 1, 8229);
+	public static ItemStack pixieDust = new ItemStack(ModItems.manaResource, 1, 8);
+	public static ItemStack enchantedFabric = new ItemStack(ConfigItems.itemResource, 1, 7);
+	public static ItemStack goldIngot = new ItemStack(Items.gold_ingot, 1, 0);
+	public static ItemStack blazePowder = new ItemStack(Items.blaze_powder, 1, 0);
+	public static ItemStack blazeRod = new ItemStack(Items.blaze_rod, 1, 0);
+	public static ItemStack lavaBucket = new ItemStack(Items.lava_bucket, 1, 0);
+	public static ItemStack runicRingCharged = new ItemStack(ConfigItems.itemRingRunic, 1, 2);
+	public static ItemStack cinderPearl = new ItemStack(ConfigBlocks.blockCustomPlant, 1, 3);
+	public static ItemStack superLavaPendant = new ItemStack(ModItems.superLavaPendant, 1, 0);
+	public static ItemStack runicAmuletAdv = new ItemStack(ConfigItems.itemAmuletRunic, 1, 1);
+	public static ItemStack lavaPendant = new ItemStack(ModItems.lavaPendant, 1, 0);
+	public static ItemStack voidIngot = new ItemStack(ConfigItems.itemResource, 1, 16);
+	public static ItemStack alumentum = new ItemStack(ConfigItems.itemResource, 1, 0);
+	public static ItemStack voidSword = new ItemStack(ConfigItems.itemSwordVoid, 1, 0);
+	public static ItemStack primordialPearl = new ItemStack(ConfigItems.itemEldritchObject, 1, 3);
+	public static ItemStack superGoldenApple = new ItemStack(Items.golden_apple, 1, 1);
+	public static ItemStack bloodPendant = new ItemStack(ModItems.bloodPendant, 1, 0);
+	public static ItemStack netherStar = new ItemStack(Items.nether_star, 1, 0);
+	public static ItemStack eldritchEye = new ItemStack(ConfigItems.itemEldritchObject, 1, 0);
+	public static ItemStack writableBook = new ItemStack(Items.writable_book, 1, 0);
+	public static ItemStack amber = new ItemStack(ConfigItems.itemResource, 1, 6);
+	public static ItemStack greatVisAmulet = new ItemStack(ConfigItems.itemAmuletVis, 0, 1);
+	public static ItemStack thaumiumIngot = new ItemStack(ConfigItems.itemResource, 1, 2);
+	public static ItemStack enderPearl = new ItemStack(Items.ender_pearl, 1, 0);
+	public static ItemStack shockFocus = new ItemStack(ConfigItems.itemFocusShock, 1, 0);
+	public static ItemStack gravityRod = new ItemStack(ModItems.gravityRod, 1, 0);
+	public static ItemStack pechFocus = new ItemStack(ConfigItems.itemFocusPech, 1, 0);
+	public static ItemStack jarredBrain = new ItemStack(ConfigBlocks.blockJar, 1, 1);
+	public static ItemStack goldLaurel = new ItemStack(ModItems.goldLaurel);
+	public static ItemStack fireball = new ItemStack(Items.fire_charge, 1, 0);
+	public static ItemStack bottledTaint = new ItemStack(ConfigItems.itemBottleTaint, 1, 0);
+	public static ItemStack primalFocus = new ItemStack(ConfigItems.itemFocusPrimal, 1, 0);
+	public static ItemStack redstone = new ItemStack(Items.redstone, 1, 0);
+	public static ItemStack crimsonRites = new ItemStack(ConfigItems.itemEldritchObject, 1, 1);
+	public static ItemStack starSword = new ItemStack(ModItems.starSword, 1, 0);
+	public static ItemStack missileRod = new ItemStack(ModItems.missileRod, 1, 0);
+	public static ItemStack kingKey = new ItemStack(ModItems.kingKey, 1, 0);
+	public static ItemStack emerald = new ItemStack(Items.emerald, 1, 0);
+	public static ItemStack wrathRune = new ItemStack(ModItems.rune, 1, 13);
+	public static ItemStack prideRune = new ItemStack(ModItems.rune, 1, 15);
+	public static ItemStack manaPearl = new ItemStack(ModItems.manaResource, 1, 1);
+	public static ItemStack netherBrick = new ItemStack(Items.netherbrick, 1, 0);
+	public static ItemStack netherWart = new ItemStack(Items.nether_wart, 1, 0);
+	public static ItemStack sugar = new ItemStack(Items.sugar, 1, 0);
+	public static ItemStack fermentedSpiderEye = new ItemStack(Items.fermented_spider_eye, 1, 0);
+	public static ItemStack quartz = new ItemStack(Items.quartz, 1, 0);
+	public static ItemStack hellFocus = new ItemStack(ConfigItems.itemFocusHellbat, 1, 0);
+	
 	public static void integrateResearch() {
-		
-		ItemStack superpositionRing = new ItemStack(Main.itemSuperpositionRing, 1, 0);
-		ItemStack weatherStone = new ItemStack(Main.itemWeatherStone, 1, 0);
-		ItemStack miningCharm = new ItemStack(Main.itemMiningCharm, 1, 0);
-		ItemStack advancedMiningCharm = new ItemStack(Main.itemAdvancedMiningCharm, 1, 0);
-		ItemStack ancientAegis = new ItemStack(Main.itemAncientAegis, 1, 0);
-		ItemStack apotheosis = new ItemStack(Main.itemApotheosis, 1, 0);
-		ItemStack nebulousCore  = new ItemStack(Main.itemArcanum, 1, 0);
-		ItemStack chaosCore = new ItemStack(Main.itemChaosCore, 1, 0);
-		ItemStack chaosTome = new ItemStack(Main.itemChaosTome, 1, 0);
-		ItemStack crimsonSpell = new ItemStack(Main.itemCrimsonSpell, 1, 0);
-		ItemStack darkSunRing = new ItemStack(Main.itemDarkSunRing, 1, 0);
-		ItemStack deificAmulet = new ItemStack(Main.itemDeificAmulet, 1, 0);
-		ItemStack dimensionalMirror = new ItemStack(Main.itemDimensionalMirror, 1, 0);
-		ItemStack eldritchSpell = new ItemStack(Main.itemEldritchSpell, 1, 0);
-		ItemStack falseJustice = new ItemStack(Main.itemFalseJustice, 1, 0);
-		ItemStack fateTome = new ItemStack(Main.itemFateTome, 1, 0);
-		ItemStack lunarFlares = new ItemStack(Main.itemLunarFlares, 1, 0);
-		ItemStack nuclearFury = new ItemStack(Main.itemMissileTome, 1, 0);
-		ItemStack obeliskDrainer = new ItemStack(Main.itemObeliskDrainer, 1, 0);
-		ItemStack theParadox = new ItemStack(Main.itemParadox, 1, 0);
-		ItemStack shinyStone = new ItemStack(Main.itemShinyStone, 1, 0);
-		ItemStack soulTome = new ItemStack(Main.itemSoulTome, 1, 0);
-		ItemStack telekinesisTome = new ItemStack(Main.itemTelekinesisTome, 1, 0);
-		ItemStack discordTome = new ItemStack(Main.itemTeleportationTome, 1, 0);
-		ItemStack XPTome = new ItemStack(Main.itemXPTome, 1, 0);
-		ItemStack oblivionAmulet = new ItemStack(Main.itemOblivionAmulet, 1, 0);
-		
-		ItemStack enderEye = new ItemStack(Items.ender_eye, 1, 0);
-		ItemStack salisMundus = new ItemStack(ConfigItems.itemResource, 1, 14);
-		ItemStack voidSeed = new ItemStack(ConfigItems.itemResource, 1, 17);
-		ItemStack enderAir = new ItemStack(ModItems.manaResource, 1, 15);
-		ItemStack primalCharm = new ItemStack(ConfigItems.itemResource, 1, 15);
-		ItemStack blankRing = new ItemStack(ConfigItems.itemBaubleBlanks, 1, 1);
-		ItemStack ghastTear = new ItemStack(Items.ghast_tear, 1, 0);
-		ItemStack airRune = new ItemStack(ModItems.rune, 1, 3);
-		ItemStack airShard = new ItemStack(ConfigItems.itemShard, 1, 0);
-		ItemStack fireShard = new ItemStack(ConfigItems.itemShard, 1, 1);
-		ItemStack waterShard = new ItemStack(ConfigItems.itemShard, 1, 2);
-		ItemStack earthShard = new ItemStack(ConfigItems.itemShard, 1, 3);
-		ItemStack orderShard = new ItemStack(ConfigItems.itemShard, 1, 4);
-		ItemStack entropyShard = new ItemStack(ConfigItems.itemShard, 1, 5);
-		ItemStack balancedShard = new ItemStack(ConfigItems.itemShard, 1, 6);
-		
-		ItemStack knowledgeFragment = new ItemStack(ConfigItems.itemResource, 1, 9);
-		ItemStack inkwell = new ItemStack(ConfigItems.itemInkwell, 1, 0);
-		ItemStack arcaneStone = new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6);
-		ItemStack gaiaSpirit = new ItemStack(ModItems.manaResource, 1, 5);
-		ItemStack terrasteelIngot = new ItemStack(ModItems.manaResource, 1, 4);
-		ItemStack nitor = new ItemStack(ConfigItems.itemResource, 1, 1);
-		ItemStack elementalPickaxe = new ItemStack(ConfigItems.itemPickElemental, 1, 0);
-		ItemStack speedPotionII = new ItemStack(Items.potionitem, 1, 8226);
-		ItemStack reachRing = new ItemStack(ModItems.reachRing, 1, 0);
-		ItemStack dragonStone = new ItemStack(ModItems.manaResource, 1, 9);
-		ItemStack portableHole = new ItemStack(ConfigItems.itemFocusPortableHole, 1, 0);
-		ItemStack handMirror = new ItemStack(ConfigItems.itemHandMirror, 1, 0);
-		ItemStack glowstone = new ItemStack(Items.glowstone_dust, 1, 0);
-		ItemStack etherealEssence = new ItemStack(ConfigItems.itemWispEssence, 1, 0);
-		ItemStack elementiumIngot = new ItemStack(ModItems.manaResource, 1, 7);
-		ItemStack voidPickaxe = new ItemStack(ConfigItems.itemPickVoid, 1, 0);
-		ItemStack kineticRunicGirdle = new ItemStack(ConfigItems.itemGirdleRunic, 1, 1);
-		ItemStack tectonicGirdle = new ItemStack(ModItems.knockbackBelt, 1, 0);
-		ItemStack healPotionII = new ItemStack(Items.potionitem, 1, 8229);
-		ItemStack pixieDust = new ItemStack(ModItems.manaResource, 1, 8);
-		ItemStack enchantedFabric = new ItemStack(ConfigItems.itemResource, 1, 7);
-		ItemStack goldIngot = new ItemStack(Items.gold_ingot, 1, 0);
-		ItemStack blazePowder = new ItemStack(Items.blaze_powder, 1, 0);
-		ItemStack blazeRod = new ItemStack(Items.blaze_rod, 1, 0);
-		ItemStack lavaBucket = new ItemStack(Items.lava_bucket, 1, 0);
-		ItemStack runicRingCharged = new ItemStack(ConfigItems.itemRingRunic, 1, 2);
-		ItemStack cinderPearl = new ItemStack(ConfigBlocks.blockCustomPlant, 1, 3);
-		ItemStack superLavaPendant = new ItemStack(ModItems.superLavaPendant, 1, 0);
-		ItemStack runicAmuletAdv = new ItemStack(ConfigItems.itemAmuletRunic, 1, 1);
-		ItemStack lavaPendant = new ItemStack(ModItems.lavaPendant, 1, 0);
-		ItemStack voidIngot = new ItemStack(ConfigItems.itemResource, 1, 16);
-		ItemStack alumentum = new ItemStack(ConfigItems.itemResource, 1, 0);
-		ItemStack voidSword = new ItemStack(ConfigItems.itemSwordVoid, 1, 0);
-		ItemStack primordialPearl = new ItemStack(ConfigItems.itemEldritchObject, 1, 3);
-		ItemStack superGoldenApple = new ItemStack(Items.golden_apple, 1, 1);
-		ItemStack bloodPendant = new ItemStack(ModItems.bloodPendant, 1, 0);
-		ItemStack netherStar = new ItemStack(Items.nether_star, 1, 0);
-		ItemStack eldritchEye = new ItemStack(ConfigItems.itemEldritchObject, 1, 0);
-		ItemStack writableBook = new ItemStack(Items.writable_book, 1, 0);
-		ItemStack amber = new ItemStack(ConfigItems.itemResource, 1, 6);
-		ItemStack greatVisAmulet = new ItemStack(ConfigItems.itemAmuletVis, 0, 1);
-		ItemStack thaumiumIngot = new ItemStack(ConfigItems.itemResource, 1, 2);
-		ItemStack enderPearl = new ItemStack(Items.ender_pearl, 1, 0);
-		ItemStack shockFocus = new ItemStack(ConfigItems.itemFocusShock, 1, 0);
-		ItemStack gravityRod = new ItemStack(ModItems.gravityRod, 1, 0);
-		ItemStack pechFocus = new ItemStack(ConfigItems.itemFocusPech, 1, 0);
-		ItemStack jarredBrain = new ItemStack(ConfigBlocks.blockJar, 1, 1);
-		ItemStack goldLaurel = new ItemStack(ModItems.goldLaurel, 1, 0);
-		ItemStack fireball = new ItemStack(Items.fire_charge, 1, 0);
-		ItemStack bottledTaint = new ItemStack(ConfigItems.itemBottleTaint, 1, 0);
-		ItemStack primalFocus = new ItemStack(ConfigItems.itemFocusPrimal, 1, 0);
-		ItemStack redstone = new ItemStack(Items.redstone, 1, 0);
-		ItemStack crimsonRites = new ItemStack(ConfigItems.itemEldritchObject, 1, 1);
-		ItemStack starSword = new ItemStack(ModItems.starSword, 1, 0);
-		ItemStack missileRod = new ItemStack(ModItems.missileRod, 1, 0);
-		ItemStack kingKey = new ItemStack(ModItems.kingKey, 1, 0);
-		ItemStack emerald = new ItemStack(Items.emerald, 1, 0);
-		ItemStack elementiumNugget = new ItemStack(ModItems.manaResource, 1, 19);
-		
-		ItemStack elementiumBlock = new ItemStack(ModBlocks.storage, 1, 2);
-		ItemStack dragonstoneBlock = new ItemStack(ModBlocks.storage, 1, 4);
-		ItemStack dreamwood = new ItemStack(ModBlocks.dreamwood, 1, 0);
 		
 		ItemStack eldritchTablet = (new ItemStack(ConfigItems.itemEldritchObject, 1, 13));
 		eldritchTablet.setItemDamage(2);
@@ -140,6 +152,7 @@ public class RelicsResearchRegistry {
 		.setParentsHidden("INFUSION", "THAUMIUM")
 		.registerResearchItem();
 		
+		
 		new ForgottenRelicsResearchItem("SuperpositionRing", "ForgottenRelics", 
 			new AspectList().add(Aspect.TRAVEL, 4).add(Aspect.DARKNESS, 3).add(Aspect.ELDRITCH, 6).add(Aspect.EXCHANGE, 4),
 			3, 1, 2,
@@ -149,6 +162,7 @@ public class RelicsResearchRegistry {
 			.setParentsHidden("ELDRITCHMINOR")
 			.registerResearchItem();
 		
+		
 		new ForgottenRelicsResearchItem("WeatherStone", "ForgottenRelics", 
 				new AspectList().add(Aspect.WEATHER, 8).add(Aspect.AIR, 4).add(Aspect.WATER, 4).add(Aspect.EXCHANGE, 3),
 				-3, -1, 1,
@@ -156,8 +170,9 @@ public class RelicsResearchRegistry {
 				.setConcealed()
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IWeatherStone")), new ResearchPage("2") })
 				.setParents("GenericTheory")
-				.setParentsHidden("AdvancedMiningCharm")
+				.setParentsHidden("DeificAmulet")
 				.registerResearchItem();
+		
 		
 		new ForgottenRelicsResearchItem("MiningCharm", "ForgottenRelics", 
 				new AspectList().add(Aspect.MINE, 5).add(Aspect.TOOL, 4).add(Aspect.MOTION, 4).add(Aspect.MAN, 3),
@@ -170,17 +185,18 @@ public class RelicsResearchRegistry {
 				.setRound()
 				.registerResearchItem();
 		
+		
 		new ForgottenRelicsResearchItem("AdvancedMiningCharm", "ForgottenRelics", 
 				new AspectList().add(Aspect.MINE, 8).add(Aspect.TOOL, 6).add(Aspect.MOTION, 4).add(Aspect.AURA, 3).add(Aspect.MAGIC, 4),
 				5, -3, 2,
 				new ItemStack(Main.itemAdvancedMiningCharm))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IAdvancedMiningCharm")) })
 				.setParents("MiningCharm")
-				//.setRound()
-				//.setSpecial()
-				.setItemTriggers(gaiaSpirit)
 				.setHidden()
 				.registerResearchItem();
+		
+		SuperpositionHandler.setupResearchTriggers("AdvancedMiningCharm", gaiaSpirit, miningCharm);
+		
 		
 		new ForgottenRelicsResearchItem("DimensionalMirror", "ForgottenRelics", 
 				new AspectList().add(Aspect.TRAVEL, 8).add(Aspect.DARKNESS, 6).add(Aspect.ELDRITCH, 6).add(Aspect.MAGIC, 5),
@@ -188,12 +204,13 @@ public class RelicsResearchRegistry {
 				new ItemStack(Main.itemDimensionalMirror))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IDimensionalMirror")), new ResearchPage("2") })
 				.setParents("GenericTheory")
-				.setParentsHidden("MIRRORHAND", "FOCUSPORTABLEHOLE", "AdvancedMiningCharm")
+				.setParentsHidden("MIRRORHAND", "FOCUSPORTABLEHOLE", "DeificAmulet")
 				.setConcealed()
 				.setSpecial()
 				.registerResearchItem();
 		
 		ThaumcraftApi.addWarpToResearch("DimensionalMirror", 1);
+		
 		
 		new ForgottenRelicsResearchItem("AncientAegis", "ForgottenRelics", 
 				new AspectList().add(Aspect.ARMOR, 8).add(Aspect.EXCHANGE, 6).add(Aspect.METAL, 6).add(Aspect.MAGIC, 4),
@@ -202,9 +219,11 @@ public class RelicsResearchRegistry {
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IAncientAegis")), new ResearchPage("2") })
 				.setParents("SuperpositionRing")
 				.setParentsHidden("RUNICKINETIC", "ENCHFABRIC")
-				.setItemTriggers(dragonStone, pixieDust, elementiumIngot, elementiumNugget, elementiumBlock, dragonstoneBlock, dreamwood)
 				.setHidden()
 				.registerResearchItem();
+		
+		SuperpositionHandler.setupResearchTriggers("AncientAegis", dragonStone);
+		
 		
 		new ForgottenRelicsResearchItem("XPTome", "ForgottenRelics", 
 				new AspectList().add(Aspect.MIND, 10).add(Aspect.VOID, 8).add(Aspect.EXCHANGE, 8).add(Aspect.MAGIC, 8),
@@ -218,6 +237,7 @@ public class RelicsResearchRegistry {
 		
 		ThaumcraftApi.addWarpToResearch("XPTome", 2);
 		
+		
 		new ForgottenRelicsResearchItem("SpellbookTheory", "ForgottenRelics", 
 				new AspectList().add(Aspect.MIND, 6).add(Aspect.MAGIC, 4).add(Aspect.CRAFT, 4).add(Aspect.ORDER, 3),
 				-1, 2, 1,
@@ -229,6 +249,7 @@ public class RelicsResearchRegistry {
 				.setRound()
 				.registerResearchItem();
 		
+		
 		new ForgottenRelicsResearchItem("DiscordTome", "ForgottenRelics", 
 				new AspectList().add(Aspect.MAGIC, 8).add(Aspect.TRAVEL, 6).add(Aspect.DARKNESS, 4).add(Aspect.MIND, 4).add(Aspect.ELDRITCH, 3),
 				-2, 5, 2,
@@ -236,11 +257,12 @@ public class RelicsResearchRegistry {
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IDiscordTome")), new ResearchPage("2") })
 				.setParents("SpellbookTheory")
 				.setParentsHidden("FOCUSPORTABLEHOLE")
-				.setItemTriggers(dragonStone, pixieDust, elementiumIngot, elementiumNugget, elementiumBlock, dragonstoneBlock, dreamwood)
 				.setHidden()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("DiscordTome", elementiumIngot);
 		ThaumcraftApi.addWarpToResearch("DiscordTome", 3);
+		
 		
 		new ForgottenRelicsResearchItem("FateTome", "ForgottenRelics", 
 				new AspectList().add(Aspect.HEAL, 8).add(Aspect.LIFE, 8).add(Aspect.EXCHANGE, 5).add(Aspect.MIND, 4).add(Aspect.MAGIC, 4),
@@ -248,12 +270,15 @@ public class RelicsResearchRegistry {
 				new ItemStack(Main.itemFateTome))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IFateTome")), new ResearchPage("2") })
 				.setParents("SpellbookTheory")
-				.setParentsHidden("ELDRITCHMAJOR", "AdvancedMiningCharm")
+				.setParentsHidden("ELDRITCHMAJOR")
 				.setConcealed()
 				.setSpecial()
+				.setHidden()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("FateTome", goldLaurel, gaiaSpirit, dragonStone);
 		ThaumcraftApi.addWarpToResearch("FateTome", 8);
+		
 		
 		new ForgottenRelicsResearchItem("Thunderpeal", "ForgottenRelics", 
 				new AspectList().add(Aspect.ENERGY, 5).add(Aspect.AIR, 4).add(Aspect.MAGIC, 4).add(Aspect.MIND, 3),
@@ -265,14 +290,19 @@ public class RelicsResearchRegistry {
 				.setConcealed()
 				.registerResearchItem();
 		
+		
 		new ForgottenRelicsResearchItem("TelekinesisTome", "ForgottenRelics", 
 				new AspectList().add(Aspect.MOTION, 8).add(Aspect.FLIGHT, 6).add(Aspect.TRAP, 6).add(Aspect.MIND, 4).add(Aspect.MAGIC, 4),
 				-4, 7, 2,
 				new ItemStack(Main.itemTelekinesisTome))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("ITelekinesisTome")), new ResearchPage("2"), new ResearchPage("3") })
 				.setParents("DiscordTome")
-				.setParentsHidden("ELDRITCHMINOR", "Thunderpeal", "AdvancedMiningCharm")
+				.setParentsHidden("ELDRITCHMINOR", "Thunderpeal")
+				.setHidden()
 				.registerResearchItem();
+
+		SuperpositionHandler.setupResearchTriggers("TelekinesisTome", gaiaSpirit, gravityRod, voidSeed);
+		
 		
 		new ForgottenRelicsResearchItem("ObeliskDrainer", "ForgottenRelics", 
 				new AspectList().add(Aspect.ELDRITCH, 10).add(Aspect.VOID, 8).add(Aspect.DARKNESS, 8).add(Aspect.EXCHANGE, 6).add(Aspect.MIND, 4).add(Aspect.MAGIC, 4),
@@ -283,8 +313,9 @@ public class RelicsResearchRegistry {
 				.setParentsHidden("ELDRITCHMAJOR", "VOIDMETAL", "ENCHFABRIC", "NITOR", "OCULUS")
 				.setConcealed()
 				.registerResearchItem();
-		
+
 		ThaumcraftApi.addWarpToResearch("ObeliskDrainer", 4);
+		
 		
 		new ForgottenRelicsResearchItem("EldritchSpell", "ForgottenRelics", 
 				new AspectList().add(Aspect.DARKNESS, 8).add(Aspect.WEAPON, 8).add(Aspect.ELDRITCH, 6).add(Aspect.MIND, 4).add(Aspect.MAGIC, 4),
@@ -292,12 +323,14 @@ public class RelicsResearchRegistry {
 				new ItemStack(Main.itemEldritchSpell))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IEldritchSpell")), new ResearchPage("2") })
 				.setParents("ObeliskDrainer")
-				.setParentsHidden("AdvancedMiningCharm")
 				.setConcealed()
+				.setHidden()
 				.setSpecial()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("EldritchSpell", eldritchEye, gaiaSpirit);
 		ThaumcraftApi.addWarpToResearch("EldritchSpell", 6);
+		
 		
 		new ForgottenRelicsResearchItem("CrimsonSpell", "ForgottenRelics", 
 				new AspectList().add(Aspect.FIRE, 8).add(Aspect.DARKNESS, 8).add(Aspect.ENTROPY, 6).add(Aspect.ELDRITCH, 4).add(Aspect.MIND, 4).add(Aspect.MAGIC, 4),
@@ -305,12 +338,13 @@ public class RelicsResearchRegistry {
 				new ItemStack(Main.itemCrimsonSpell))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("ICrimsonSpell")), new ResearchPage("2"), new ResearchPage("3") })
 				.setParents("EldritchSpell")
-				.setItemTriggers(crimsonRites)
 				.setHidden()
 				.setConcealed()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("CrimsonSpell", crimsonRites);
 		ThaumcraftApi.addWarpToResearch("CrimsonSpell", 5);
+		
 		
 		new ForgottenRelicsResearchItem("ChaosTome", "ForgottenRelics", 
 				new AspectList().add(Aspect.AIR, 8).add(Aspect.WATER, 8).add(Aspect.FIRE, 8).add(Aspect.EARTH, 8).add(Aspect.ORDER, 8).add(Aspect.ENTROPY, 8).add(Aspect.MIND, 4).add(Aspect.MAGIC, 4),
@@ -318,10 +352,13 @@ public class RelicsResearchRegistry {
 				new ItemStack(Main.itemChaosTome))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IChaosTome")), new ResearchPage("2") })
 				.setParents("EldritchSpell")
-				.setParentsHidden("ROD_primal_staff", "AdvancedMiningCharm")
+				.setParentsHidden("ROD_primal_staff")
+				.setHidden()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("ChaosTome", gaiaSpirit, primalFocus);
 		ThaumcraftApi.addWarpToResearch("ChaosTome", 7);
+		
 		
 		new ForgottenRelicsResearchItem("NuclearFury", "ForgottenRelics", 
 				new AspectList().add(Aspect.MAGIC, 8).add(Aspect.ENERGY, 8).add(Aspect.LIGHT, 6).add(Aspect.FIRE, 5).add(Aspect.AURA, 5).add(Aspect.MIND, 4),
@@ -331,9 +368,12 @@ public class RelicsResearchRegistry {
 				.setParents("ChaosTome")
 				.setParentsHidden("PRIMPEARL")
 				.setConcealed()
+				.setHidden()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("NuclearFury", missileRod, terrasteelIngot, alumentum);
 		ThaumcraftApi.addWarpToResearch("NuclearFury", 4);
+		
 		
 		new ForgottenRelicsResearchItem("SoulTome", "ForgottenRelics", 
 				new AspectList().add(Aspect.SOUL, 8).add(Aspect.TRAP, 8).add(Aspect.DEATH, 6).add(Aspect.MIND, 4).add(Aspect.MAGIC, 4),
@@ -342,12 +382,13 @@ public class RelicsResearchRegistry {
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("ISoulTome")), new ResearchPage("2") })
 				.setParents("ObeliskDrainer")
 				.setParentsHidden("JARBRAIN")
-				.setItemTriggers(pechFocus)
 				.setHidden()
 				.setConcealed()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("SoulTome", pechFocus, gaiaSpirit, jarredBrain, enderEye, alumentum);
 		ThaumcraftApi.addWarpToResearch("SoulTome", 3);
+		
 		
 		new ForgottenRelicsResearchItem("LunarFlares", "ForgottenRelics", 
 				new AspectList().add(Aspect.LIGHT, 8).add(Aspect.SENSES, 8).add(Aspect.AIR, 6).add(Aspect.ENERGY, 8).add(Aspect.MIND, 4).add(Aspect.MAGIC, 4),
@@ -356,20 +397,10 @@ public class RelicsResearchRegistry {
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("ILunarFlares")), new ResearchPage("2") })
 				.setParents("TelekinesisTome")
 				.setParentsHidden("EldritchSpell", "PRIMPEARL")
+				.setHidden()
 				.registerResearchItem();
 		
-		new ForgottenRelicsResearchItem("Apotheosis", "ForgottenRelics", 
-				new AspectList().add(Aspect.MAGIC, 16).add(Aspect.WEAPON, 12).add(Aspect.ENERGY, 12).add(Aspect.LIGHT, 12).add(Aspect.MIND, 8),
-				-2, 7, 2,
-				new ItemStack(Main.itemApotheosis))
-				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IApotheosis")), new ResearchPage("2"), new ResearchPage("3"), new ResearchPage("4") })
-				.setParents("DiscordTome")
-				.setParentsHidden("LunarFlares", "SoulTome", "NuclearFury", "CrimsonSpell", "FateTome", "NebulosCore", "OblivionAmulet", "TheParadox", "DarkSunRing", "ShinyStone", "DimensionalMirror")
-				.setSpecial()
-				.setRound()
-				.registerResearchItem();
-		
-		ThaumcraftApi.addWarpToResearch("Apotheosis", 10);
+		SuperpositionHandler.setupResearchTriggers("LunarFlares", starSword, terrasteelIngot, enderAir);
 		
 		new ForgottenRelicsResearchItem("ChaosCore", "ForgottenRelics", 
 				new AspectList().add(Aspect.ORDER, 8).add(Aspect.ENTROPY, 8).add(Aspect.EXCHANGE, 8).add(Aspect.ENERGY, 8).add(Aspect.VOID, 8),
@@ -380,9 +411,12 @@ public class RelicsResearchRegistry {
 				.setParentsHidden("VOIDMETAL", "ALUMENTUM", "AncientAegis")
 				.setConcealed()
 				.setRound()
+				.setHidden()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("ChaosCore", pixieDust, dragonStone, voidIngot);
 		ThaumcraftApi.addWarpToResearch("ChaosCore", 2);
+		
 		
 		new ForgottenRelicsResearchItem("TheParadox", "ForgottenRelics", 
 				new AspectList().add(Aspect.ENTROPY, 8).add(Aspect.EXCHANGE, 8).add(Aspect.ORDER, 8).add(Aspect.WEAPON, 6),
@@ -393,9 +427,12 @@ public class RelicsResearchRegistry {
 				.setParentsHidden("ChaosCore", "PRIMPEARL")
 				.setConcealed()
 				.setSecondary()
+				.setHidden()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("TheParadox", chaosCore);
 		ThaumcraftApi.addWarpToResearch("TheParadox", 8);
+		
 		
 		new ForgottenRelicsResearchItem("DarkSunRing", "ForgottenRelics", 
 				new AspectList().add(Aspect.FIRE, 7).add(Aspect.DARKNESS, 6).add(Aspect.ENERGY, 5).add(Aspect.ARMOR, 4).add(Aspect.EXCHANGE, 3).add(Aspect.MAGIC, 2).add(Aspect.LIGHT, 1),
@@ -403,11 +440,14 @@ public class RelicsResearchRegistry {
 				new ItemStack(Main.itemDarkSunRing))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IDarkSunRing")), new ResearchPage("2") })
 				.setParents("SuperpositionRing")
-				.setParentsHidden("ELDRITCHMINOR", "NITOR", "RUNICCHARGED", "AdvancedMiningCharm")
+				.setParentsHidden("ELDRITCHMINOR", "NITOR", "RUNICCHARGED")
 				.setConcealed()
+				.setHidden()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("DarkSunRing", superLavaPendant, blazeRod, gaiaSpirit);
 		ThaumcraftApi.addWarpToResearch("DarkSunRing", 3);
+		
 		
 		new ForgottenRelicsResearchItem("DeificAmulet", "ForgottenRelics", 
 				new AspectList().add(Aspect.MAN, 6).add(Aspect.HEAL, 4).add(Aspect.LIGHT, 4).add(Aspect.EXCHANGE, 4).add(Aspect.MAGIC, 4),
@@ -415,9 +455,13 @@ public class RelicsResearchRegistry {
 				new ItemStack(Main.itemDeificAmulet))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IDeificAmulet")), new ResearchPage("2") })
 				.setParents("MiningCharm")
-				.setParentsHidden("RUNICEMERGENCY", "AdvancedMiningCharm")
+				.setParentsHidden("RUNICEMERGENCY")
+				.setHidden()
 				.setConcealed()
 				.registerResearchItem();
+		
+		SuperpositionHandler.setupResearchTriggers("DeificAmulet", gaiaSpirit, pixieDust);
+		
 		
 		new ForgottenRelicsResearchItem("ShinyStone", "ForgottenRelics", 
 				new AspectList().add(Aspect.HEAL, 8).add(Aspect.EXCHANGE, 6).add(Aspect.CRYSTAL, 4).add(Aspect.MAGIC, 4),
@@ -425,9 +469,11 @@ public class RelicsResearchRegistry {
 				new ItemStack(Main.itemShinyStone))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IShinyStone")), new ResearchPage("2") })
 				.setParents("DeificAmulet")
-				.setItemTriggers(superGoldenApple)
 				.setHidden()
 				.registerResearchItem();
+		
+		SuperpositionHandler.setupResearchTriggers("ShinyStone", superGoldenApple, dragonStone, gaiaSpirit);
+		
 		
 		new ForgottenRelicsResearchItem("TerrorCrown", "ForgottenRelics", 
 				new AspectList().add(Aspect.ELDRITCH, 8).add(Aspect.WEAPON, 6).add(Aspect.ENTROPY, 6).add(Aspect.ARMOR, 4).add(Aspect.SENSES, 2),
@@ -436,11 +482,12 @@ public class RelicsResearchRegistry {
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("ITerrorCrown")), new ResearchPage("2"), new ResearchPage("3") })
 				.setParents("XPTome")
 				.setParentsHidden("ELDRITCHMAJOR", "OCULUS")
-				.setItemTriggers(netherStar)
 				.setHidden()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("TerrorCrown", netherStar, eldritchEye);
 		ThaumcraftApi.addWarpToResearch("TerrorCrown", 4);
+		
 		
 		new ForgottenRelicsResearchItem("OblivionAmulet", "ForgottenRelics", 
 				new AspectList().add(Aspect.DARKNESS, 12).add(Aspect.DEATH, 10).add(Aspect.ARMOR, 8).add(Aspect.EXCHANGE, 8).add(Aspect.VOID, 8).add(Aspect.SOUL, 4),
@@ -451,9 +498,12 @@ public class RelicsResearchRegistry {
 				.setParentsHidden("TerrorCrown", "PRIMPEARL")
 				.setConcealed()
 				.setSpecial()
+				.setHidden()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("OblivionAmulet", netherStar, eldritchEye, voidIngot);
 		ThaumcraftApi.addWarpToResearch("OblivionAmulet", 8);
+		
 		
 		new ForgottenRelicsResearchItem("NebulousCore", "ForgottenRelics", 
 				new AspectList().add(Aspect.AURA, 10).add(Aspect.MAGIC, 8).add(Aspect.VOID, 6).add(Aspect.ENERGY, 6).add(Aspect.EXCHANGE, 4),
@@ -462,10 +512,12 @@ public class RelicsResearchRegistry {
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("INebulousCore")), new ResearchPage("2"), new ResearchPage("3") })
 				.setParents("DeificAmulet")
 				.setParentsHidden("PRIMPEARL", "VISAMULET", "SuperpositionRing", "THAUMIUM")
-				.setItemTriggers(superpositionRing)
 				.setSpecial()
 				.setHidden()
 				.registerResearchItem();
+		
+		SuperpositionHandler.setupResearchTriggers("NebulousCore", superpositionRing, thaumiumIngot);
+		
 		
 		if (RelicsConfigHandler.falseJusticeEnabled) {
 		new ForgottenRelicsResearchItem("FalseJustice", "ForgottenRelics", 
@@ -481,6 +533,7 @@ public class RelicsResearchRegistry {
 		ThaumcraftApi.addWarpToResearch("FalseJustice", 4);
 		}
 		
+		
 		new ForgottenRelicsResearchItem("Overthrower", "ForgottenRelics", 
 				new AspectList().add(Aspect.FIRE, 10).add(Aspect.TRAVEL, 8).add(Aspect.DARKNESS, 8).add(Aspect.MAGIC, 6).add(Aspect.MIND, 4).add(Aspect.SOUL, 4),
 				-5, 5, 2,
@@ -491,9 +544,12 @@ public class RelicsResearchRegistry {
 				.setSecondary()
 				.setSpecial()
 				.setConcealed()
+				.setHidden()
 				.registerResearchItem();
 		
+		SuperpositionHandler.setupResearchTriggers("Overthrower", hellFocus, netherWart);
 		ThaumcraftApi.addWarpToResearch("Overthrower", 3);
+		
 		
 		new ForgottenRelicsResearchItem("PechFocus", "ForgottenRelics", 
 				new AspectList().add(Aspect.EXCHANGE, 8).add(Aspect.ENTROPY, 6).add(Aspect.MAGIC, 4).add(Aspect.SENSES, 4),
@@ -502,8 +558,40 @@ public class RelicsResearchRegistry {
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IPechFocus")), new ResearchPage("2") })
 				.setParents("WeatherStone")
 				.setParentsHidden("FOCUSFIRE", "FOCUSFROST")
+				.setHidden()
 				.setSecondary()
 				.registerResearchItem();
+		
+		SuperpositionHandler.setupResearchTriggers("PechFocus", netherWart, ghastTear, fermentedSpiderEye, sugar, blazePowder);
+		
+		
+		new ForgottenRelicsResearchItem("DiscordRing", "ForgottenRelics", 
+				new AspectList().add(Aspect.TOOL, 8).add(Aspect.TRAVEL, 8).add(Aspect.MAGIC, 8),
+				3, -6, 2,
+				new ItemStack(Main.itemDiscordRing))
+				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IDiscordRing")), new ResearchPage("2") })
+				.setParents("DeificAmulet")
+				.setParentsHidden("DiscordTome")
+				.setSecondary()
+				.setConcealed()
+				.registerResearchItem();
+		
+		
+		new ForgottenRelicsResearchItem("Apotheosis", "ForgottenRelics", 
+				new AspectList().add(Aspect.MAGIC, 16).add(Aspect.WEAPON, 12).add(Aspect.ENERGY, 12).add(Aspect.LIGHT, 12).add(Aspect.MIND, 8),
+				-2, 7, 2,
+				new ItemStack(Main.itemApotheosis))
+				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IApotheosis")), new ResearchPage("2"), new ResearchPage("3"), new ResearchPage("4") })
+				.setParents("DiscordTome")
+				.setParentsHidden("LunarFlares", "SoulTome", "NuclearFury", "CrimsonSpell", "FateTome", "NebulousCore", "OblivionAmulet", "TheParadox", "Overthrower", "DarkSunRing", "ShinyStone", "DimensionalMirror")
+				.setSpecial()
+				.setRound()
+				.setLost()
+				.registerResearchItem();
+		
+		// It's unlocking is actually triggered in RelicsEventHandler
+		ThaumcraftApi.addWarpToResearch("Apotheosis", 10);
+		
 		
 		ThaumcraftApi.addWarpToItem(chaosTome, 4);
 		ThaumcraftApi.addWarpToItem(fateTome, 6);
@@ -511,6 +599,8 @@ public class RelicsResearchRegistry {
 		ThaumcraftApi.addWarpToItem(oblivionAmulet, 4);
 		ThaumcraftApi.addWarpToItem(falseJustice, 10);
 		ThaumcraftApi.addWarpToItem(obeliskDrainer, 3);
+		ThaumcraftApi.addWarpToItem(overthrower, 1);
+		ThaumcraftApi.addWarpToItem(terrorCrown, 3);
 		
 		//ThaumcraftApi.addWarpToResearch("JARBRAIN", 3);
         //ThaumcraftApi.addWarpToItem(new ItemStack(ConfigBlocks.blockJar, 1, 1), 1);
@@ -519,119 +609,6 @@ public class RelicsResearchRegistry {
 	}
 	
 	public static void integrateInfusion() {
-		
-		ItemStack superpositionRing = new ItemStack(Main.itemSuperpositionRing, 1, 0);
-		ItemStack weatherStone = new ItemStack(Main.itemWeatherStone, 1, 0);
-		ItemStack miningCharm = new ItemStack(Main.itemMiningCharm, 1, 0);
-		ItemStack advancedMiningCharm = new ItemStack(Main.itemAdvancedMiningCharm, 1, 0);
-		ItemStack ancientAegis = new ItemStack(Main.itemAncientAegis, 1, 0);
-		ItemStack apotheosis = new ItemStack(Main.itemApotheosis, 1, 0);
-		ItemStack nebulousCore  = new ItemStack(Main.itemArcanum, 1, 0);
-		ItemStack chaosCore = new ItemStack(Main.itemChaosCore, 1, 0);
-		ItemStack chaosTome = new ItemStack(Main.itemChaosTome, 1, 0);
-		ItemStack crimsonSpell = new ItemStack(Main.itemCrimsonSpell, 1, 0);
-		ItemStack darkSunRing = new ItemStack(Main.itemDarkSunRing, 1, 0);
-		ItemStack deificAmulet = new ItemStack(Main.itemDeificAmulet, 1, 0);
-		ItemStack dimensionalMirror = new ItemStack(Main.itemDimensionalMirror, 1, 0);
-		ItemStack eldritchSpell = new ItemStack(Main.itemEldritchSpell, 1, 0);
-		ItemStack falseJustice = new ItemStack(Main.itemFalseJustice, 1, 0);
-		ItemStack fateTome = new ItemStack(Main.itemFateTome, 1, 0);
-		ItemStack lunarFlares = new ItemStack(Main.itemLunarFlares, 1, 0);
-		ItemStack nuclearFury = new ItemStack(Main.itemMissileTome, 1, 0);
-		ItemStack obeliskDrainer = new ItemStack(Main.itemObeliskDrainer, 1, 0);
-		ItemStack theParadox = new ItemStack(Main.itemParadox, 1, 0);
-		ItemStack shinyStone = new ItemStack(Main.itemShinyStone, 1, 0);
-		ItemStack soulTome = new ItemStack(Main.itemSoulTome, 1, 0);
-		ItemStack telekinesisTome = new ItemStack(Main.itemTelekinesisTome, 1, 0);
-		ItemStack discordTome = new ItemStack(Main.itemTeleportationTome, 1, 0);
-		ItemStack XPTome = new ItemStack(Main.itemXPTome, 1, 0);
-		ItemStack oblivionAmulet = new ItemStack(Main.itemOblivionAmulet, 1, 0);
-		ItemStack terrorCrown = new ItemStack(Main.itemTerrorCrown, 1, 0);
-		ItemStack thunderpeal = new ItemStack(Main.itemThunderpeal, 1, 0);
-		ItemStack overthrower = new ItemStack(Main.itemOverthrower, 1, 0);
-		
-		ItemStack enderEye = new ItemStack(Items.ender_eye, 1, 0);
-		ItemStack salisMundus = new ItemStack(ConfigItems.itemResource, 1, 14);
-		ItemStack voidSeed = new ItemStack(ConfigItems.itemResource, 1, 17);
-		ItemStack enderAir = new ItemStack(ModItems.manaResource, 1, 15);
-		ItemStack primalCharm = new ItemStack(ConfigItems.itemResource, 1, 15);
-		ItemStack blankRing = new ItemStack(ConfigItems.itemBaubleBlanks, 1, 1);
-		ItemStack ghastTear = new ItemStack(Items.ghast_tear, 1, 0);
-		ItemStack airRune = new ItemStack(ModItems.rune, 1, 3);
-		ItemStack airShard = new ItemStack(ConfigItems.itemShard, 1, 0);
-		ItemStack fireShard = new ItemStack(ConfigItems.itemShard, 1, 1);
-		ItemStack waterShard = new ItemStack(ConfigItems.itemShard, 1, 2);
-		ItemStack earthShard = new ItemStack(ConfigItems.itemShard, 1, 3);
-		ItemStack orderShard = new ItemStack(ConfigItems.itemShard, 1, 4);
-		ItemStack entropyShard = new ItemStack(ConfigItems.itemShard, 1, 5);
-		ItemStack balancedShard = new ItemStack(ConfigItems.itemShard, 1, 6);
-		
-		ItemStack revealingGoggles = new ItemStack(ConfigItems.itemGoggles, 1, 0);
-		ItemStack knowledgeFragment = new ItemStack(ConfigItems.itemResource, 1, 9);
-		ItemStack inkwell = new ItemStack(ConfigItems.itemInkwell, 1, 0);
-		ItemStack arcaneStone = new ItemStack(ConfigBlocks.blockCosmeticSolid, 1, 6);
-		ItemStack gaiaSpirit = new ItemStack(ModItems.manaResource, 1, 5);
-		ItemStack terrasteelIngot = new ItemStack(ModItems.manaResource, 1, 4);
-		ItemStack nitor = new ItemStack(ConfigItems.itemResource, 1, 1);
-		ItemStack elementalPickaxe = new ItemStack(ConfigItems.itemPickElemental, 1, 0);
-		ItemStack speedPotionII = new ItemStack(Items.potionitem, 1, 8226);
-		ItemStack reachRing = new ItemStack(ModItems.reachRing, 1, 0);
-		ItemStack dragonStone = new ItemStack(ModItems.manaResource, 1, 9);
-		ItemStack portableHole = new ItemStack(ConfigItems.itemFocusPortableHole, 1, 0);
-		ItemStack handMirror = new ItemStack(ConfigItems.itemHandMirror, 1, 0);
-		ItemStack glowstone = new ItemStack(Items.glowstone_dust, 1, 0);
-		ItemStack etherealEssence = new ItemStack(ConfigItems.itemWispEssence, 1, 0);
-		ItemStack elementiumIngot = new ItemStack(ModItems.manaResource, 1, 7);
-		ItemStack voidPickaxe = new ItemStack(ConfigItems.itemPickVoid, 1, 0);
-		ItemStack kineticRunicGirdle = new ItemStack(ConfigItems.itemGirdleRunic, 1, 1);
-		ItemStack tectonicGirdle = new ItemStack(ModItems.knockbackBelt, 1, 0);
-		ItemStack healPotionII = new ItemStack(Items.potionitem, 1, 8229);
-		ItemStack pixieDust = new ItemStack(ModItems.manaResource, 1, 8);
-		ItemStack enchantedFabric = new ItemStack(ConfigItems.itemResource, 1, 7);
-		ItemStack goldIngot = new ItemStack(Items.gold_ingot, 1, 0);
-		ItemStack blazePowder = new ItemStack(Items.blaze_powder, 1, 0);
-		ItemStack blazeRod = new ItemStack(Items.blaze_rod, 1, 0);
-		ItemStack lavaBucket = new ItemStack(Items.lava_bucket, 1, 0);
-		ItemStack runicRingCharged = new ItemStack(ConfigItems.itemRingRunic, 1, 2);
-		ItemStack cinderPearl = new ItemStack(ConfigBlocks.blockCustomPlant, 1, 3);
-		ItemStack superLavaPendant = new ItemStack(ModItems.superLavaPendant, 1, 0);
-		ItemStack runicAmuletAdv = new ItemStack(ConfigItems.itemAmuletRunic, 1, 1);
-		ItemStack lavaPendant = new ItemStack(ModItems.lavaPendant, 1, 0);
-		ItemStack voidIngot = new ItemStack(ConfigItems.itemResource, 1, 16);
-		ItemStack alumentum = new ItemStack(ConfigItems.itemResource, 1, 0);
-		ItemStack voidSword = new ItemStack(ConfigItems.itemSwordVoid, 1, 0);
-		ItemStack primordialPearl = new ItemStack(ConfigItems.itemEldritchObject, 1, 3);
-		ItemStack superGoldenApple = new ItemStack(Items.golden_apple, 1, 1);
-		ItemStack bloodPendant = new ItemStack(ModItems.bloodPendant, 1, 0);
-		ItemStack netherStar = new ItemStack(Items.nether_star, 1, 0);
-		ItemStack eldritchEye = new ItemStack(ConfigItems.itemEldritchObject, 1, 0);
-		ItemStack writableBook = new ItemStack(Items.writable_book, 1, 0);
-		ItemStack amber = new ItemStack(ConfigItems.itemResource, 1, 6);
-		ItemStack greatVisAmulet = new ItemStack(ConfigItems.itemAmuletVis, 0, 1);
-		ItemStack thaumiumIngot = new ItemStack(ConfigItems.itemResource, 1, 2);
-		ItemStack enderPearl = new ItemStack(Items.ender_pearl, 1, 0);
-		ItemStack shockFocus = new ItemStack(ConfigItems.itemFocusShock, 1, 0);
-		ItemStack gravityRod = new ItemStack(ModItems.gravityRod, 1, 0);
-		ItemStack pechFocus = new ItemStack(ConfigItems.itemFocusPech, 1, 0);
-		ItemStack jarredBrain = new ItemStack(ConfigBlocks.blockJar, 1, 1);
-		ItemStack goldLaurel = new ItemStack(ModItems.goldLaurel);
-		ItemStack fireball = new ItemStack(Items.fire_charge, 1, 0);
-		ItemStack bottledTaint = new ItemStack(ConfigItems.itemBottleTaint, 1, 0);
-		ItemStack primalFocus = new ItemStack(ConfigItems.itemFocusPrimal, 1, 0);
-		ItemStack redstone = new ItemStack(Items.redstone, 1, 0);
-		ItemStack crimsonRites = new ItemStack(ConfigItems.itemEldritchObject, 1, 1);
-		ItemStack starSword = new ItemStack(ModItems.starSword, 1, 0);
-		ItemStack missileRod = new ItemStack(ModItems.missileRod, 1, 0);
-		ItemStack kingKey = new ItemStack(ModItems.kingKey, 1, 0);
-		ItemStack emerald = new ItemStack(Items.emerald, 1, 0);
-		ItemStack wrathRune = new ItemStack(ModItems.rune, 1, 13);
-		ItemStack prideRune = new ItemStack(ModItems.rune, 1, 15);
-		ItemStack manaPearl = new ItemStack(ModItems.manaResource, 1, 1);
-		ItemStack netherBrick = new ItemStack(Items.netherbrick, 1, 0);
-		ItemStack netherWart = new ItemStack(Items.nether_wart, 1, 0);
-		ItemStack sugar = new ItemStack(Items.sugar, 1, 0);
-		ItemStack fermentedSpiderEye = new ItemStack(Items.fermented_spider_eye, 1, 0);
-		ItemStack quartz = new ItemStack(Items.quartz, 1, 0);
 		
 		RelicsResearchRegistry.recipes.put("ISuperpositionRing", ThaumcraftApi.addInfusionCraftingRecipe("SuperpositionRing", 
 			superpositionRing, 4, new AspectList()
@@ -812,6 +789,12 @@ public class RelicsResearchRegistry {
 				.add(Aspect.EXCHANGE, 25).add(Aspect.POISON, 20).add(Aspect.MAGIC, 16).add(Aspect.ENTROPY, 12).add(Aspect.SENSES, 8),
 				primalCharm,
 				new ItemStack[]{ emerald, blazePowder, quartz, ghastTear, sugar, quartz, redstone, netherWart, quartz, fermentedSpiderEye }));
+		
+		RelicsResearchRegistry.recipes.put("IDiscordRing", ThaumcraftApi.addInfusionCraftingRecipe("DiscordRing", 
+				discordRing, 2, new AspectList()
+				.add(Aspect.TOOL, 16).add(Aspect.TRAVEL, 16).add(Aspect.MAGIC, 12).add(Aspect.EXCHANGE, 8).add(Aspect.VOID, 8),
+				blankRing,
+				new ItemStack[]{ dragonStone, salisMundus, elementiumIngot, salisMundus, gaiaSpirit, salisMundus, elementiumIngot, salisMundus }));
 	}
 
 }

@@ -28,5 +28,7 @@ public class CommonProxy {
 	public void lunarBurst(World world, double x, double y, double z, float size) {
 		
 	}
+
+	public void registerKeybinds() {}
 	
 }

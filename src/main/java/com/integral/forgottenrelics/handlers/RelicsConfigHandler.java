@@ -75,10 +75,44 @@ public class RelicsConfigHandler {
 	
 	public static int notificationDelay;
 	
+	public static int fateTomeCooldownMIN;
+	public static int fateTomeCooldownMAX;
+	
+	public static boolean telekinesisOnPlayers;
+	public static float revelationModifier;
+	
+	public static int researchInspectionFrequency;
+	public static double knowledgeChance;
+	
+	public static int outerLandsCheckrate;
+	public static float outerLandsAntiAbuseDamage;
+	public static boolean outerLandsAntiAbuseEnabled;
+	
 	public void configDisposition(FMLPreInitializationEvent event) {
 		
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 	    config.load();
+	    
+	    this.outerLandsCheckrate = config.getInt("outerLandsCheckrate", "Generic Config", 20, 1, 1024000, 
+	    		"Checkrate for Outer Lands anti-abuse system, if it's enabled. Measured in ticks. Setting this value to 20 means that it would check each player once in 20 ticks, or once per second.");
+	    
+	    this.outerLandsAntiAbuseDamage = config.getFloat("outerLandsAntiAbuseDamage", "Generic Config", 40000.0F, 0.0F, 512000.0F, 
+	    	"How much damage is dealt to player in Outer Lands if anti-abuse system is enabled and finds them out of maze. You may want to decrease this if you are getting there accidentally and want to do something about this before you are obliterated.");
+	    
+	    this.outerLandsAntiAbuseEnabled = config.getBoolean("outerLandsAntiAbuseEnabled", "Generic Config", true, 
+	    		"Whether or not anti-abuse system for Outer Lands should be enabled. Disable if you like cheating or don't want it for some other reason.");
+	    
+	    this.revelationModifier = config.getFloat("revelationModifier", "Generic Config", 1.0F, 0.001F, 32.0F, 
+	    		"Multiplier for probability of revealing forgotten knowledge. This multiplies both inspection frequency and individual chance for each check, so increasing it more than few times over is highly unrecommended.");
+	    
+	    this.telekinesisOnPlayers = config.getBoolean("telekinesisOnPlayers", "Generic Config", true, 
+	    		"In a perfect world, this option would disable Tome of Predestiny's ability to affect players... BUT IT'S A WRONG WORLD BRO, AHAHAHAHAHAHAHAHAAHAHAHAHAHAH");
+	    
+	    this.fateTomeCooldownMIN = config.getInt("fateTomeCooldownMIN", "Generic Config", 30, 0, 32768, 
+	    		"Minimal possible cooldown (in seconds) for triggering Tome of Broken Fates' death prevention effect.");
+	    
+	    this.fateTomeCooldownMAX = config.getInt("fateTomeCooldownMAX", "Generic Config", 90, 0, 32768, 
+	    		"Maximal possible cooldown (in seconds) for triggering Tome of Broken Fates' death prevention effect. Setting this to 0 will disable cooldown entirely.");
 	    
 	    this.notificationDelay = config.getInt("notificationDelay", "Thaumcraft Overrides", 2000, 0, 32768, 
 	    		"Determines how fast notifications scroll downwards. Overrides respective option in default Thaumcraft config.");
@@ -240,5 +274,9 @@ public class RelicsConfigHandler {
 	    		"Vis cost multiplier for Edict of Eternal Banishment.");
 	    
 	    config.save();
+	    
+	    
+	    this.researchInspectionFrequency = (int) (600/this.revelationModifier);
+	    this.knowledgeChance = (double) (0.1D*this.revelationModifier);
 	}
 }

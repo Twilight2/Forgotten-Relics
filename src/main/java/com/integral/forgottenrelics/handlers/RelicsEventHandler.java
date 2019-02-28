@@ -2,39 +2,117 @@ package com.integral.forgottenrelics.handlers;
 
 import java.util.List;
 
+import org.lwjgl.input.Mouse;
+
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.items.ItemFateTome;
+import com.integral.forgottenrelics.packets.ForgottenResearchMessage;
 
 import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
+import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.AchievementEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import thaumcraft.common.Thaumcraft;
+import thaumcraft.common.config.Config;
 import thaumcraft.common.items.wands.WandManager;
+import thaumcraft.common.lib.research.ResearchManager;
+import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class RelicsEventHandler {
 	
 	@SubscribeEvent
-	public void livingTick(LivingEvent.LivingUpdateEvent event) {
+	public void onAchievement(AchievementEvent event) {
+		Achievement theAchievement = event.achievement;
+		EntityPlayer player = event.entityPlayer;
+		Achievement kingKey = ModAchievements.relicKingKey;
 		
-		/*
-		 * Handler for decrementing player's casting cooldown on each tick.
-		 */
+		
+		if (theAchievement.equals(kingKey) & !event.entityPlayer.worldObj.isRemote)
+		if (!((EntityPlayerMP) player).func_147099_x().hasAchievementUnlocked(kingKey)) {
+			boolean clueUnlocked = ResearchManager.isResearchComplete(player.getDisplayName(), "@Apotheosis");
+			boolean researchCompleted = ResearchManager.isResearchComplete(player.getDisplayName(), "Apotheosis");
+			
+			if (!clueUnlocked & !researchCompleted) {
+				Main.packetInstance.sendTo(new ForgottenResearchMessage("@Apotheosis"), (EntityPlayerMP) player);
+	            Thaumcraft.proxy.getResearchManager().completeResearch(player, "@Apotheosis");
+			}
+		}
+		
+	}
+	
+	@SubscribeEvent
+	public void livingTick(LivingEvent.LivingUpdateEvent event) {
 		
 		if (event.entity instanceof EntityPlayer & !event.entity.worldObj.isRemote) {
 			EntityPlayer player = (EntityPlayer) event.entity;
+			
+			/*
+			 * Handler used to prevent players from abusing the Outer Lands.
+			 * Basically, it ensures that if player somehow gets out of
+			 * the maze, they would be killed almost instantly.
+			 */
+			
+			if (RelicsConfigHandler.outerLandsAntiAbuseEnabled)
+			if (player.ticksExisted % RelicsConfigHandler.outerLandsCheckrate == 0)
+			if (player.dimension == Config.dimensionOuterId) {
+				double d0 = player.posX;
+		        double d1 = player.posY + 1.62D - (double) player.yOffset;
+		        double d2 = player.posZ;
+				
+				Vec3 position1 = Vec3.createVectorHelper(d0, d1, d2);
+				Vec3 position2 = Vec3.createVectorHelper(d0, d1, d2);
+				Vec3 up = Vec3.createVectorHelper(d0, d1+24.0D, d2);
+				Vec3 down = Vec3.createVectorHelper(d0, d1-24.0D, d2);
+				
+				MovingObjectPosition pos1 = player.worldObj.rayTraceBlocks(position1, up);
+				MovingObjectPosition pos2 = player.worldObj.rayTraceBlocks(position2, down);
+				
+				if (pos1 == null || pos2 == null) {
+					player.attackEntityFrom(DamageSource.outOfWorld, RelicsConfigHandler.outerLandsAntiAbuseDamage);
+				}
+				
+			}
+			
+			/*
+			 * Handler for randomly triggering execution of
+			 * Justice Handler from time to time.
+			 */
+			
+			if (player.ticksExisted % RelicsConfigHandler.researchInspectionFrequency == 0)
+			if (Math.random() <= RelicsConfigHandler.knowledgeChance) {
+				SuperpositionHandler.bringTheJustice(player);
+			}
+		
+			/*
+			 * Handler for decrementing player's casting cooldown on each tick.
+			 */
 			
 			if (Main.castingCooldowns.containsKey(player)) {
 				int cooldown = Main.castingCooldowns.get(player);
@@ -237,7 +315,7 @@ public class RelicsEventHandler {
 			 * Handler for blocking attacks that exceed damage cap for Ring of The Seven Suns.
 			 */
 			
-			if (!event.isCanceled() & event.ammount > 100.0F & SuperpositionHandler.hasBauble(player, Main.itemDarkSunRing)) {
+			if (!event.isCanceled() & event.ammount > 100.0F & !SuperpositionHandler.isDamageTypeAbsolute(event.source) & SuperpositionHandler.hasBauble(player, Main.itemDarkSunRing)) {
 				SuperpositionHandler.sendNotification(player, 2);
 				event.setCanceled(true);
 			}
@@ -359,6 +437,9 @@ public class RelicsEventHandler {
 	
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onPlayerDeath(LivingDeathEvent event) {
+		
+		// You're certainly dead at this point. Very certainly. Very dead.
+		
 		if(event.entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entity;
 
@@ -383,8 +464,13 @@ public class RelicsEventHandler {
 					    if (ItemNBTHelper.getInt(fateTomeStack, "IFateCooldown", 0) == 0)
 					    if (WandManager.consumeVisFromInventory(player, new AspectList().add(Aspect.AIR, ItemFateTome.AerCost).add(Aspect.EARTH, ItemFateTome.TerraCost).add(Aspect.FIRE, ItemFateTome.IgnisCost).add(Aspect.WATER, ItemFateTome.AquaCost).add(Aspect.ORDER, ItemFateTome.OrdoCost).add(Aspect.ENTROPY, ItemFateTome.PerditioCost))) {
 					    	
-					    	ItemNBTHelper.setInt(fateTomeStack, "IFateCooldown", (int) (600 + Math.random() * 1200));    	
-							event.setCanceled(true);
+					    	int minCooldown = (RelicsConfigHandler.fateTomeCooldownMIN)*20;
+					    	int bonusCooldown = (RelicsConfigHandler.fateTomeCooldownMAX*20)-minCooldown;
+					    	
+					    	if (RelicsConfigHandler.fateTomeCooldownMAX != 0)
+					    	ItemNBTHelper.setInt(fateTomeStack, "IFateCooldown", (int) ((minCooldown) + (Math.random() * bonusCooldown)));    	
+							
+					    	event.setCanceled(true);
 							
 					    	player.setHealth(player.getMaxHealth());
 					    	

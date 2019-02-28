@@ -1,18 +1,30 @@
 package com.integral.forgottenrelics.items;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.handlers.DamageRegistryHandler;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import com.integral.forgottenrelics.handlers.SuperpositionHandler;
 import com.integral.forgottenrelics.packets.PlayerMotionUpdateMessage;
+import com.integral.forgottenrelics.packets.TelekinesisAttackMessage;
+import com.integral.forgottenrelics.packets.TelekinesisParticleMessage;
+import com.integral.forgottenrelics.packets.TelekinesisUseMessage;
 
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,21 +56,27 @@ import vazkii.botania.common.core.helper.Vector3;
 
 public class ItemTelekinesisTome extends Item implements IWarpingGear {
 	
-	 public static final int AerCost = (int) (20*RelicsConfigHandler.telekinesisTomeVisMult);
+	 public static final int AerCost = (int) (6*RelicsConfigHandler.telekinesisTomeVisMult);
 	 public static final int TerraCost = (int) (0*RelicsConfigHandler.telekinesisTomeVisMult);
 	 public static final int IgnisCost = (int) (0*RelicsConfigHandler.telekinesisTomeVisMult);
 	 public static final int AquaCost = (int) (0*RelicsConfigHandler.telekinesisTomeVisMult);
-	 public static final int OrdoCost = (int) (20*RelicsConfigHandler.telekinesisTomeVisMult);
+	 public static final int OrdoCost = (int) (8*RelicsConfigHandler.telekinesisTomeVisMult);
 	 public static final int PerditioCost = (int) (0*RelicsConfigHandler.telekinesisTomeVisMult);
 
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
+	
+	private static HashMap tomeStatsMap = new HashMap();
+	private static HashMap<EntityPlayer, HashMap> globalTomeMap = new HashMap<EntityPlayer, HashMap>();
 
 	private static final String TAG_TICKS_TILL_EXPIRE = "ticksTillExpire";
 	private static final String TAG_TICKS_COOLDOWN = "ticksCooldown";
 	private static final String TAG_TARGET = "target";
+	
 	private static final String TAG_DIST = "dist";
 	private static final String TAG_RE_DIST = "reDist";
+	
+	private boolean verificationVariable = false;
 
 	public ItemTelekinesisTome() {
 		this.setMaxStackSize(1);
@@ -66,10 +84,84 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 		this.setCreativeTab(Main.tabForgottenRelics);
 	}
 	
-	@Override
-	 public EnumRarity getRarity(ItemStack itemStack)
-	 {
-	 return EnumRarity.epic;
+	 public HashMap getPlayerTomeData(EntityPlayer player) {
+		 
+		 if (this.globalTomeMap.containsKey(player))
+			 return this.globalTomeMap.get(player);
+		 else {
+			 HashMap stats = new HashMap();
+			 stats.put(this.TAG_TICKS_TILL_EXPIRE, 0);
+			 stats.put(this.TAG_TICKS_COOLDOWN, 0);
+			 stats.put(this.TAG_TARGET, -1);
+			 
+			 stats.put(this.TAG_DIST, -1D);
+			 stats.put(this.TAG_RE_DIST, -1D);
+			 
+			 this.globalTomeMap.put(player, stats);
+			 return stats;
+		 }
+		 
+	 }
+	 
+	 public Object getTomeTag(EntityPlayer player, String tag, Object expectedValue) {
+		 HashMap playerData = this.getPlayerTomeData(player);
+		 
+		 if (tag == this.TAG_TICKS_TILL_EXPIRE || tag == this.TAG_TICKS_COOLDOWN || tag == this.TAG_TARGET) {
+			 int returnedValue;
+			 
+			 if (playerData.containsKey(tag))
+				 returnedValue = (Integer) playerData.get(tag);
+			 else
+				 returnedValue = (Integer) expectedValue;
+			 
+			 return returnedValue;
+		 } else if (tag == this.TAG_DIST || tag == this.TAG_RE_DIST) {
+			 double returnedValue;
+			 
+			 if (playerData.containsKey(tag))
+			 	returnedValue = (Double) playerData.get(tag);
+			 else
+				 returnedValue = (Double) expectedValue;
+			 
+			 return returnedValue;
+		 } else
+			 return null;
+		 
+	 }
+	 
+	 public void setTomeTag(EntityPlayer player, String tag, Object value) {
+		 HashMap playerData = this.getPlayerTomeData(player);
+		 
+		 if (tag == this.TAG_TICKS_TILL_EXPIRE || tag == this.TAG_TICKS_COOLDOWN || tag == this.TAG_TARGET) {
+			 int savedValue = (Integer) value;
+			 playerData.put(tag, savedValue);
+		 } else if (tag == this.TAG_DIST || tag == this.TAG_RE_DIST) {
+			 double savedValue = (Double) value;
+			 playerData.put(tag, savedValue);
+		 } else
+			 return;
+		 
+		 this.globalTomeMap.put(player, playerData);
+		 
+	 }
+	
+	 @Override
+	 public EnumRarity getRarity(ItemStack itemStack) {
+		 return EnumRarity.epic;
+	 }
+	 
+	 @SideOnly(Side.CLIENT)
+	 public boolean hasPressedLeftClick() {
+		 
+		 int LKM = Minecraft.getMinecraft().gameSettings.keyBindAttack.getKeyCodeDefault();
+		 if (Mouse.isButtonDown(0) & this.verificationVariable == false) {
+			 this.verificationVariable = true;
+			 return true;
+		 } else if (!Mouse.isButtonDown(0) & this.verificationVariable == true) {
+			 this.verificationVariable = false;
+			 return false;
+		 } else
+			 return false;
 	 }
 	 
 	 @Override
@@ -94,8 +186,8 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 			 par3List.add(StatCollector.translateToLocal("item.ItemTelekinesisTome11_1.lore") + " " + (int) RelicsConfigHandler.telekinesisTomeDamageMIN + "-" + (int) RelicsConfigHandler.telekinesisTomeDamageMAX + " " + StatCollector.translateToLocal("item.ItemTelekinesisTome11_2.lore"));
 		 } else if (GuiScreen.isCtrlKeyDown()) {
 				par3List.add(StatCollector.translateToLocal("item.FRVisPerTick.lore"));
-			 	par3List.add(" " + StatCollector.translateToLocal("item.FRAerCost.lore") + ItemChaosTome.round(((this.AerCost/100.0D)/3.0D), 2));
-			 	par3List.add(" " + StatCollector.translateToLocal("item.FRPerditioCost.lore") + ItemChaosTome.round(((this.OrdoCost/100.0D)/3.0D), 2));
+			 	par3List.add(" " + StatCollector.translateToLocal("item.FRAerCost.lore") + ItemChaosTome.round((this.AerCost/100.0D), 2));
+			 	par3List.add(" " + StatCollector.translateToLocal("item.FRPerditioCost.lore") + ItemChaosTome.round((this.OrdoCost/100.0D), 2));
 			 	par3List.add(StatCollector.translateToLocal("item.FREmpty.lore"));
 			 	par3List.add(StatCollector.translateToLocal("item.FRVisPerCast.lore"));
 			 	par3List.add(" " + StatCollector.translateToLocal("item.FRAerCost.lore") + (80/100.0D)*RelicsConfigHandler.telekinesisTomeVisMult);
@@ -119,38 +211,54 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 	public void onUpdate(ItemStack stack, World world, Entity par3Entity, int p_77663_4_, boolean p_77663_5_) {
 		if(!(par3Entity instanceof EntityPlayer))
 			return;
-
-		int ticksTillExpire = ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0);
-		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);
-		int attackCooldown = ItemNBTHelper.getInt(stack, "AttackCooldown", 0);
+		
+		EntityPlayer player = (EntityPlayer) par3Entity;
+		
+		int ticksTillExpire = (Integer) this.getTomeTag(player, TAG_TICKS_TILL_EXPIRE, 0);
+		int ticksCooldown = (Integer) this.getTomeTag(player, TAG_TICKS_COOLDOWN, 0);
 
 		if(ticksTillExpire == 0) {
-			ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
-			ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
-			ItemNBTHelper.setDouble(stack, TAG_RE_DIST, -1);
+			this.setTomeTag(player, TAG_TARGET, -1);
+			this.setTomeTag(player, TAG_DIST, -1D);
+			this.setTomeTag(player, TAG_RE_DIST, -1D);
 		}
 		
-		if (attackCooldown > 0)
-			attackCooldown--;
+		ticksTillExpire--;
 		
 		if(ticksCooldown > 0)
 			ticksCooldown--;
-
-		ticksTillExpire--;
-		ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, ticksTillExpire);
-		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
-		ItemNBTHelper.setInt(stack, "AttackCooldown", attackCooldown);
-
-		EntityPlayer player = (EntityPlayer) par3Entity;
+		
+		this.setTomeTag(player, TAG_TICKS_TILL_EXPIRE, ticksTillExpire);
+		this.setTomeTag(player, TAG_TICKS_COOLDOWN, ticksCooldown);
+		
+		/*
 		PotionEffect haste = player.getActivePotionEffect(Potion.digSpeed);
 		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 		if(player.getCurrentEquippedItem() == stack && player.swingProgress == check && !world.isRemote)
 			leftClick(player);
+		*/
+		
+		if (player.worldObj.isRemote) {
+			boolean attack = false;
+			
+		if (Mouse.isButtonDown(1) & player.getCurrentEquippedItem() == stack) {
+			Main.packetInstance.sendToServer(new TelekinesisUseMessage());
+			this.onUsingTickAlt(stack, player, 0);
+			attack = true;
+		}
+		
+		if (attack & player.getCurrentEquippedItem() == stack & this.hasPressedLeftClick()) {
+			Main.packetInstance.sendToServer(new TelekinesisAttackMessage(true));
+		} 
+		
+		
+		}
+		
 	}
 	
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.bow;
+		return EnumAction.none;
 	}
 
 	@Override
@@ -158,19 +266,17 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 		return 72000;
 	}
 	
-	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
+	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {}
+	
+	//@Override
+	public void onUsingTickAlt(ItemStack stack, EntityPlayer player, int count) {
+		World world = player.worldObj;
 		
-	}
-
-	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		int targetID = (Integer) this.getTomeTag(player, TAG_TARGET, -1);
+		int ticksCooldown = (Integer) this.getTomeTag(player, TAG_TICKS_COOLDOWN, 0);
+		double length = (Double) this.getTomeTag(player, TAG_DIST, -1);
 		
-		int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
-		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);
-		double length = ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
-		
-		double re_dist = ItemNBTHelper.getDouble(stack, TAG_RE_DIST, -1);
+		double re_dist = (Double) this.getTomeTag(player, TAG_RE_DIST, -1);
 		
 		if(ticksCooldown == 0) {
 			
@@ -192,12 +298,12 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 			if(item != null) {
 				
 				if(WandManager.consumeVisFromInventory(player, new AspectList().add(Aspect.AIR, this.AerCost).add(Aspect.ORDER, this.OrdoCost))) {
-					
+					/*
 					if (!world.isRemote) {
 						Container inventory = player.inventoryContainer;
 						((EntityPlayerMP)player).sendContainerToPlayer(inventory);
 						}
-					
+					*/
 					EntityLivingBase targetEntity = (EntityLivingBase)item;
 					targetEntity.fallDistance = 0.0F;
 					if(targetEntity.getActivePotionEffect(Potion.moveSlowdown) == null)
@@ -216,24 +322,10 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 					target3.y += 0.5;
 					
 					Vector3 entityCenter = Vector3.fromEntityCenter(item);
-
-					for(int i = 0; i <= 6; i++) {
-						float r = 0.2F + (float) Math.random() * 0.3F;
-						float g = 0.0F;
-						float b = 0.5F + (float) Math.random() * 0.2F;
-						float s = 0.2F + (float) Math.random() * 0.1F;
-						float m = 0.15F;
-						float xm = ((float) Math.random() - 0.5F) * m;
-						float ym = ((float) Math.random() - 0.5F) * m;
-						float zm = ((float) Math.random() - 0.5F) * m;
-						
-						
-						Botania.proxy.wispFX(world, entityCenter.x, entityCenter.y, entityCenter.z, r, g, b, s, xm, ym, zm);
+					
+					if (!world.isRemote) {
+						Main.packetInstance.sendToAllAround(new TelekinesisParticleMessage(entityCenter.x, entityCenter.y, entityCenter.z, 1.0F), new TargetPoint(item.dimension, item.posX, item.posY, item.posZ, 64.0D));
 					}
-					
-					for (int counter = 0; counter <= 8; counter ++)
-						Main.proxy.spawnSuperParticle(world, "portalstuff", entityCenter.x, entityCenter.y, entityCenter.z, (Math.random() - 0.5D)*3.0D, (Math.random() - 0.5D)*3.0D, (Math.random() - 0.5D)*3.0D, 1.0F, 64);
-					
 					
 					double multiplier = item.getDistance(target3.x, target3.y, target3.z);
 					float vectorPower = 0.66666F;
@@ -245,27 +337,33 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 					}
 					
 					if(SuperpositionHandler.isEntityBlacklistedFromTelekinesis(item))
-						return stack;
+						return;
 					
 					setEntityMotionFromVector(item, target3, vectorPower);
 
-					ItemNBTHelper.setInt(stack, TAG_TARGET, item.getEntityId());
-					ItemNBTHelper.setDouble(stack, TAG_DIST, length);
-					ItemNBTHelper.setDouble(stack, TAG_RE_DIST, re_dist);
+					this.setTomeTag(player, TAG_TARGET, item.getEntityId());
+					this.setTomeTag(player, TAG_DIST, length);
+					this.setTomeTag(player, TAG_RE_DIST, re_dist);
 				}
 			}
 
 			if(item != null)
-				ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, 5);
+				this.setTomeTag(player, TAG_TICKS_TILL_EXPIRE, 5);
 		}
+	}
+
+	@Override
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		//player.setItemInUse(stack, 72000);
+		
 		
 		return stack;
 	}
-
+	
 	public void leftClick(EntityPlayer player) {
 		ItemStack stack = player.getHeldItem();
 		if(stack != null && stack.getItem() == Main.itemTelekinesisTome) {
-			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
+			int targetID = (Integer) this.getTomeTag(player, TAG_TARGET, -1);
 			
 			EntityLivingBase item = null;
 			
@@ -317,7 +415,7 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 		List<EntityLivingBase> entities = new ArrayList<EntityLivingBase>();
 		int distance = 1;
 		
-		while(entities.size() == 0 && distance < 25) {
+		while(entities.size() == 0 && distance < 32) {
 			target.add(new Vector3(player.getLookVec()).multiply(distance));
 
 			target.y += 0.5;
@@ -354,7 +452,7 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 		List<EntityLivingBase> entities = new ArrayList<EntityLivingBase>();
 		int distance = 1;
 		
-		while(entities.size() == 0 && distance < 25) {
+		while(distance < 32) {
 			target.add(new Vector3(player.getLookVec()).multiply(distance));
 
 			target.y += 0.5;
@@ -379,9 +477,9 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 	 * @param world
 	 */
 	
-	public static void lightningAttack(EntityPlayer player, EntityLivingBase target, ItemStack stack, World world) {
+	public void lightningAttack(EntityPlayer player, EntityLivingBase target, ItemStack stack, World world) {
 		
-		if (world.isRemote || ItemNBTHelper.getInt(stack, "AttackCooldown", 0) != 0)
+		if (world.isRemote || SuperpositionHandler.isOnCoodown(player))
 			return;
 		
 		Vector3 TVec = Vector3.fromEntityCenter(target);
@@ -404,13 +502,14 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 			target.motionY = moveVector.y * 1.5F;
 			target.motionZ = moveVector.z * 3.0F;
 			
-			ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
-			ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
-			ItemNBTHelper.setDouble(stack, TAG_RE_DIST, -1);
-			ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, 10);
+			this.setTomeTag(player, TAG_TARGET, -1);
+			this.setTomeTag(player, TAG_DIST, -1D);
+			this.setTomeTag(player, TAG_RE_DIST, -1D);
+			this.setTomeTag(player, TAG_TICKS_TILL_EXPIRE, 0);
+			this.setTomeTag(player, TAG_TICKS_COOLDOWN, 40);
 			}
 			
-			ItemNBTHelper.setInt(stack, "AttackCooldown", 10);
+			SuperpositionHandler.setCasted(player, 10, true);
 		
 	}
 

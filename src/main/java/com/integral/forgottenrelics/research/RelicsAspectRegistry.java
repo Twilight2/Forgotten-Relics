@@ -3,6 +3,7 @@ package com.integral.forgottenrelics.research;
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.handlers.SuperpositionHandler;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
@@ -105,6 +106,7 @@ public class RelicsAspectRegistry {
 		ItemStack brewFlask = new ItemStack(ModItems.brewFlask, 1, 0);
 
 		ItemStack goldenLaurel = new ItemStack(ModItems.goldLaurel, 1, 0);
+		ItemStack sugar = new ItemStack(Items.sugar, 1, 0);
 		//ThaumcraftApi.registerObjectTag(goldenLaurel, new AspectList().add(Aspect.VOID, 4).add(Aspect.DARKNESS, 4));
 		
 		/*
@@ -115,6 +117,8 @@ public class RelicsAspectRegistry {
 		
 		SuperpositionHandler.setItemAspectsForMetaRange(grassSeeds, , 15);
 		*/
+		
+		ThaumcraftApi.registerObjectTag(sugar, new AspectList().add(Aspect.HUNGER, 1));
 		
 		SuperpositionHandler.setItemAspectsForMetaRange(mysticFlowers, new AspectList().add(Aspect.SENSES, 6).add(Aspect.PLANT, 4).add(Aspect.LIFE, 3).add(Aspect.MAGIC, 3), 15, 0);
 		SuperpositionHandler.setItemAspectsForMetaRange(mysticDoubleFlowers1, new AspectList().add(Aspect.SENSES, 10).add(Aspect.PLANT, 7).add(Aspect.LIFE, 5).add(Aspect.MAGIC, 5), 15, 0);
@@ -235,7 +239,11 @@ public class RelicsAspectRegistry {
 		ItemStack ghastlySkull = new ItemStack(Main.itemGhastlySkull, 1, 0);
 		ItemStack omegaCore = new ItemStack(Main.itemOmegaCore, 1, 0);
 		ItemStack dormantNebulousCore = new ItemStack(Main.itemDormantArcanum, 1, 0);
+		
 		ItemStack thunderpeal = new ItemStack(Main.itemThunderpeal, 1, 0);
+		ItemStack overthrower = new ItemStack(Main.itemOverthrower, 1, 0);
+		ItemStack terrorCrown = new ItemStack(Main.itemTerrorCrown, 1, 0);
+		ItemStack discordRing = new ItemStack(Main.itemDiscordRing, 1, 0);
 		
 		ThaumcraftApi.registerObjectTag(weatherStone, new AspectList().add(Aspect.ENERGY, 12).add(Aspect.WEATHER, 10).add(Aspect.EXCHANGE, 8).add(Aspect.AIR, 7).add(Aspect.WATER, 7).add(Aspect.MAGIC, 5));
 		ThaumcraftApi.registerObjectTag(miningCharm, new AspectList().add(Aspect.MINE, 15).add(Aspect.TOOL, 10).add(Aspect.MOTION, 8).add(Aspect.MAGIC, 8).add(Aspect.METAL, 6));
@@ -265,7 +273,10 @@ public class RelicsAspectRegistry {
 		ThaumcraftApi.registerObjectTag(ghastlySkull, new AspectList().add(Aspect.DEATH, 16).add(Aspect.SOUL, 14).add(Aspect.DARKNESS, 14).add(Aspect.ENTROPY, 10).add(Aspect.VOID, 8).add(Aspect.MAGIC, 8));
 		ThaumcraftApi.registerObjectTag(omegaCore, new AspectList().add(Aspect.MAGIC, 32).add(Aspect.AURA, 32).add(Aspect.ENERGY, 32).add(Aspect.LIGHT, 32).add(Aspect.EXCHANGE, 32).add(Aspect.VOID, 32));
 		ThaumcraftApi.registerObjectTag(thunderpeal, new AspectList().add(Aspect.ENERGY, 12).add(Aspect.AIR, 9).add(Aspect.MAGIC, 8).add(Aspect.EXCHANGE, 5).add(Aspect.ORDER, 3));
-		
+		ThaumcraftApi.registerObjectTag(overthrower, new AspectList().add(Aspect.SOUL, 12).add(Aspect.FIRE, 9).add(Aspect.TRAVEL, 7).add(Aspect.MAGIC, 7).add(Aspect.MIND, 5).add(Aspect.DARKNESS, 4));
+		ThaumcraftApi.registerObjectTag(terrorCrown, new AspectList().add(Aspect.ELDRITCH, 18).add(Aspect.SENSES, 13).add(Aspect.WEAPON, 10).add(Aspect.DARKNESS, 8).add(Aspect.ARMOR, 6).add(Aspect.MAGIC, 5));
+		ThaumcraftApi.registerObjectTag(discordRing, new AspectList().add(Aspect.TRAVEL, 8).add(Aspect.MAGIC, 8).add(Aspect.EXCHANGE, 5).add(Aspect.TOOL, 4).add(Aspect.VOID, 3));
+	
 	}
 	
 }

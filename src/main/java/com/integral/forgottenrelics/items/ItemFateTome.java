@@ -56,8 +56,12 @@ public class ItemFateTome extends Item implements IWarpingGear {
 		 par3List.add(StatCollector.translateToLocal("item.ItemFateTome3.lore")); 
 		 par3List.add(StatCollector.translateToLocal("item.ItemFateTome4.lore"));
 		 par3List.add(StatCollector.translateToLocal("item.FREmpty.lore")); 
-		 par3List.add(StatCollector.translateToLocal("item.ItemFateTome5.lore")); 
-		 par3List.add(StatCollector.translateToLocal("item.FREmpty.lore")); 
+		 
+		 if (RelicsConfigHandler.fateTomeCooldownMAX != 0) {
+			 par3List.add(StatCollector.translateToLocal("item.ItemFateTome5_1.lore") + " " + RelicsConfigHandler.fateTomeCooldownMIN + "-" + RelicsConfigHandler.fateTomeCooldownMAX + " " + StatCollector.translateToLocal("item.ItemFateTome5_2.lore")); 
+			 par3List.add(StatCollector.translateToLocal("item.FREmpty.lore")); 
+		 }
+		 
 		 par3List.add(StatCollector.translateToLocal("item.ItemFateTome6.lore")); 
 		 par3List.add(StatCollector.translateToLocal("item.ItemFateTome7.lore"));
 		 par3List.add(StatCollector.translateToLocal("item.FREmpty.lore")); 
