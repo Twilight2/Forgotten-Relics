@@ -1,5 +1,5 @@
 # Forgotten Relics
-Current Version: 1.2.0 Beta [Greatness Update]
+Current Version: 1.3.0 Beta [Justice Update]
 
 Minecraft Version: 1.7.10
 
@@ -13,5 +13,4 @@ To-Do List for the nearest future:
 1. Implement the Wastelayer.
 2. Add some of relics themed around Runic Shield.
 3. Invent alternative Runic Shield handler (for previously mentioned relics).
-4. Implement alternative trigger system for researches.
-5. Review overall balancing.
+4. Review overall balancing.
