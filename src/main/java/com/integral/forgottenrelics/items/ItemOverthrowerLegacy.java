@@ -53,7 +53,7 @@ import vazkii.botania.common.core.helper.Vector3;
  * @author Integral
  */
 
-public class ItemOverthrower extends Item implements IWarpingGear {
+public class ItemOverthrowerLegacy extends Item implements IWarpingGear {
 	
 	 public static final int AerCost = (int) (0 * RelicsConfigHandler.overthrowerVisMult);
 	 public static final int TerraCost = (int) (0 * RelicsConfigHandler.overthrowerVisMult);
@@ -62,7 +62,7 @@ public class ItemOverthrower extends Item implements IWarpingGear {
 	 public static final int OrdoCost = (int) (5 * RelicsConfigHandler.overthrowerVisMult);
 	 public static final int PerditioCost = (int) (5 * RelicsConfigHandler.overthrowerVisMult);
 
-	public ItemOverthrower() {
+	public ItemOverthrowerLegacy() {
 		setMaxStackSize(1);
 		setUnlocalizedName("ItemOverthrower");
 		setCreativeTab(Main.tabForgottenRelics);
@@ -136,12 +136,17 @@ public class ItemOverthrower extends Item implements IWarpingGear {
 	}
 	
 	public boolean overthrow(EntityLivingBase entity, EntityPlayer overthrower) {
-
+		
+		ForgeChunkManager.Ticket ticket;
+		ticket = ForgeChunkManager.requestTicket(Main.instance, DimensionManager.getWorld(-1), ForgeChunkManager.Type.NORMAL);
+		
 		int x = (int) ((Math.random()-0.5D) * 20002.0D);
 		int z = (int) ((Math.random()-0.5D) * 20002.0D);
 		int y = 124;
 		
-		DimensionManager.getWorld(-1).getChunkProvider().loadChunk(x >> 4, z >> 4);
+		Chunk chunk = DimensionManager.getWorld(-1).getChunkFromBlockCoords(x, z);
+		
+		ForgeChunkManager.forceChunk(ticket, new ChunkCoordIntPair(chunk.xPosition, chunk.zPosition));
 		
 		for (int counter = 124; counter > 0; counter--) {
 			boolean valid = SuperpositionHandler.validatePosition(DimensionManager.getWorld(-1), x, counter, z);
@@ -167,9 +172,8 @@ public class ItemOverthrower extends Item implements IWarpingGear {
 
 				overthrownEntity.setPositionAndUpdate(x, y, z);
 				DimensionManager.getWorld(-1).spawnEntityInWorld(overthrownEntity);
-				//System.out.println("Overthrown entity spawned: " + overthrownEntity + ", " + overthrownEntity.dimension);
 				} catch (Exception ex) {}
-				
+				//System.out.println("Overthrown entity spawned: " + overthrownEntity + ", " + overthrownEntity.dimension);
 				entity.setDead();
 				
 				for (int a = 0; a < 12; ++a) {
@@ -181,17 +185,20 @@ public class ItemOverthrower extends Item implements IWarpingGear {
 	                	entity.worldObj.setBlock(xx, yy + 1, zz, Blocks.fire, 0, 3);
 	                }
 	            }
-
+				
+				ForgeChunkManager.releaseTicket(ticket);
 				return true;
 			} else {
 				((EntityPlayerMP)entity).mcServer.getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) entity, -1);
 				entity.setPositionAndUpdate(x, y, z);
 				Main.packetInstance.sendToAll(new OverthrowChatMessage(overthrower.getDisplayName(), ((EntityPlayer) entity).getDisplayName()));
 				System.out.println(overthrower.getDisplayName() + " has overthrown " + ((EntityPlayer) entity).getDisplayName() + " into the Nether.");
+				ForgeChunkManager.releaseTicket(ticket);
 				return true;
 			}
 			
 		} else {
+			ForgeChunkManager.releaseTicket(ticket);
 			return false;
 		}
 		
