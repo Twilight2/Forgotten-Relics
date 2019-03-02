@@ -1,5 +1,5 @@
 # Forgotten Relics
-**Current Version:** 1.3.0 Beta [Justice Update]
+**Current Version:** 1.3.1 Beta
 
 **Minecraft Version:** 1.7.10
 
