@@ -27,5 +27,15 @@
         "stream": false
       }
     ]
+  },
+  
+  "sound.mdcharge": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "specific/md_charge",
+        "stream": false
+      }
+    ]
   }
 }

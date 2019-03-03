@@ -1,5 +1,6 @@
 package com.integral.forgottenrelics.items;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
@@ -61,6 +62,8 @@ public class ItemOverthrower extends Item implements IWarpingGear {
 	 public static final int AquaCost = (int) (0 * RelicsConfigHandler.overthrowerVisMult);
 	 public static final int OrdoCost = (int) (5 * RelicsConfigHandler.overthrowerVisMult);
 	 public static final int PerditioCost = (int) (5 * RelicsConfigHandler.overthrowerVisMult);
+	 
+	 static HashMap<EntityPlayer, EntityLivingBase> targetList = new HashMap<EntityPlayer, EntityLivingBase>();
 
 	public ItemOverthrower() {
 		setMaxStackSize(1);
@@ -117,21 +120,11 @@ public class ItemOverthrower extends Item implements IWarpingGear {
 
 	@Override
 	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
-		 return 100;
+		 return 150;
 	}
 	
 	@Override
 	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean b) {
-		if (entity instanceof EntityPlayer & !world.isRemote) {
-			EntityPlayer player = (EntityPlayer) entity;
-			
-			if (ItemNBTHelper.getInt(itemstack, "StoredID", -1) != -1)
-			if (!player.isUsingItem() || player.getHeldItem() != itemstack) {
-				ItemNBTHelper.setInt(itemstack, "StoredID", -1);
-			}
-			
-		}
-		
 		
 	}
 	
@@ -186,7 +179,7 @@ public class ItemOverthrower extends Item implements IWarpingGear {
 			} else {
 				((EntityPlayerMP)entity).mcServer.getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) entity, -1);
 				entity.setPositionAndUpdate(x, y, z);
-				Main.packetInstance.sendToAll(new OverthrowChatMessage(overthrower.getDisplayName(), ((EntityPlayer) entity).getDisplayName()));
+				Main.packetInstance.sendToAll(new OverthrowChatMessage(((EntityPlayer) entity).getDisplayName(), overthrower.getDisplayName(), 0));
 				System.out.println(overthrower.getDisplayName() + " has overthrown " + ((EntityPlayer) entity).getDisplayName() + " into the Nether.");
 				return true;
 			}
@@ -200,19 +193,15 @@ public class ItemOverthrower extends Item implements IWarpingGear {
 
 	@Override
 	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
+		if (player.worldObj.isRemote)
+			return;
 		
-		if (!WandManager.consumeVisFromInventory(player, new AspectList().add(Aspect.FIRE, this.IgnisCost).add(Aspect.ORDER, this.OrdoCost).add(Aspect.ENTROPY, this.PerditioCost))) {
-			count--;
+		if (!this.targetList.containsKey(player) || !WandManager.consumeVisFromInventory(player, new AspectList().add(Aspect.FIRE, this.IgnisCost).add(Aspect.ORDER, this.OrdoCost).add(Aspect.ENTROPY, this.PerditioCost))) {
+			player.stopUsingItem();
 			return;
 		}
 			
-		int targetID = ItemNBTHelper.getInt(stack, "StoredID", -1);
-		if (targetID == -1) {
-			//this.onPlayerStoppedUsing(stack, player.worldObj, player, count);
-			return;
-		}
-		
-		Entity target = player.worldObj.getEntityByID(targetID);
+		EntityLivingBase target = this.targetList.get(player);
 		
 		if (target != null) {
 		if (!target.isDead) {
@@ -227,11 +216,12 @@ public class ItemOverthrower extends Item implements IWarpingGear {
 			
 			 if (!player.worldObj.isRemote)
 			 Main.packetInstance.sendToAllAround(new BanishmentCastingMessage(thisPos.x, thisPos.y, thisPos.z, 5), new TargetPoint(target.dimension, target.posX, target.posY, target.posZ, 64.0D));
-			
-			 theTarget.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 30, 2, true));
+			 
+			 try {
+				 theTarget.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 30, 2, true));
+			 } catch (Exception ex) {}
 			 
 			 if (count == 1) {
-				 
 				 if (theTarget.dimension != -1 & !player.worldObj.isRemote) {
 					boolean gotEffect = false;
 					for (int counter = 8; counter >= 0; counter--) {
@@ -264,37 +254,33 @@ public class ItemOverthrower extends Item implements IWarpingGear {
 			 }
 			 
 			 
-		} } else {
-			ItemNBTHelper.setInt(stack, "StoredID", -1);
-			//this.onPlayerStoppedUsing(stack, player.worldObj, player, count);
+		} else {
+			this.targetList.put(player, null);
+			player.stopUsingItem();
+			return;
+		} 
+		
+		} else {
+			this.targetList.put(player, null);
+			player.stopUsingItem();
+			return;
 		}
 	}
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		
-		if (!world.isRemote & player.dimension != -1) {
-			Entity pointedEntity = EntityUtils.getPointedEntity(world, player, 0.0D, 128.0D, 3F);
+		if (player.dimension == -1)
+			return stack;
+		
+		Entity pointedEntity = EntityUtils.getPointedEntity(world, player, 0.0D, 64.0D, 3F);
+		
+		if (pointedEntity != null) {
+			this.targetList.put(player, (EntityLivingBase) pointedEntity);
+			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
 			
-			if (pointedEntity instanceof EntityLivingBase) {
-				
-				if (pointedEntity.getEntityId() != ItemNBTHelper.getInt(stack, "StoredID", -1)) {
-					ItemNBTHelper.setInt(stack, "StoredID", pointedEntity.getEntityId());
-					player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-					
-					Container inventory = player.inventoryContainer;
-					((EntityPlayerMP)player).sendContainerToPlayer(inventory);
-					
-					//Main.packetInstance.sendToAllAround(new ItemUseMessage(stack.getMaxItemUseDuration()), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 128.0D));
-				} else {
-					
-					player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-					Main.packetInstance.sendToAllAround(new ItemUseMessage(stack.getMaxItemUseDuration()), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 128.0D));
-					
-				}
-			}
-			
-		}
+		} else
+			this.targetList.put(player, null);
 		
 		return stack;
 	}

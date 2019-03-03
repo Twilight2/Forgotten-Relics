@@ -75,7 +75,6 @@ public class JusticeBringerHandler extends Thread {
 		}
 		
 		} catch (Exception ex) {}
-		
 	}
 	
 	

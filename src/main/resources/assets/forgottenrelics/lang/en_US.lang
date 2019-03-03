@@ -46,9 +46,12 @@ item.ItemOverthrower.name=Edict of Eternal Banishment
 item.ItemThunderpeal.name=Thunderpeal
 item.ItemTerrorCrown.name=Crown of Terror
 item.ItemDiscordRing.name=Ring of Discord
-
+item.ItemVoidGrimoire.name=Grimoire of The Abyss
 
 ### NOTIFICATIONS ###
+
+status.outdated=§5Version §6%1$s§5 §5of §6Forgotten §6Relics§5 §5was §5released... §5You §5should §5behold §5it's §5greatness!
+status.noconnection=§6Forgotten §6Relics §5was §5unable §5to §5check §5for §5updates.
 
 notification.soul_gain=Souls consumed:
 notification.fate_cooldown_over=§5Tome of Broken Fates' cooldown is over.
@@ -57,6 +60,19 @@ notification.research_triggered=§6The key to forgotten knowledge was revealed t
 
 message.overthrown1=has overthrown
 message.overthrown2=into the Nether.
+message.overthrown3=into the Void.
+
+### ENTITIES ###
+
+entity.ForgottenRelics.EntityCrimsonOrb.name=Crimson Orb
+entity.ForgottenRelics.SomeVeryRageousStuff.name=Furious Energy Charge
+entity.ForgottenRelics.EntityDarkMatterOrb.name=Dark Matter Orb
+entity.ForgottenRelics.EntitySoulEnergy.name=Soul Energy
+entity.ForgottenRelics.EntityLunarFlare.name=Lunar Flare
+entity.ForgottenRelics.EntityShinyEnergy.name=Shiny Energy
+entity.ForgottenRelics.EntityBabylonWeaponSS.name=Babylon Weapon
+entity.ForgottenRelics.EntityChaoticOrb.name=Orb of Primordial Energy
+entity.ForgottenRelics.EntityThunderpealOrb.name=Orb of Electrical Energy
 
 ### TOOLTIP OPTIONS ###
 
@@ -345,6 +361,13 @@ item.ItemDiscordRing2.lore=§5inventory, allows you to trigger its
 item.ItemDiscordRing3.lore=§5effects using specialized key.
 item.ItemDiscordRing4.lore=§dCurrent Keybind:
 
+item.ItemVoidGrimoire1.lore=§5Allows you to overthrow any entity you
+item.ItemVoidGrimoire2.lore=§5are looking at into the §6Void§5, ultimately
+item.ItemVoidGrimoire3.lore=§5obliterating it.
+item.ItemVoidGrimoire4.lore=§5After targeting an entity, a few seconds 
+item.ItemVoidGrimoire5.lore=§5will be required to focus Grimoire's power.
+item.ItemVoidGrimoire6.lore=§6While casting, your target is immobilized.
+
 ### RESEARCH CATEGORY ###
 
 tc.research_category.ForgottenRelics=Forgotten Relics
@@ -415,12 +438,12 @@ fr.text.DimensionalMirror.2=this place later by simply gazing into it.<BR/>The s
 fr.name.XPTome=Tome of Ageless Wisdom
 fr.tag.XPTome=It won't save you from sclerosis, unfortunately
 fr.text.XPTome.1="Expirience", which in your world most of the time means not an ephemeral indicator of how much you have seen in your life, has long been a disturbing riddle for you, not finding a final solution. Many consider it to be a peculiar kind of life force, in view of how killing living beings conveys their experience to the killer.<BR/>Although most of the time, experience is used in different techniques of enchantment, there are ways to convert it into pure energy - including in the form of Vis. Anyway, ways of effectively storing it remained an open question to this very moment, since, due to the extraordinary nature of the
-fr.text.XPTome.2=experience, it could not be simply poured into a jar and put on the shelf.<BR/>But now you possess, most likely, the most efficient way of accumulating and storing this ethereal matter. Tome of Ageless Wisdom is capable of absorping practically limitless amount of experience, and storing it for an unlimited amount of time, until it is claimed.<BR/>Side effects may include, but are not limited to: short-term memory loss, false memories, sudden loss of consciousness, unconscious actions, sleepwalking, a feeling of emptiness and an inexplicable addiction to pastry.
+fr.text.XPTome.2=experience, it could not be simply poured into a jar and put on the shelf.<BR/>But now you possess, most likely, the most efficient way of accumulating and storing this ethereal matter. Tome of Ageless Wisdom is capable of absorbing practically limitless amount of experience, and storing it for an unlimited amount of time, until it is claimed.<BR/>Side effects may include, but are not limited to: short-term memory loss, false memories, sudden loss of consciousness, unconscious actions, sleepwalking, a feeling of emptiness and an inexplicable addiction to pastry.
 
 fr.name.OblivionAmulet=Amulet of The Oblivion
 fr.tag.OblivionAmulet=The deceiver of deceivers
 fr.text.OblivionAmulet.1=Oblivion itself is quite curious phenomenon, that attracts mind of those who are not afraid to explore dark sides of magical arts. Some suggest that it is a dimension, but with extremely unusal properties; others - that this is some kind of titanic entity, existing beyoud our known space; third - that in some sense, both of this theories may be true.<BR/>We may never know for certain, but one thing remains beyoud doubt. Oblivion is not something static and silent. It is changeable and inconstant, and when someone calls to it - it responds... One way or another. It is unknown whether it has a mind and what are its desires, if
-fr.text.OblivionAmulet.2=it is even able to desire at all.<BR/>But this amulet - is one of the clearest examples of connection between Oblivion and our world. Some kind of magic contract, embodied in physical incarnation. It could protect its wearer from any hazards... But it comes at a price.<BR/>Even rejecting superstitious fears and approaching this question from an exceptionally practical side, you are still not sure how justified it is to conclude such a deals. Well, you can hope that consumption of your soul by Oblivion at the time of reckoning will be less unpleasant than being eaten alive, or death in agony from injuries incompatible with life, or... Generally, that it would be better than average death.
+fr.text.OblivionAmulet.2=it is even able to desire at all.<BR/>But this amulet - is one of the clearest examples of connection between Oblivion and our world. Some kind of magical contract, embodied in physical incarnation. It could protect its wearer from any hazards... But it comes at a price.<BR/>Even rejecting superstitious fears and approaching this question from an exceptionally practical side, you are still not sure how justified it is to conclude such a deals. Well, you can hope that consumption of your soul by Oblivion at the time of reckoning will be less unpleasant than being eaten alive, or death in agony from injuries incompatible with life, or... Generally, that it would be better than average death.
 fr.text.OblivionAmulet.3=Unfortunately, so far you were unable to find volunteers for the relevant tests.<LINE/>§oYou want to live forever           No death, no agony               This is beyond my power           Can’t fool the entropy             But I can make you stronger      Impossible to kill                 Immune to heat and hunger          A gesture of goodwill...§r
 
 fr.name.NebulousCore=Nebulous Core
@@ -441,7 +464,7 @@ fr.text.ShinyStone.2=Unfortunately, most battles demand you to constantly move, 
 
 fr.name.FateTome=Tome of Broken Fates
 fr.tag.FateTome=I don't mean it's completely safe...
-fr.text.FateTome.1=Properties of Golden Laurel Crown showed themselves quite useful in practice, but its obvious downsides have made you searching better alternative. It's hard to judge, is it really better, but the alternative were definitely found.<BR/>This tome is not a regular spellbook, though it could be considered one by some key parameters. Its functional mostly ressembles propeties of Golden Laurel Crown, but there's a few important differences. For it to work, it's enough to carry it within your inventory, and in the moment of death prevention, besides full health restoration, it also applies few positive effects to owner... Well, most of the time.
+fr.text.FateTome.1=Properties of Golden Laurel Crown showed themselves quite useful in practice, but its obvious downsides have made you search for better alternative. It's hard to judge, is it really better, but the alternative was definitely found.<BR/>This tome is not a regular spellbook, though it could be considered one by some key parameters. Its functional mostly ressembles propeties of Golden Laurel Crown, but there's a few important differences. For it to work, it's enough to carry it within your inventory, and in the moment of death prevention, besides full health restoration, it also applies few positive effects to owner... Well, most of the time.
 fr.text.FateTome.2=The price of this functionality is a substancial Vis costs and considerable cooldown. The last may vary, depending on how lucky you will be.<BR/>Exploring ancient writings about pre-incarnations of this relic, you stumbled upon countless warning stories, related to attempts of possessing more than one copy of this tome. You never managed to figure out what exactly this might lead to, but something tells you that trying to figure it out in practice would be a very, very bad idea.
 
 fr.name.DiscordTome=Tome of Discord
@@ -526,3 +549,9 @@ fr.name.DiscordRing=Ring of Discord
 fr.tag.DiscordRing=Avoid gesticulating too much while wearing it
 fr.text.DiscordRing.1=If something is good, it never means you can't make it better. Tome of Discord was one of the most useful of your discoveries, but, ultimately, it also has some flaws.<BR/>Of course, you can always ask your enemies to wait a bit while you are looking for this tome across your inventory, take it in hand, and finally can use it to escape them... But as practice has shown, this doesn't always work. Usually, it's not so important, but in combat, where every moment plays a decisive role, a second of delay can cost you your life.<BR/>And that's why you came to the creation of this ring.
 fr.text.DiscordRing.2=While being worn, at the cost of slight effort of will it allows you to use Tome of Discord in any moment, as long as the latter remains in your inventory - with no need to search it and take to your hands.<BR/>Functionally, using the tome this way is not much different from utilizing it "manually".
+
+fr.name.VoidGrimoire=Grimoire of The Abyss
+fr.tag.VoidGrimoire=Deliver me from your tiresome presence
+fr.text.VoidGrimoire.1=Edict of Eternal Banishment is a curious thing, of course... But not always practical. Sometimes you would like to reliably destroy your enemy, instead of living him even insignificant, but still a chance to survive and revenge you. Even if we talk about humans. Especially if we talk about humans.<BR/>Exploring the End, many unexperienced travellers end up their life in abyssal void, that consumes everything and everyone who is clumsy enough to stumble and fall into it from floating islands. But even though the End is easiest way to meet this void "face to face", it's not a secret to anyone that such an abyss exists under each world -
+fr.text.VoidGrimoire.2=including yours, where it lies beneath impenetratable layer of bedrock.<BR/>Probably, it will forever remain for you a frightening mystery, since this void is the place full of... void, really. It has neither bottom, nor observable boundaries, and no one has any idea why it exists at all - only countless theories and hypotheses are at your disposal. However, now it can to some extent also become an instrument in your hands.<BR/>Grimoire of The Abyss allows you to overthrow any living being into the world's void, which in most cases equals to completely wiping it out of existence... Well, at least you haven’t seen anything returning from there.
+fr.text.VoidGrimoire.3=After choosing a target, for a few seconds it will ascend into the air and will remain motionless, unable to escape you or to get closer to attack. Once enough power is focused, the Void will consume it - in probably less spectacular than in case with Edict, but still terrifying, gulp.<BR/>Let's hope that now not only your enemies, but also your friends will have a good reason to fear annoying you.

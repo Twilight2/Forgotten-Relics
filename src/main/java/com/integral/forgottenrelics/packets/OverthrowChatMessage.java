@@ -16,24 +16,28 @@ public class OverthrowChatMessage implements IMessage {
     
     private String overthrownPlayer;
     private String overthrower;
+    private int type;
 
     public OverthrowChatMessage() { }
 
-    public OverthrowChatMessage(String overthrownPlayer, String overthrower) {
+    public OverthrowChatMessage(String overthrownPlayer, String overthrower, int type) {
         this.overthrownPlayer = overthrownPlayer;
         this.overthrower = overthrower;
+        this.type = type;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         this.overthrownPlayer = ByteBufUtils.readUTF8String(buf);
         this.overthrower = ByteBufUtils.readUTF8String(buf);
+        this.type = buf.readInt();
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, this.overthrownPlayer);
         ByteBufUtils.writeUTF8String(buf, this.overthrower);
+        buf.writeInt(this.type);
     }
 
     public static class Handler implements IMessageHandler<OverthrowChatMessage, IMessage> {
@@ -46,7 +50,10 @@ public class OverthrowChatMessage implements IMessage {
             String overthrown = message.overthrownPlayer;
             String overthrower = message.overthrower;
             
-            player.addChatMessage(new ChatComponentText(overthrower + " " + StatCollector.translateToLocal("message.overthrown1") + " " + overthrown + " " + StatCollector.translateToLocal("message.overthrown2")));
+            if (message.type == 0)
+            	player.addChatMessage(new ChatComponentText(overthrower + " " + StatCollector.translateToLocal("message.overthrown1") + " " + overthrown + " " + StatCollector.translateToLocal("message.overthrown2")));
+            else if (message.type == 1)
+            	player.addChatMessage(new ChatComponentText(overthrower + " " + StatCollector.translateToLocal("message.overthrown1") + " " + overthrown + " " + StatCollector.translateToLocal("message.overthrown3")));
             
             return null;
         }

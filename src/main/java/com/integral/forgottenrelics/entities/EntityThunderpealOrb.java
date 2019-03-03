@@ -101,8 +101,8 @@ public class EntityThunderpealOrb extends EntityThrowable
                 }
             }
             
-            SuperpositionHandler.imposeBurst(this.worldObj, this.dimension, this.posX, this.posY, this.posZ, 2.5F);
-            SuperpositionHandler.imposeBurst(this.worldObj, this.dimension, this.posX, this.posY, this.posZ, 2.5F);
+            SuperpositionHandler.imposeBurst(this.worldObj, this.dimension, this.posX, this.posY, this.posZ, 2.0F);
+            SuperpositionHandler.imposeBurst(this.worldObj, this.dimension, this.posX, this.posY, this.posZ, 2.0F);
             
             this.worldObj.playSoundEffect(this.posX, this.posY, this.posZ, "thaumcraft:shock", 2.0f, 1.0f + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2f);
         }

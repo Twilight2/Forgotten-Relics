@@ -20,6 +20,7 @@ import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import com.integral.forgottenrelics.handlers.RelicsEventHandler;
 import com.integral.forgottenrelics.handlers.RelicsKeybindHandler;
 import com.integral.forgottenrelics.handlers.RelicsMaterialHandler;
+import com.integral.forgottenrelics.handlers.RelicsUpdateHandler;
 import com.integral.forgottenrelics.items.ItemAdvancedMiningCharm;
 import com.integral.forgottenrelics.items.ItemAncientAegis;
 import com.integral.forgottenrelics.items.ItemApotheosis;
@@ -51,6 +52,7 @@ import com.integral.forgottenrelics.items.ItemTelekinesisTome;
 import com.integral.forgottenrelics.items.ItemTeleportationTome;
 import com.integral.forgottenrelics.items.ItemTerrorCrown;
 import com.integral.forgottenrelics.items.ItemThunderpeal;
+import com.integral.forgottenrelics.items.ItemVoidGrimoire;
 import com.integral.forgottenrelics.items.ItemWastelayer;
 import com.integral.forgottenrelics.items.ItemWeatherStone;
 import com.integral.forgottenrelics.items.ItemXPTome;
@@ -59,7 +61,7 @@ import com.integral.forgottenrelics.packets.ArcLightningMessage;
 import com.integral.forgottenrelics.packets.BanishmentCastingMessage;
 import com.integral.forgottenrelics.packets.BurstMessage;
 import com.integral.forgottenrelics.packets.DiscordKeybindMessage;
-import com.integral.forgottenrelics.packets.EntityStateMessage;
+import com.integral.forgottenrelics.packets.EntityMotionMessage;
 import com.integral.forgottenrelics.packets.ForgottenResearchMessage;
 import com.integral.forgottenrelics.packets.ICanSwingMySwordMessage;
 import com.integral.forgottenrelics.packets.InfernalParticleMessage;
@@ -70,6 +72,7 @@ import com.integral.forgottenrelics.packets.LunarBurstMessage;
 import com.integral.forgottenrelics.packets.LunarFlaresParticleMessage;
 import com.integral.forgottenrelics.packets.NotificationMessage;
 import com.integral.forgottenrelics.packets.OverthrowChatMessage;
+import com.integral.forgottenrelics.packets.PacketVoidMessage;
 import com.integral.forgottenrelics.packets.PlayerMotionUpdateMessage;
 import com.integral.forgottenrelics.packets.PortalTraceMessage;
 import com.integral.forgottenrelics.packets.TelekinesisAttackMessage;
@@ -94,10 +97,12 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -107,8 +112,10 @@ import thaumcraft.common.config.Config;
 public class Main {
 
 	public static final String MODID = "ForgottenRelics";
-	public static final String VERSION = "1.3.0";
+	public static final String VERSION = "1.4.0";
 	public static final String NAME = "Forgotten Relics";
+	
+	public static final String RELEASE_TYPE = "Beta";
 	
 	public static SimpleNetworkWrapper packetInstance;
 	
@@ -171,6 +178,8 @@ public class Main {
 	public static Item itemOverthrower;
 	public static Item itemDiscordRing;
 	
+	public static Item itemVoidGrimoire;
+	
 	public RelicsConfigHandler configHandler = new RelicsConfigHandler();
 	
 	public static final int howCoolAmI = Integer.MAX_VALUE;
@@ -202,7 +211,7 @@ public class Main {
 		packetInstance.registerMessage(LightningMessage.Handler.class, LightningMessage.class, 6, Side.CLIENT);
 		packetInstance.registerMessage(ArcLightningMessage.Handler.class, ArcLightningMessage.class, 7, Side.CLIENT);
 		packetInstance.registerMessage(ICanSwingMySwordMessage.Handler.class, ICanSwingMySwordMessage.class, 8, Side.CLIENT);
-		packetInstance.registerMessage(EntityStateMessage.Handler.class, EntityStateMessage.class, 9, Side.CLIENT);
+		packetInstance.registerMessage(EntityMotionMessage.Handler.class, EntityMotionMessage.class, 9, Side.CLIENT);
 		packetInstance.registerMessage(LightningBoltMessage.Handler.class, LightningBoltMessage.class, 10, Side.CLIENT);
 		packetInstance.registerMessage(InfernalParticleMessage.Handler.class, InfernalParticleMessage.class, 11, Side.CLIENT);
 		packetInstance.registerMessage(ItemUseMessage.Handler.class, ItemUseMessage.class, 12, Side.CLIENT);
@@ -215,6 +224,7 @@ public class Main {
 		packetInstance.registerMessage(TelekinesisAttackMessage.Handler.class, TelekinesisAttackMessage.class, 19, Side.SERVER);
 		packetInstance.registerMessage(TelekinesisUseMessage.Handler.class, TelekinesisUseMessage.class, 20, Side.SERVER);
 		packetInstance.registerMessage(TelekinesisParticleMessage.Handler.class, TelekinesisParticleMessage.class, 21, Side.CLIENT);
+		packetInstance.registerMessage(PacketVoidMessage.Handler.class, PacketVoidMessage.class, 22, Side.CLIENT);
 		
 		RelicsAspectRegistry.registerItemAspectsFirst();
 		
@@ -252,6 +262,7 @@ public class Main {
 		itemWastelayer = new ItemWastelayer(RelicsMaterialHandler.materialParadoxicalStuff);
 		itemOverthrower = new ItemOverthrower();
 		itemDiscordRing = new ItemDiscordRing();
+		itemVoidGrimoire = new ItemVoidGrimoire();
 		
 		GameRegistry.registerItem(itemFalseJustice, "ItemFalseJustice");
 		GameRegistry.registerItem(itemDeificAmulet, "ItemDeificAmulet");
@@ -286,6 +297,7 @@ public class Main {
 		GameRegistry.registerItem(itemTerrorCrown, "ItemTerrorCrown");
 		GameRegistry.registerItem(itemOverthrower, "ItemOverthrower");
 		GameRegistry.registerItem(itemDiscordRing, "ItemDiscordRing");
+		GameRegistry.registerItem(itemVoidGrimoire, "ItemVoidGrimoire");
 		
 		EntityRegistry.registerModEntity(EntityRageousMissile.class, "SomeVeryRageousStuff", 237, Main.instance, 64, 20, true);
 		EntityRegistry.registerModEntity(EntityCrimsonOrb.class, "EntityCrimsonOrb", 238, Main.instance, 64, 20, true);
@@ -298,6 +310,8 @@ public class Main {
 		EntityRegistry.registerModEntity(EntityThunderpealOrb.class, "EntityThunderpealOrb", 246, Main.instance, 64, 20, true);
 		
 		proxy.registerKeybinds();
+		
+		MinecraftForge.EVENT_BUS.register(new RelicsUpdateHandler());
 		
 		FMLCommonHandler.instance().bus().register(new RelicsKeybindHandler());
 		MinecraftForge.EVENT_BUS.register(new RelicsEventHandler());
@@ -318,6 +332,8 @@ public class Main {
 		Config.notificationDelay = RelicsConfigHandler.notificationDelay;
 		
 		ForgeChunkManager.setForcedChunkLoadingCallback(instance, new RelicsChunkLoadCallback());
+		
+		RelicsUpdateHandler.init();
 	}
 	
 	

@@ -68,6 +68,7 @@ public class RelicsConfigHandler {
 	public static float thunderpealVisMult;
 	
 	public static float overthrowerVisMult;
+	public static float voidGrimoireVisMult;
 	
 	public static int runicCost;
 	public static int runicRechargeDelay;
@@ -88,10 +89,19 @@ public class RelicsConfigHandler {
 	public static float outerLandsAntiAbuseDamage;
 	public static boolean outerLandsAntiAbuseEnabled;
 	
+	public static boolean voidGrimoireEnabled;
+	public static boolean updateNotificationsEnabled;
+	
 	public void configDisposition(FMLPreInitializationEvent event) {
 		
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 	    config.load();
+	    
+	    this.updateNotificationsEnabled = config.getBoolean("updateNotificationsEnabled", "Generic Config", true, 
+	    		"Whether or not update notifications should be enabled. I have no idea why someone may not want to behold greatness of new versions, but alright, it's all up to you.");
+	    
+	    this.voidGrimoireEnabled = config.getBoolean("voidGrimoireEnabled", "Generic Config", true, 
+	    		"Whethere or not Grimoire of The Abyss should be enabled. Note that it will only remove respective research, so it would be impossible to create this relic legally - it won't remove existing copies from world or prevent it's spawning from Creative Mode.");
 	    
 	    this.outerLandsCheckrate = config.getInt("outerLandsCheckrate", "Generic Config", 20, 1, 1024000, 
 	    		"Checkrate for Outer Lands anti-abuse system, if it's enabled. Measured in ticks. Setting this value to 20 means that it would check each player once in 20 ticks, or once per second.");
@@ -272,6 +282,9 @@ public class RelicsConfigHandler {
 	    
 	    this.overthrowerVisMult = config.getFloat("overthrowerVisCost", "Vis Costs", 1.0F, 0F, 1024.0F,
 	    		"Vis cost multiplier for Edict of Eternal Banishment.");
+	    
+	    this.voidGrimoireVisMult = config.getFloat("voidGrimoireVisMult", "Vis Costs", 1.0F, 0F, 1024.0F,
+	    		"Vis cost multiplier for Grimoire of The Abyss.");
 	    
 	    config.save();
 	    

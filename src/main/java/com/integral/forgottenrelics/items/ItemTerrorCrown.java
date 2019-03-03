@@ -48,12 +48,16 @@ public class ItemTerrorCrown extends ItemArmor implements IWarpingGear, IReveale
 		if (scannedEntity instanceof EntityLivingBase) {
 			EntityLivingBase targetEntity = (EntityLivingBase) scannedEntity;
 			
+			
+		try {
 			targetEntity.addPotionEffect(new PotionEffect(Potion.blindness.id, 100, 2, true));
 			if (!targetEntity.isPotionActive(Potion.wither))
 			targetEntity.addPotionEffect(new PotionEffect(Potion.wither.id, 40, 0, false));
 			targetEntity.addPotionEffect(new PotionEffect(Potion.confusion.id, 100, 1, true));
 			targetEntity.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 30, 1, true));
 			targetEntity.addPotionEffect(new PotionEffect(Potion.weakness.id, 80, 2, true));
+		} catch (Exception ex) {}
+		
 		}
 		
 		}

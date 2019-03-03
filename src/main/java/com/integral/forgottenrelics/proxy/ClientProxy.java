@@ -34,7 +34,6 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerRenderers(Main ins) {
-		
 	}
 	
 	public void registerDisplayInformation() {

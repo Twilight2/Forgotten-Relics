@@ -8,6 +8,7 @@ import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import com.integral.forgottenrelics.handlers.SuperpositionHandler;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -56,6 +57,7 @@ public class RelicsResearchRegistry {
 	public static ItemStack thunderpeal = new ItemStack(Main.itemThunderpeal, 1, 0);
 	public static ItemStack overthrower = new ItemStack(Main.itemOverthrower, 1, 0);
 	public static ItemStack discordRing = new ItemStack(Main.itemDiscordRing, 1, 0);
+	public static ItemStack voidGrimoire = new ItemStack(Main.itemVoidGrimoire, 1, 0);
 	
 	public static ItemStack enderEye = new ItemStack(Items.ender_eye, 1, 0);
 	public static ItemStack salisMundus = new ItemStack(ConfigItems.itemResource, 1, 14);
@@ -140,11 +142,11 @@ public class RelicsResearchRegistry {
 	public static ItemStack fermentedSpiderEye = new ItemStack(Items.fermented_spider_eye, 1, 0);
 	public static ItemStack quartz = new ItemStack(Items.quartz, 1, 0);
 	public static ItemStack hellFocus = new ItemStack(ConfigItems.itemFocusHellbat, 1, 0);
+	public static ItemStack eldritchTablet = new ItemStack(ConfigItems.itemEldritchObject, 1, 2);
+	public static ItemStack bedrock = new ItemStack(Blocks.bedrock, 1, 0);
+	public static ItemStack sinisterStone = new ItemStack(ConfigItems.itemCompassStone, 1, 0);
 	
 	public static void integrateResearch() {
-		
-		ItemStack eldritchTablet = (new ItemStack(ConfigItems.itemEldritchObject, 1, 13));
-		eldritchTablet.setItemDamage(2);
 		
 		ResearchCategories.registerCategory("ForgottenRelics", new ResourceLocation("forgottenrelics:textures/items/Ghastly_Skull.png"), new ResourceLocation("thaumcraft:textures/gui/gui_researchback.png"));
 		
@@ -550,6 +552,21 @@ public class RelicsResearchRegistry {
 		SuperpositionHandler.setupResearchTriggers("Overthrower", hellFocus, netherWart);
 		ThaumcraftApi.addWarpToResearch("Overthrower", 3);
 		
+		if (RelicsConfigHandler.voidGrimoireEnabled) {
+		new ForgottenRelicsResearchItem("VoidGrimoire", "ForgottenRelics", 
+				new AspectList().add(Aspect.VOID, 10).add(Aspect.DARKNESS, 8).add(Aspect.ELDRITCH, 8).add(Aspect.TRAVEL, 6).add(Aspect.MIND, 4).add(Aspect.ENTROPY, 4),
+				-7, 7, 3,
+				new ItemStack(Main.itemVoidGrimoire))
+				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IVoidGrimoire")), new ResearchPage("2"), new ResearchPage("3") })
+				.setParents("Overthrower")
+				.setParentsHidden("OCULUS", "TerrorCrown", "ChaosCore")
+				.setLost()
+				.setConcealed()
+				.registerResearchItem();
+		
+		SuperpositionHandler.setupResearchTriggers("VoidGrimoire", eldritchTablet, eldritchEye, voidSeed, bedrock, sinisterStone);
+		ThaumcraftApi.addWarpToResearch("VoidGrimoire", 4);
+		}
 		
 		new ForgottenRelicsResearchItem("PechFocus", "ForgottenRelics", 
 				new AspectList().add(Aspect.EXCHANGE, 8).add(Aspect.ENTROPY, 6).add(Aspect.MAGIC, 4).add(Aspect.SENSES, 4),
@@ -795,6 +812,12 @@ public class RelicsResearchRegistry {
 				.add(Aspect.TOOL, 16).add(Aspect.TRAVEL, 16).add(Aspect.MAGIC, 12).add(Aspect.EXCHANGE, 8).add(Aspect.VOID, 8),
 				blankRing,
 				new ItemStack[]{ dragonStone, salisMundus, elementiumIngot, salisMundus, gaiaSpirit, salisMundus, elementiumIngot, salisMundus }));
+		
+		RelicsResearchRegistry.recipes.put("IVoidGrimoire", ThaumcraftApi.addInfusionCraftingRecipe("VoidGrimoire", 
+				voidGrimoire, 10, new AspectList()
+				.add(Aspect.VOID, 100).add(Aspect.DARKNESS, 52).add(Aspect.TRAVEL, 24).add(Aspect.MAGIC, 40).add(Aspect.MIND, 32).add(Aspect.ELDRITCH, 40).add(Aspect.EXCHANGE, 16).add(Aspect.ENTROPY, 20),
+				overthrower,
+				new ItemStack[]{ gaiaSpirit, voidSeed, knowledgeFragment, voidSeed, eldritchEye, voidSeed, knowledgeFragment, voidSeed }));
 	}
 
 }
