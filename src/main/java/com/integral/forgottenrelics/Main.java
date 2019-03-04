@@ -112,7 +112,7 @@ import thaumcraft.common.config.Config;
 public class Main {
 
 	public static final String MODID = "ForgottenRelics";
-	public static final String VERSION = "1.4.0";
+	public static final String VERSION = "1.4.1";
 	public static final String NAME = "Forgotten Relics";
 	
 	public static final String RELEASE_TYPE = "Beta";
@@ -136,7 +136,7 @@ public class Main {
 	
 	/**
 	 * Hash Map used for containing hidden researches and their respective item triggers.
-	 * View Superposition Handler to see methods that are used to interact with it.
+	 * Behold Superposition Handler to see methods that are used to interact with it.
 	 */
 	public static HashMap<String, List<ItemStack>> forgottenKnowledge = new HashMap<String, List<ItemStack>>();
 	

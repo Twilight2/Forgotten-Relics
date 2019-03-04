@@ -259,7 +259,7 @@ public class ItemVoidGrimoire extends Item implements IWarpingGear {
 		
 		Entity pointedEntity = EntityUtils.getPointedEntity(world, player, 0.0D, 64.0D, 3F);
 		
-		if (pointedEntity != null) {
+		if (pointedEntity instanceof EntityLivingBase) {
 			this.targetList.put(player, (EntityLivingBase) pointedEntity);
 			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
 			
