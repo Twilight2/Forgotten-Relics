@@ -2,8 +2,6 @@
 
 **Current Version:** 1.5.0 Beta
 
-**Current Version:** 1.4.1 Beta
-
 **Minecraft Version:** 1.7.10
 
 **Dependencies:** Thaumcraft 4.2.3.5; Botania r1.8-237 or later
