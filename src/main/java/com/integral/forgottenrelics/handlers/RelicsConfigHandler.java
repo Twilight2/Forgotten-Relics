@@ -107,7 +107,7 @@ public class RelicsConfigHandler {
 	    this.oblivionStoneSoftCap = config.getInt("oblivionStoneSoftCap", "Generic Config", 28, 0, 2048, 
 	    		"Controls the amount of items that can be added into list of Keystone of The Oblivion, before displayble list in Ctrl tooltip stops expanding and becomes unreadable. You may want to increase or decrease it, depending on your screen resolution.");
 	    
-	    this.updateNotificationsEnabled = config.getBoolean("memesEnabled", "Generic Config", false, 
+	    this.memesEnabled = config.getBoolean("memesEnabled", "Generic Config", false, 
 	    		"Enables super secret memes. You are not prepared!");
 	    
 	    this.updateNotificationsEnabled = config.getBoolean("updateNotificationsEnabled", "Generic Config", true, 
