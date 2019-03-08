@@ -1,5 +1,9 @@
 # Forgotten Relics
+<<<<<<< HEAD
 **Current Version:** 1.5.0 Beta
+=======
+**Current Version:** 1.4.1 Beta
+>>>>>>> 6687f37dc422fdf7e43a0969f0751c58777740a6
 
 **Minecraft Version:** 1.7.10
 
