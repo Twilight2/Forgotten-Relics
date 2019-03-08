@@ -29,7 +29,7 @@ public class ItemWeatherStone extends Item {
 
  public ItemWeatherStone() {
 
-	 this.maxStackSize = 1;
+	 this.setMaxStackSize(1);
 	 this.setUnlocalizedName("ItemWeatherStone");
 	 this.setCreativeTab(Main.tabForgottenRelics);
 

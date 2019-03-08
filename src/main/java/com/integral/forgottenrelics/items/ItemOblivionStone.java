@@ -1,9 +1,14 @@
 package com.integral.forgottenrelics.items;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 
@@ -80,7 +85,7 @@ public class ItemOblivionStone extends Item implements IWarpingGear {
 			return;
 
 		EntityPlayer player = (EntityPlayer) entity;
-
+		
 		int damage = itemstack.getItemDamage();
 		if (damage >= 100 || !itemstack.hasTagCompound())
 			return;
@@ -128,6 +133,8 @@ public class ItemOblivionStone extends Item implements IWarpingGear {
 			
 			for (int sID : ID) {
 				HashMap<Integer, ItemStack> localStackMap = new HashMap<Integer, ItemStack>(stackMap);
+				Multimap<Integer, Integer> stackSizeMultimap = ArrayListMultimap.create();
+				
 				for (int slot : stackMap.keySet()) {
 					if (meta[cycleCounter] != -1) {
 						if (stackMap.get(slot).getItem() != Item.getItemById(sID) || stackMap.get(slot).getItemDamage() != meta[cycleCounter])
@@ -138,32 +145,52 @@ public class ItemOblivionStone extends Item implements IWarpingGear {
 					}
 				}
 				
+				for (int slot : localStackMap.keySet()) {
+					stackSizeMultimap.put(localStackMap.get(slot).stackSize, slot);
+				}
+				
 				while (localStackMap.size() > 1) {
-					int slot = new ArrayList<Integer>(localStackMap.keySet()).get(0);
-					player.inventory.setInventorySlotContents(slot, null);
-					localStackMap.remove(slot);
+					int smallestStackSize = Collections.min(stackSizeMultimap.keySet());
+					Collection<Integer> smallestStacks = stackSizeMultimap.get(smallestStackSize);
+					int slotWithSmallestStack = Collections.max(smallestStacks);
+					
+					player.inventory.setInventorySlotContents(slotWithSmallestStack, null);
+					stackSizeMultimap.remove(smallestStackSize, slotWithSmallestStack);
+					localStackMap.remove(slotWithSmallestStack);
 				}
 				cycleCounter++;
 			}
 			
 		} else if (mode == 2) {
-			if (filledStacks >= 36) {
+			if (filledStacks >= player.inventory.mainInventory.length) {
 				
 				for (int sID : ID) {
+					HashMap<Integer, ItemStack> localStackMap = new HashMap<Integer, ItemStack>(stackMap);
+					Multimap<Integer, Integer> stackSizeMultimap = ArrayListMultimap.create();
+					
 					for (int slot : stackMap.keySet()) {
 						if (meta[cycleCounter] != -1) {
-						if (stackMap.get(slot).getItem() == Item.getItemById(sID) & stackMap.get(slot).getItemDamage() == meta[cycleCounter]) {
-							player.inventory.setInventorySlotContents(slot, null);
-							return;
-						}
+							if (stackMap.get(slot).getItem() != Item.getItemById(sID) || stackMap.get(slot).getItemDamage() != meta[cycleCounter])
+								localStackMap.remove(slot);
 						} else {
-						if (stackMap.get(slot).getItem() == Item.getItemById(sID)) { 
-							player.inventory.setInventorySlotContents(slot, null);
-							return;
+							if (stackMap.get(slot).getItem() != Item.getItemById(sID))
+								localStackMap.remove(slot);
 						}
-						}
-						
 					}
+					
+					for (int slot : localStackMap.keySet()) {
+						stackSizeMultimap.put(localStackMap.get(slot).stackSize, slot);
+					}
+					
+					if (localStackMap.size() > 0) {
+						int smallestStackSize = Collections.min(stackSizeMultimap.keySet());
+						Collection<Integer> smallestStacks = stackSizeMultimap.get(smallestStackSize);
+						int slotWithSmallestStack = Collections.max(smallestStacks);
+						
+						player.inventory.setInventorySlotContents(slotWithSmallestStack, null);
+						return;
+					}
+					
 					cycleCounter++;
 				}
 				

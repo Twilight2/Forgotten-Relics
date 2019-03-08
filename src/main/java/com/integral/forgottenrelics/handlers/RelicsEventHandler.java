@@ -153,7 +153,12 @@ public class RelicsEventHandler {
 			if (theGuardian.worldObj.isAnyLiquid(boundingBox)) {
 				
 				Main.packetInstance.sendToAllAround(new PacketVoidMessage(pos.x, pos.y, pos.z, true), new TargetPoint(theGuardian.dimension, theGuardian.posX, theGuardian.posY, theGuardian.posZ, 64.0D));
-				Main.packetInstance.sendToAllAround(new GuardianVanishMessage(), new TargetPoint(theGuardian.dimension, theGuardian.posX, theGuardian.posY, theGuardian.posZ, 64.0D));
+				if (RelicsConfigHandler.guardianNotificationRadius != 0) {
+					if (RelicsConfigHandler.guardianNotificationRadius > 0)
+						Main.packetInstance.sendToAllAround(new GuardianVanishMessage(), new TargetPoint(theGuardian.dimension, theGuardian.posX, theGuardian.posY, theGuardian.posZ, RelicsConfigHandler.guardianNotificationRadius));
+					else
+						Main.packetInstance.sendToAll(new GuardianVanishMessage());
+				}
 				SuperpositionHandler.imposeBurst(theGuardian.worldObj, theGuardian.dimension, pos.x, pos.y, pos.z, 2.0F);
 				theGuardian.playSound("thaumcraft:craftfail", 4.0F, (float) (0.9F + (Math.random()*0.1F)));
 				

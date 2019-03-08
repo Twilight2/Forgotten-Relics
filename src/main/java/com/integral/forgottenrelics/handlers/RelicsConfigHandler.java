@@ -96,10 +96,15 @@ public class RelicsConfigHandler {
 	public static int oblivionStoneSoftCap;
 	public static int oblivionStoneHardCap;
 	
+	public static float guardianNotificationRadius;
+	
 	public void configDisposition(FMLPreInitializationEvent event) {
 		
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 	    config.load();
+	    
+	    this.guardianNotificationRadius = config.getFloat("guardianNotificationRadius", "Generic Config", 64F, -32768F, 32768F, 
+	    		"Defines the radius in which players receive chat notification upon force despawn of Guardian of Gaia (when it's anti-abuse system triggers). Set to 0 to disable notification. Set to any negative value for message to be sent to ALL players that are present in the world at the moment.");
 	    
 	    this.oblivionStoneHardCap = config.getInt("oblivionStoneHardCap", "Generic Config", 64, 0, 2048, 
 	    		"How much items you can add into list of single Keystone of The Oblivion before you would be unable add nothing more. This limit exists to prevent players from occasional or intentional abusing, since multiple keystones with huge lists (like tens of thousands of items) may cause significant performance impact.");
