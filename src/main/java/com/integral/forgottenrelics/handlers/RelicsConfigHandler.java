@@ -91,11 +91,24 @@ public class RelicsConfigHandler {
 	
 	public static boolean voidGrimoireEnabled;
 	public static boolean updateNotificationsEnabled;
+	public static boolean memesEnabled;
+	
+	public static int oblivionStoneSoftCap;
+	public static int oblivionStoneHardCap;
 	
 	public void configDisposition(FMLPreInitializationEvent event) {
 		
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 	    config.load();
+	    
+	    this.oblivionStoneHardCap = config.getInt("oblivionStoneHardCap", "Generic Config", 64, 0, 2048, 
+	    		"How much items you can add into list of single Keystone of The Oblivion before you would be unable add nothing more. This limit exists to prevent players from occasional or intentional abusing, since multiple keystones with huge lists (like tens of thousands of items) may cause significant performance impact.");
+	    
+	    this.oblivionStoneSoftCap = config.getInt("oblivionStoneSoftCap", "Generic Config", 28, 0, 2048, 
+	    		"Controls the amount of items that can be added into list of Keystone of The Oblivion, before displayble list in Ctrl tooltip stops expanding and becomes unreadable. You may want to increase or decrease it, depending on your screen resolution.");
+	    
+	    this.updateNotificationsEnabled = config.getBoolean("memesEnabled", "Generic Config", false, 
+	    		"Enables super secret memes. You are not prepared!");
 	    
 	    this.updateNotificationsEnabled = config.getBoolean("updateNotificationsEnabled", "Generic Config", true, 
 	    		"Whether or not update notifications should be enabled. I have no idea why someone may not want to behold greatness of new versions, but alright, it's all up to you.");

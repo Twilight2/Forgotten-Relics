@@ -47,6 +47,7 @@ item.ItemThunderpeal.name=Thunderpeal
 item.ItemTerrorCrown.name=Crown of Terror
 item.ItemDiscordRing.name=Ring of Discord
 item.ItemVoidGrimoire.name=Grimoire of The Abyss
+item.ItemOblivionStone.name=Keystone of The Oblivion
 
 ### NOTIFICATIONS ###
 
@@ -61,6 +62,8 @@ notification.research_triggered=§6The key to forgotten knowledge was revealed t
 message.overthrown1=has overthrown
 message.overthrown2=into the Nether.
 message.overthrown3=into the Void.
+
+message.guardian_vanish=Suddenly, something disrupts Guardian's existence, forcing it to disappear. Probably, there are some liquids nearby...
 
 ### ENTITIES ###
 
@@ -368,6 +371,31 @@ item.ItemVoidGrimoire4.lore=§5After targeting an entity, a few seconds
 item.ItemVoidGrimoire5.lore=§5will be required to focus Grimoire's power.
 item.ItemVoidGrimoire6.lore=§6While casting, your target is immobilized.
 
+item.OblivionStoneCtrlTooltip.lore=§5Hold §6Ctrl§5 to see consumable items.
+item.OblivionStone1.lore=§5Combine with any item in crafting grid
+item.OblivionStone2.lore=§5to allow it consuming this item, or with
+item.OblivionStone2_more.lore=§5nothing to clear the list.
+item.OblivionStone3.lore=§5Press §6Right-Click§5 to switch modes.
+item.OblivionStone4.lore=§5Press §6Shift§5+§6Right-Click§5 to activate
+item.OblivionStone5.lore=§5or deactivate it completely.
+item.OblivionStone6.lore=§5In §6Total Absorption§5 mode, keystone
+item.OblivionStone7.lore=§5consumes all specified items within
+item.OblivionStone8.lore=§5your inventory, until none left.
+item.OblivionStone9.lore=§5In §6Last Stack§5 mode, it will always leave
+item.OblivionStone10.lore=§5one stack of each type of item, but will
+item.OblivionStone11.lore=§5consume anything more than that.
+item.OblivionStone12.lore=§5In §6Excess Absorption§5 mode, it will only
+item.OblivionStone13.lore=§5consume anything if you have no free
+item.OblivionStone14.lore=§5space in your inventory, and only until
+item.OblivionStone15.lore=§5it appears.
+
+item.OblivionStoneCtrlList.lore=§5List of consumable items:
+item.OblivionStoneMode.lore=§6Current Mode:
+item.OblivionMode0.lore=§dTotal Absorption
+item.OblivionMode1.lore=§dLast Stack
+item.OblivionMode2.lore=§dExcess Absorption
+item.OblivionStoneDeactivated.lore=§dDeactivated
+
 ### RESEARCH CATEGORY ###
 
 tc.research_category.ForgottenRelics=Forgotten Relics
@@ -555,3 +583,9 @@ fr.tag.VoidGrimoire=Deliver me from your tiresome presence
 fr.text.VoidGrimoire.1=Edict of Eternal Banishment is a curious thing, of course... But not always practical. Sometimes you would like to reliably destroy your enemy, instead of living them even insignificant, but still a chance to survive and revenge you. Even if we talk about humans. Especially if we talk about humans.<BR/>Exploring the End, many unexperienced travellers end up their life in abyssal void, that consumes everything and everyone who is clumsy enough to stumble and fall into it from floating islands. But even though the End is easiest way to meet this void "face to face", it's not a secret to anyone that such an abyss exists under each world -
 fr.text.VoidGrimoire.2=including yours, where it lies beneath impenetratable layer of bedrock.<BR/>Probably, it will forever remain for you a frightening mystery, since this void is the place full of... void, really. It has neither bottom, nor observable boundaries, and no one has any idea why it exists at all - only countless theories and hypotheses are at your disposal. However, now it can to some extent also become an instrument in your hands.<BR/>Grimoire of The Abyss allows you to overthrow any living being into the world's void, which in most cases equals to completely wiping it out of existence... Well, at least you haven’t seen anything returning from there.
 fr.text.VoidGrimoire.3=After choosing a target, for a few seconds it will ascend into the air and will remain motionless, unable to escape you or to get closer to attack. Once enough power is focused, the Void will consume it - in probably less spectacular than in case with Edict, but still terrifying, gulp.<BR/>Let's hope that now not only your enemies, but also your friends will have a good reason to fear annoying you.
+
+fr.name.OblivionStone=Keystone of The Oblivion
+fr.tag.OblivionStone=Say no to cobblestone!
+fr.text.OblivionStone.1=Your discoveries among eldritch knowledge allowed you to create, probably, the most mighty and terrifying relic ever... Not against your enemies, though, but against  the garbage in your inventory.<BR/>Keystone of The Oblivion is a unique artifact, that could be bound with one or few types of items or blocks. While remaining in your inventory, it will consume those items, in the way that depends on mode you've chosen. You only need a sample of the object, so that through simple manipulations to allow it to deliver you from all such objects...<BR/>Or from their excess, at least.
+fr.text.OblivionStone.2=Of course, you can create several keystones, adjusting each of them exactly as you wish. The only practical drawback of this thing is that you can't remove only one item from the list of consumable ones - it's only possible to clear the list entirely if you wish to expel or displace something, so make your choice wisely.<BR/>For now, you have no idea where items absorbed by this relic are sent. You only know that they never come back... Fortunately, so far it haven't tended to absorb parts of your body, and it's unlikely that the keystone could somehow interact with living matter - but still, every touch to it awakens a vague anxiety within you.
+fr.text.OblivionStone.3= 

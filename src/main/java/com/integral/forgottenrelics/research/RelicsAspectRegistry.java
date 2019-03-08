@@ -245,6 +245,9 @@ public class RelicsAspectRegistry {
 		ItemStack terrorCrown = new ItemStack(Main.itemTerrorCrown, 1, 0);
 		ItemStack discordRing = new ItemStack(Main.itemDiscordRing, 1, 0);
 		
+		ItemStack voidGrimoire = new ItemStack(Main.itemVoidGrimoire, 1, 0);
+		ItemStack oblivionStone = new ItemStack(Main.itemOblivionStone, 1, 0);
+		
 		ThaumcraftApi.registerObjectTag(weatherStone, new AspectList().add(Aspect.ENERGY, 12).add(Aspect.WEATHER, 10).add(Aspect.EXCHANGE, 8).add(Aspect.AIR, 7).add(Aspect.WATER, 7).add(Aspect.MAGIC, 5));
 		ThaumcraftApi.registerObjectTag(miningCharm, new AspectList().add(Aspect.MINE, 15).add(Aspect.TOOL, 10).add(Aspect.MOTION, 8).add(Aspect.MAGIC, 8).add(Aspect.METAL, 6));
 		ThaumcraftApi.registerObjectTag(advancedMiningCharm, new AspectList().add(Aspect.MINE, 32).add(Aspect.TOOL, 24).add(Aspect.CRYSTAL, 20).add(Aspect.AURA, 16).add(Aspect.MAGIC, 12));
@@ -276,7 +279,8 @@ public class RelicsAspectRegistry {
 		ThaumcraftApi.registerObjectTag(overthrower, new AspectList().add(Aspect.SOUL, 12).add(Aspect.FIRE, 9).add(Aspect.TRAVEL, 7).add(Aspect.MAGIC, 7).add(Aspect.MIND, 5).add(Aspect.DARKNESS, 4));
 		ThaumcraftApi.registerObjectTag(terrorCrown, new AspectList().add(Aspect.ELDRITCH, 18).add(Aspect.SENSES, 13).add(Aspect.WEAPON, 10).add(Aspect.DARKNESS, 8).add(Aspect.ARMOR, 6).add(Aspect.MAGIC, 5));
 		ThaumcraftApi.registerObjectTag(discordRing, new AspectList().add(Aspect.TRAVEL, 8).add(Aspect.MAGIC, 8).add(Aspect.EXCHANGE, 5).add(Aspect.TOOL, 4).add(Aspect.VOID, 3));
-	
+		ThaumcraftApi.registerObjectTag(voidGrimoire, new AspectList().add(Aspect.VOID, 24).add(Aspect.TRAVEL, 16).add(Aspect.DARKNESS, 16).add(Aspect.ELDRITCH, 12).add(Aspect.MIND, 10).add(Aspect.MAGIC, 8));
+		ThaumcraftApi.registerObjectTag(oblivionStone, new AspectList().add(Aspect.VOID, 8).add(Aspect.DARKNESS, 8).add(Aspect.ENTROPY, 6).add(Aspect.MAGIC, 5).add(Aspect.EXCHANGE, 5).add(Aspect.ELDRITCH, 4));
 	}
 	
 }

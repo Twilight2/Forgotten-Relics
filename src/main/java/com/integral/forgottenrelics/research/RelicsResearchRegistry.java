@@ -58,6 +58,7 @@ public class RelicsResearchRegistry {
 	public static ItemStack overthrower = new ItemStack(Main.itemOverthrower, 1, 0);
 	public static ItemStack discordRing = new ItemStack(Main.itemDiscordRing, 1, 0);
 	public static ItemStack voidGrimoire = new ItemStack(Main.itemVoidGrimoire, 1, 0);
+	public static ItemStack oblivionStone = new ItemStack(Main.itemOblivionStone, 1, 0);
 	
 	public static ItemStack enderEye = new ItemStack(Items.ender_eye, 1, 0);
 	public static ItemStack salisMundus = new ItemStack(ConfigItems.itemResource, 1, 14);
@@ -404,13 +405,29 @@ public class RelicsResearchRegistry {
 		
 		SuperpositionHandler.setupResearchTriggers("LunarFlares", starSword, terrasteelIngot, enderAir);
 		
+		
+		new ForgottenRelicsResearchItem("OblivionStone", "ForgottenRelics", 
+				new AspectList().add(Aspect.DARKNESS, 4).add(Aspect.VOID, 4).add(Aspect.EXCHANGE, 4),
+				7, -2, 1,
+				new ItemStack(Main.itemOblivionStone))
+				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IOblivionStone")), new ResearchPage("2"), new ResearchPage("3") })
+				.setParents("SuperpositionRing")
+				.setParentsHidden("VOIDMETAL", "SINSTONE")
+				.setSecondary()
+				.setSpecial()
+				.setConcealed()
+				.registerResearchItem();
+
+		ThaumcraftApi.addWarpToResearch("OblivionStone", 3);
+		
+		
 		new ForgottenRelicsResearchItem("ChaosCore", "ForgottenRelics", 
 				new AspectList().add(Aspect.ORDER, 8).add(Aspect.ENTROPY, 8).add(Aspect.EXCHANGE, 8).add(Aspect.ENERGY, 8).add(Aspect.VOID, 8),
-				7, -2, 2,
+				8, -4, 2,
 				new ItemStack(Main.itemChaosCore))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IChaosCore")), new ResearchPage("2") })
-				.setParents("SuperpositionRing")
-				.setParentsHidden("VOIDMETAL", "ALUMENTUM", "AncientAegis")
+				.setParents("OblivionStone")
+				.setParentsHidden("ALUMENTUM", "AncientAegis")
 				.setConcealed()
 				.setRound()
 				.setHidden()
@@ -497,7 +514,7 @@ public class RelicsResearchRegistry {
 				new ItemStack(Main.itemOblivionAmulet))
 				.setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage(recipes.get("IOblivionAmulet")), new ResearchPage("2"), new ResearchPage("3") })
 				.setParents("XPTome")
-				.setParentsHidden("TerrorCrown", "PRIMPEARL")
+				.setParentsHidden("OblivionStone", "TerrorCrown", "PRIMPEARL")
 				.setConcealed()
 				.setSpecial()
 				.setHidden()
@@ -818,6 +835,12 @@ public class RelicsResearchRegistry {
 				.add(Aspect.VOID, 100).add(Aspect.DARKNESS, 52).add(Aspect.TRAVEL, 24).add(Aspect.MAGIC, 40).add(Aspect.MIND, 32).add(Aspect.ELDRITCH, 40).add(Aspect.EXCHANGE, 16).add(Aspect.ENTROPY, 20),
 				overthrower,
 				new ItemStack[]{ gaiaSpirit, voidSeed, knowledgeFragment, voidSeed, eldritchEye, voidSeed, knowledgeFragment, voidSeed }));
+		
+		RelicsResearchRegistry.recipes.put("IOblivionStone", ThaumcraftApi.addInfusionCraftingRecipe("OblivionStone", 
+				oblivionStone, 4, new AspectList()
+				.add(Aspect.VOID, 16).add(Aspect.DARKNESS, 16).add(Aspect.ENTROPY, 12).add(Aspect.EXCHANGE, 8).add(Aspect.MAGIC, 8),
+				sinisterStone,
+				new ItemStack[]{ enderEye, voidSeed, voidIngot, voidSeed, nitor, voidSeed, voidIngot, voidSeed }));
 	}
 
 }

@@ -15,6 +15,7 @@ import com.integral.forgottenrelics.entities.EntityRageousMissile;
 import com.integral.forgottenrelics.entities.EntityShinyEnergy;
 import com.integral.forgottenrelics.entities.EntitySoulEnergy;
 import com.integral.forgottenrelics.entities.EntityThunderpealOrb;
+import com.integral.forgottenrelics.handlers.RecipeOblivionStone;
 import com.integral.forgottenrelics.handlers.RelicsChunkLoadCallback;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import com.integral.forgottenrelics.handlers.RelicsEventHandler;
@@ -42,6 +43,7 @@ import com.integral.forgottenrelics.items.ItemMiningCharm;
 import com.integral.forgottenrelics.items.ItemMissileTome;
 import com.integral.forgottenrelics.items.ItemObeliskDrainer;
 import com.integral.forgottenrelics.items.ItemOblivionAmulet;
+import com.integral.forgottenrelics.items.ItemOblivionStone;
 import com.integral.forgottenrelics.items.ItemOmegaCore;
 import com.integral.forgottenrelics.items.ItemOverthrower;
 import com.integral.forgottenrelics.items.ItemParadox;
@@ -63,6 +65,7 @@ import com.integral.forgottenrelics.packets.BurstMessage;
 import com.integral.forgottenrelics.packets.DiscordKeybindMessage;
 import com.integral.forgottenrelics.packets.EntityMotionMessage;
 import com.integral.forgottenrelics.packets.ForgottenResearchMessage;
+import com.integral.forgottenrelics.packets.GuardianVanishMessage;
 import com.integral.forgottenrelics.packets.ICanSwingMySwordMessage;
 import com.integral.forgottenrelics.packets.InfernalParticleMessage;
 import com.integral.forgottenrelics.packets.ItemUseMessage;
@@ -106,13 +109,15 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.oredict.RecipeSorter.Category;
 import thaumcraft.common.config.Config;
 
 @Mod(modid = Main.MODID, version = Main.VERSION, name = Main.NAME, dependencies = "required-after:Thaumcraft@[4.2.3.5,);required-after:Botania@[r1.8-237,)")
 public class Main {
 
 	public static final String MODID = "ForgottenRelics";
-	public static final String VERSION = "1.4.1";
+	public static final String VERSION = "1.5.0";
 	public static final String NAME = "Forgotten Relics";
 	
 	public static final String RELEASE_TYPE = "Beta";
@@ -179,6 +184,7 @@ public class Main {
 	public static Item itemDiscordRing;
 	
 	public static Item itemVoidGrimoire;
+	public static Item itemOblivionStone;
 	
 	public RelicsConfigHandler configHandler = new RelicsConfigHandler();
 	
@@ -187,6 +193,9 @@ public class Main {
 	@EventHandler
 	public void load(FMLInitializationEvent event) {
 		Main.proxy.registerDisplayInformation();
+		
+		RecipeSorter.register("forge:oblivionstone", RecipeOblivionStone.class, Category.SHAPELESS,
+				"after:forge:shapelessorenbt");
 		
 		darkRingDamageNegations.add(DamageSource.lava.damageType);
 		darkRingDamageNegations.add(DamageSource.inFire.damageType);
@@ -225,6 +234,7 @@ public class Main {
 		packetInstance.registerMessage(TelekinesisUseMessage.Handler.class, TelekinesisUseMessage.class, 20, Side.SERVER);
 		packetInstance.registerMessage(TelekinesisParticleMessage.Handler.class, TelekinesisParticleMessage.class, 21, Side.CLIENT);
 		packetInstance.registerMessage(PacketVoidMessage.Handler.class, PacketVoidMessage.class, 22, Side.CLIENT);
+		packetInstance.registerMessage(GuardianVanishMessage.Handler.class, GuardianVanishMessage.class, 23, Side.CLIENT);
 		
 		RelicsAspectRegistry.registerItemAspectsFirst();
 		
@@ -263,6 +273,7 @@ public class Main {
 		itemOverthrower = new ItemOverthrower();
 		itemDiscordRing = new ItemDiscordRing();
 		itemVoidGrimoire = new ItemVoidGrimoire();
+		itemOblivionStone = new ItemOblivionStone();
 		
 		GameRegistry.registerItem(itemFalseJustice, "ItemFalseJustice");
 		GameRegistry.registerItem(itemDeificAmulet, "ItemDeificAmulet");
@@ -298,6 +309,7 @@ public class Main {
 		GameRegistry.registerItem(itemOverthrower, "ItemOverthrower");
 		GameRegistry.registerItem(itemDiscordRing, "ItemDiscordRing");
 		GameRegistry.registerItem(itemVoidGrimoire, "ItemVoidGrimoire");
+		GameRegistry.registerItem(itemOblivionStone, "ItemOblivionStone");
 		
 		EntityRegistry.registerModEntity(EntityRageousMissile.class, "SomeVeryRageousStuff", 237, Main.instance, 64, 20, true);
 		EntityRegistry.registerModEntity(EntityCrimsonOrb.class, "EntityCrimsonOrb", 238, Main.instance, 64, 20, true);
@@ -321,7 +333,9 @@ public class Main {
 	}
 	
 	@EventHandler
-	public static void postLoad(FMLPostInitializationEvent event) {	
+	public static void postLoad(FMLPostInitializationEvent event) {
+		GameRegistry.addRecipe(new RecipeOblivionStone());
+		
 		RelicsResearchRegistry.integrateInfusion();
 		RelicsAspectRegistry.registerItemAspectsLast();
 		RelicsResearchRegistry.integrateResearch();

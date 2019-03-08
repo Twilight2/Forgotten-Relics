@@ -7,6 +7,9 @@ import org.lwjgl.input.Mouse;
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.items.ItemFateTome;
 import com.integral.forgottenrelics.packets.ForgottenResearchMessage;
+import com.integral.forgottenrelics.packets.GuardianVanishMessage;
+import com.integral.forgottenrelics.packets.PacketVoidMessage;
+import com.integral.forgottenrelics.packets.PortalTraceMessage;
 
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -16,6 +19,7 @@ import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
@@ -48,6 +52,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.entity.EntityDoppleganger;
 
 public class RelicsEventHandler {
 
@@ -132,6 +137,31 @@ public class RelicsEventHandler {
 				Main.castingCooldowns.put(player, 0);
 			}
 			
+		}
+		
+		/*
+		 * Handler for preventing players from abusing Gaia Guardian (through making water arenas).
+		 * Because c'mon, bro, it's 2019, who kills bosses using bugs these times?..
+		 */
+		
+		if (event.entity instanceof EntityDoppleganger & !event.entity.worldObj.isRemote & event.entity.ticksExisted > 100) {
+			EntityDoppleganger theGuardian = (EntityDoppleganger) event.entity;
+			Vector3 pos = Vector3.fromEntityCenter(theGuardian);
+			int range = 16;
+			AxisAlignedBB boundingBox = AxisAlignedBB.getBoundingBox(theGuardian.posX-range, theGuardian.posY-range, theGuardian.posZ-range, theGuardian.posX+range, theGuardian.posY+range, theGuardian.posZ+range);
+			
+			if (theGuardian.worldObj.isAnyLiquid(boundingBox)) {
+				
+				Main.packetInstance.sendToAllAround(new PacketVoidMessage(pos.x, pos.y, pos.z, true), new TargetPoint(theGuardian.dimension, theGuardian.posX, theGuardian.posY, theGuardian.posZ, 64.0D));
+				Main.packetInstance.sendToAllAround(new GuardianVanishMessage(), new TargetPoint(theGuardian.dimension, theGuardian.posX, theGuardian.posY, theGuardian.posZ, 64.0D));
+				SuperpositionHandler.imposeBurst(theGuardian.worldObj, theGuardian.dimension, pos.x, pos.y, pos.z, 2.0F);
+				theGuardian.playSound("thaumcraft:craftfail", 4.0F, (float) (0.9F + (Math.random()*0.1F)));
+				
+				if (RelicsConfigHandler.memesEnabled)
+				theGuardian.playSound("forgottenrelics:sound.meme112", 4.0F, 1.0F);
+				
+				theGuardian.setDead();
+			}
 		}
 		
 	}
