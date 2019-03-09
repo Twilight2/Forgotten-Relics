@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.integral.forgottenrelics.entities.EntityBabylonWeaponSS;
 import com.integral.forgottenrelics.entities.EntityChaoticOrb;
 import com.integral.forgottenrelics.entities.EntityCrimsonOrb;
@@ -22,6 +25,7 @@ import com.integral.forgottenrelics.handlers.RelicsEventHandler;
 import com.integral.forgottenrelics.handlers.RelicsKeybindHandler;
 import com.integral.forgottenrelics.handlers.RelicsMaterialHandler;
 import com.integral.forgottenrelics.handlers.RelicsUpdateHandler;
+import com.integral.forgottenrelics.handlers.SuperpositionHandler;
 import com.integral.forgottenrelics.items.ItemAdvancedMiningCharm;
 import com.integral.forgottenrelics.items.ItemAncientAegis;
 import com.integral.forgottenrelics.items.ItemApotheosis;
@@ -117,7 +121,7 @@ import thaumcraft.common.config.Config;
 public class Main {
 
 	public static final String MODID = "ForgottenRelics";
-	public static final String VERSION = "1.5.2";
+	public static final String VERSION = "1.5.3";
 	public static final String NAME = "Forgotten Relics";
 	
 	public static final String RELEASE_TYPE = "Beta";
@@ -187,6 +191,7 @@ public class Main {
 	public static Item itemOblivionStone;
 	
 	public RelicsConfigHandler configHandler = new RelicsConfigHandler();
+	public static final Logger log = LogManager.getLogger("ForgottenRelics");
 	
 	public static final int howCoolAmI = Integer.MAX_VALUE;
 
@@ -339,6 +344,13 @@ public class Main {
 		RelicsResearchRegistry.integrateInfusion();
 		RelicsAspectRegistry.registerItemAspectsLast();
 		RelicsResearchRegistry.integrateResearch();
+		
+		log.info("Forgotten Knowledge list:");
+		for (String key : Main.forgottenKnowledge.keySet())
+			log.info(" - " + key);
+		
+		if (RelicsConfigHandler.forgottenKnowledgeOverridingEnabled)
+		SuperpositionHandler.setupOverrides();
 		
 		Config.shieldRecharge = RelicsConfigHandler.runicRechargeSpeed;
 		Config.shieldWait = RelicsConfigHandler.runicRechargeDelay;

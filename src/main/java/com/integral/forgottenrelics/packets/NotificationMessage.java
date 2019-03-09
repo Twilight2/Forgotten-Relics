@@ -1,5 +1,7 @@
 package com.integral.forgottenrelics.packets;
 
+import com.integral.forgottenrelics.Main;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -49,7 +51,7 @@ public class NotificationMessage implements IMessage {
             	break;
             	
             default:
-            	System.out.println("Recived invalid notification!");
+            	Main.log.error("Recived invalid notification!");
             	return null;
             
             }

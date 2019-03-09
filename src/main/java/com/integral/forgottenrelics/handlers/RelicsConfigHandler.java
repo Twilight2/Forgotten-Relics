@@ -2,6 +2,7 @@ package com.integral.forgottenrelics.handlers;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 public class RelicsConfigHandler {
 	
@@ -97,11 +98,57 @@ public class RelicsConfigHandler {
 	public static int oblivionStoneHardCap;
 	
 	public static float guardianNotificationRadius;
+	public static String[] forgottenKnowledgeOverrides;
+	public static boolean forgottenKnowledgeOverridingEnabled;
+	
+	public static float guardianAntiAbuseRadius;
+	
+	public static String[] exampleOverrides = new String[] {"EldritchSpell[Thaumcraft:ItemEldritchObject:2]", "AdvancedMiningCharm[Botania:manaResource:5, ForgottenRelics:ItemMiningCharm:0, minecraft:diamond_pickaxe:0]", "TerrorCrown[minecraft:ender_eye:0, minecraft:nether_star:0, minecraft:golden_helmet:0, Botania:manaResource:15]"};
 	
 	public void configDisposition(FMLPreInitializationEvent event) {
 		
+		String overridesDesc =
+				"Allows you to override item triggers for any research classified as forgotten knowledge."
+				+ System.lineSeparator() + System.lineSeparator()
+				+ "Your overrides should be formatted like this: ResearchKey[modid:itemname:meta, modid:itemname:meta, ..., modid:itemname:meta]"
+				+ System.lineSeparator() + System.lineSeparator()
+				+ "Notice: there are no optional parameters, even metadata should be always specified - even though it makes no difference"
+				+ System.lineSeparator()
+				+ "for 'damageable' items, like Diamond Sword or Iron Helmet. The Thaumcraft alone decides what to do with one or another"
+				+ System.lineSeparator()
+				+ "type of item, but items should always be passed like ItemStack with defined metadata - so here it is."
+				+ System.lineSeparator()
+				+ "If you leave research key with no items specified (for instance: 'AncientAegis[]'), it would simply be unlocked without"
+				+ System.lineSeparator()
+				+ "scanning any items, but that will still take some time and you will receive respective notification upon unlocking."
+				+ System.lineSeparator() + System.lineSeparator()
+				+ "Comlete list of forgotten knowledge research keys is always printed into log file upon post-initialization."
+				+ System.lineSeparator()
+				+ "If you are using MineTweaker & ModTweaker, you can also execute the following command: /mt research ForgottenRelics"
+				+ System.lineSeparator()
+				+ "...though it would give you list of ALL researches in addon. Needless to say, setting triggers for researches that are"
+				+ System.lineSeparator() 
+				+ "not classified as forgotten knowledge won't have any effect."
+				+ System.lineSeparator() + System.lineSeparator()
+				+ "If you have no idea what the Justice Handler is, read this article:"
+				+ System.lineSeparator()
+				+ "https://github.com/Extegral/Forgotten-Relics/wiki/Research-Trigger-System";
+		
 		Configuration config = new Configuration(event.getSuggestedConfigurationFile());
 	    config.load();
+	    
+	    
+	    Property theOverrides = config.get("Justice Handler Overrides", "justiceHandlerOverrides", exampleOverrides);
+	    theOverrides.comment = "Here is some working expamles. You may want to replace them with your own ones if you enabled overriding.";
+	    this.forgottenKnowledgeOverrides = theOverrides.getStringList();
+	    
+	    this.forgottenKnowledgeOverridingEnabled = config.getBoolean("justiceOverridingEnabled", "Justice Handler Overrides", false, 
+	    		"Whether or not overriding triggers by config should be enabled. If it's disabled, no overrides specified here would take effect.");
+	    
+	    config.addCustomCategoryComment("Justice Handler Overrides", overridesDesc);
+	    
+	    this.guardianAntiAbuseRadius = config.getFloat("guardianAntiAbuseRadius", "Generic Config", 16F, 0F, 1024F, 
+	    		"Defines the radius in which anti-abuse system of Guardian of Gaia checks for liquids. Set to 0 to disable it... and proclaim yourself as wuss.");
 	    
 	    this.guardianNotificationRadius = config.getFloat("guardianNotificationRadius", "Generic Config", 64F, -32768F, 32768F, 
 	    		"Defines the radius in which players receive chat notification upon force despawn of Guardian of Gaia (when it's anti-abuse system triggers). Set to 0 to disable notification. Set to any negative value for message to be sent to ALL players that are present in the world at the moment.");

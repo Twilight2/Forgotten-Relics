@@ -192,7 +192,7 @@ public class ItemOverthrowerLegacy extends Item implements IWarpingGear {
 				((EntityPlayerMP)entity).mcServer.getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) entity, -1);
 				entity.setPositionAndUpdate(x, y, z);
 				Main.packetInstance.sendToAll(new OverthrowChatMessage(overthrower.getDisplayName(), ((EntityPlayer) entity).getDisplayName(), 0));
-				System.out.println(overthrower.getDisplayName() + " has overthrown " + ((EntityPlayer) entity).getDisplayName() + " into the Nether.");
+				Main.log.info(overthrower.getDisplayName() + " has overthrown " + ((EntityPlayer) entity).getDisplayName() + " into the Nether.");
 				ForgeChunkManager.releaseTicket(ticket);
 				return true;
 			}

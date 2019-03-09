@@ -144,10 +144,11 @@ public class RelicsEventHandler {
 		 * Because c'mon, bro, it's 2019, who kills bosses using bugs these times?..
 		 */
 		
+		if (RelicsConfigHandler.guardianAntiAbuseRadius > 0)
 		if (event.entity instanceof EntityDoppleganger & !event.entity.worldObj.isRemote & event.entity.ticksExisted > 100) {
 			EntityDoppleganger theGuardian = (EntityDoppleganger) event.entity;
 			Vector3 pos = Vector3.fromEntityCenter(theGuardian);
-			int range = 16;
+			double range = RelicsConfigHandler.guardianAntiAbuseRadius;
 			AxisAlignedBB boundingBox = AxisAlignedBB.getBoundingBox(theGuardian.posX-range, theGuardian.posY-range, theGuardian.posZ-range, theGuardian.posX+range, theGuardian.posY+range, theGuardian.posZ+range);
 			
 			if (theGuardian.worldObj.isAnyLiquid(boundingBox)) {

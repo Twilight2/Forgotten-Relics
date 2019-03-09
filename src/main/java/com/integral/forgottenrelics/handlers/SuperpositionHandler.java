@@ -112,30 +112,62 @@ public class SuperpositionHandler {
 		Main.packetInstance.sendTo(new NotificationMessage(type), (EntityPlayerMP) player);
 	}
 	
+	/** 
+	 * Retains the list of trigger overrides from config,
+	 * and parses it to get all items defined there, form
+	 * ItemStacks and put stack list in forgotten knowledge
+	 * HashMap, replacing triggers that were in place before.
+	 */
+	
+	public static void setupOverrides() {
+		
+		for (String s : RelicsConfigHandler.forgottenKnowledgeOverrides) {
+			List<ItemStack> stackList = new ArrayList<ItemStack>();
+			s = s.replaceAll("\\s", "");
+			
+			String[] splat = s.split("\\[");
+			String researchKey = splat[0];
+			String unformattedItemList = splat[1];
+			
+			unformattedItemList = unformattedItemList.replaceAll("\\]", "");
+			
+			String[] itemList = unformattedItemList.split(",");
+			
+			for (String item : itemList) {
+				String[] params = item.split(":");
+				
+				String modid = params[0];
+				String itemname = params[1];
+				int meta = Integer.parseInt(params[2]);
+				
+				Object uncheckedItem = Item.itemRegistry.getObject(modid + ":" + itemname);
+				
+				if (!(uncheckedItem instanceof Item)) {
+					NullPointerException ex = new NullPointerException("Setting up the Justice Handler overrides has failed. You may have specified invalid items or messed up with formatting.");
+					throw ex;
+				} else if (researchKey == "Apotheosis") {
+					NullPointerException ex = new NullPointerException("Apotheosis research can't have it's trigger overrided.");
+					throw ex;
+				}
+				
+				Item theItem = (Item) uncheckedItem;
+				ItemStack theStack = new ItemStack(theItem, 1, meta);
+				
+				stackList.add(theStack);
+			}
+			
+			Main.forgottenKnowledge.put(researchKey, stackList);
+			Main.log.info("Set trigger overrides for research " + researchKey + ": " + stackList);
+		}
+		
+		
+	}
+	
 	/**
 	 * Basically, does the same thing as Heisei Dream.
 	 */
 	
 	public static void cryHavoc(World world, EntityPlayer player, int RANGE) {
-		
-		/*
-		List<IMob> mobs = world.getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(player.posX - RANGE, player.posY - RANGE, player.posZ - RANGE, player.posX + RANGE + 1, player.posY + RANGE + 1, player.posZ + RANGE + 1));
-		if(mobs.size() > 1)
-			for(IMob mob : mobs) {
-				if(mob instanceof EntityLiving) {
-					EntityLiving recast = (EntityLiving) mob;
-					EntityLivingBase newTarget = (EntityLivingBase) mob;
-					
-					if (recast.getAttackTarget() != null & recast.getAttackTarget() != player)
-						break;
-					
-					while (newTarget == recast || newTarget == player)
-					newTarget = (EntityLiving) mobs.get((int) (Math.random() * mobs.size()));
-					
-					recast.setAttackTarget(newTarget);
-				}
-		}
-		*/
 		
 		List<IMob> mobs = world.getEntitiesWithinAABB(IMob.class, AxisAlignedBB.getBoundingBox(player.posX - RANGE, player.posY - RANGE, player.posZ - RANGE, player.posX + RANGE + 1, player.posY + RANGE + 1, player.posZ + RANGE + 1));
 		if(mobs.size() > 1)
