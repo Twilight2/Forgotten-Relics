@@ -11,7 +11,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.helper.Vector3;
 
 public class TelekinesisParticleMessage implements IMessage {
     

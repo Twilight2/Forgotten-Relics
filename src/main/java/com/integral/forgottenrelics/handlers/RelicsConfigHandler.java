@@ -124,13 +124,13 @@ public class RelicsConfigHandler {
 				+ System.lineSeparator() + System.lineSeparator()
 				+ "Comlete list of forgotten knowledge research keys is always printed into log file upon post-initialization."
 				+ System.lineSeparator()
-				+ "If you are using MineTweaker & ModTweaker, you can also execute the following command: /mt research ForgottenRelics"
-				+ System.lineSeparator()
-				+ "...though it would give you list of ALL researches in addon. Needless to say, setting triggers for researches that are"
-				+ System.lineSeparator() 
-				+ "not classified as forgotten knowledge won't have any effect."
+				+ "Needless to say, setting triggers for researches that are not classified as forgotten knowledge won't have any effect." 
 				+ System.lineSeparator() + System.lineSeparator()
-				+ "If you have no idea what the Justice Handler is, read this article:"
+				+ "If you are using MineTweaker, you may prefer using integration features that were designed for it."
+				+ System.lineSeparator()
+				+ "You can read about them here: https://github.com/Extegral/Forgotten-Relics/wiki/MineTweaker-Integration"
+				+ System.lineSeparator() + System.lineSeparator()
+				+ "If you have no idea what the Justice Handler is, read this article: "
 				+ System.lineSeparator()
 				+ "https://github.com/Extegral/Forgotten-Relics/wiki/Research-Trigger-System";
 		

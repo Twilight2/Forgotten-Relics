@@ -1,8 +1,6 @@
 package com.integral.forgottenrelics.research;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
@@ -20,7 +18,6 @@ import thaumcraft.api.research.ResearchCategories;
 import thaumcraft.api.research.ResearchPage;
 import thaumcraft.common.config.ConfigBlocks;
 import thaumcraft.common.config.ConfigItems;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 
 public class RelicsResearchRegistry {
@@ -625,7 +622,6 @@ public class RelicsResearchRegistry {
 		
 		// It's unlocking is actually triggered in RelicsEventHandler
 		ThaumcraftApi.addWarpToResearch("Apotheosis", 10);
-		
 		
 		ThaumcraftApi.addWarpToItem(chaosTome, 4);
 		ThaumcraftApi.addWarpToItem(fateTome, 6);

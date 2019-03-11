@@ -1,5 +1,6 @@
 package com.integral.forgottenrelics.handlers;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -8,7 +9,6 @@ import java.util.List;
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.packets.ArcLightningMessage;
 import com.integral.forgottenrelics.packets.BurstMessage;
-import com.integral.forgottenrelics.packets.ForgottenResearchMessage;
 import com.integral.forgottenrelics.packets.ICanSwingMySwordMessage;
 import com.integral.forgottenrelics.packets.LightningMessage;
 import com.integral.forgottenrelics.packets.NotificationMessage;
@@ -17,9 +17,6 @@ import baubles.api.BaubleType;
 import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -28,7 +25,6 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
@@ -41,21 +37,17 @@ import net.minecraft.world.World;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import thaumcraft.api.research.ScanResult;
-import thaumcraft.common.Thaumcraft;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchItem;
 import thaumcraft.common.entities.monster.boss.EntityThaumcraftBoss;
 import thaumcraft.common.items.wands.ItemWandCasting;
 import thaumcraft.common.items.wands.WandManager;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.common.lib.network.playerdata.PacketResearchComplete;
-import thaumcraft.common.lib.research.ResearchManager;
-import thaumcraft.common.lib.research.ScanManager;
 import vazkii.botania.common.block.subtile.functional.SubTileHeiseiDream;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
 public class SuperpositionHandler {
 	
-	public static JusticeBringerHandler justiceHandler = null;
+	public static JusticeHandler justiceHandler = null;
 	
 	/**
 	 * Executes the Justice Handler, ensuring
@@ -71,12 +63,12 @@ public class SuperpositionHandler {
 		try {
 			
 		if (!justiceHandler.isAlive()) {
-			justiceHandler = new JusticeBringerHandler(player);
+			justiceHandler = new JusticeHandler(player);
 			justiceHandler.start();
 		}
 		
 		} catch (NullPointerException ex) {
-			justiceHandler = new JusticeBringerHandler(player);
+			justiceHandler = new JusticeHandler(player);
 			justiceHandler.start();
 		}
 
@@ -110,6 +102,26 @@ public class SuperpositionHandler {
 	public static void sendNotification(EntityPlayer player, int type) {
 		if (!player.worldObj.isRemote)
 		Main.packetInstance.sendTo(new NotificationMessage(type), (EntityPlayerMP) player);
+	}
+	
+	public static void setResearchUnhidden(ResearchItem research) {
+		try {
+			Field target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isHidden");
+			
+			target.setAccessible(true);
+            target.setBoolean(research, false);
+			
+		} catch (Exception ex) {}
+	}
+	
+	public static void setResearchUnlost(ResearchItem research) {
+		try {
+			Field target = Class.forName("thaumcraft.api.research.ResearchItem").getDeclaredField("isLost");
+			
+			target.setAccessible(true);
+            target.setBoolean(research, false);
+			
+		} catch (Exception ex) {}
 	}
 	
 	/** 

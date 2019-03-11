@@ -1,9 +1,7 @@
 package com.integral.forgottenrelics;
 
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -62,6 +60,7 @@ import com.integral.forgottenrelics.items.ItemVoidGrimoire;
 import com.integral.forgottenrelics.items.ItemWastelayer;
 import com.integral.forgottenrelics.items.ItemWeatherStone;
 import com.integral.forgottenrelics.items.ItemXPTome;
+import com.integral.forgottenrelics.minetweaker.MineTweakerIntegrator;
 import com.integral.forgottenrelics.packets.ApotheosisParticleMessage;
 import com.integral.forgottenrelics.packets.ArcLightningMessage;
 import com.integral.forgottenrelics.packets.BanishmentCastingMessage;
@@ -90,6 +89,7 @@ import com.integral.forgottenrelics.research.RelicsAspectRegistry;
 import com.integral.forgottenrelics.research.RelicsResearchRegistry;
 
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -104,12 +104,10 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -121,7 +119,7 @@ import thaumcraft.common.config.Config;
 public class Main {
 
 	public static final String MODID = "ForgottenRelics";
-	public static final String VERSION = "1.5.3";
+	public static final String VERSION = "1.6.0";
 	public static final String NAME = "Forgotten Relics";
 	
 	public static final String RELEASE_TYPE = "Beta";
@@ -210,6 +208,9 @@ public class Main {
 
 	@EventHandler
 	public void serverLoad(FMLServerStartingEvent event) {
+		if (Loader.isModLoaded("MineTweaker3")) {
+			MineTweakerIntegrator.registerCommands();
+		}
 	}
 
 	@EventHandler
@@ -240,8 +241,6 @@ public class Main {
 		packetInstance.registerMessage(TelekinesisParticleMessage.Handler.class, TelekinesisParticleMessage.class, 21, Side.CLIENT);
 		packetInstance.registerMessage(PacketVoidMessage.Handler.class, PacketVoidMessage.class, 22, Side.CLIENT);
 		packetInstance.registerMessage(GuardianVanishMessage.Handler.class, GuardianVanishMessage.class, 23, Side.CLIENT);
-		
-		RelicsAspectRegistry.registerItemAspectsFirst();
 		
 		itemFalseJustice = new ItemFalseJustice();
 		itemDeificAmulet = new ItemDeificAmulet();
@@ -326,6 +325,8 @@ public class Main {
 		EntityRegistry.registerModEntity(EntityChaoticOrb.class, "EntityChaoticOrb", 245, Main.instance, 64, 20, true);
 		EntityRegistry.registerModEntity(EntityThunderpealOrb.class, "EntityThunderpealOrb", 246, Main.instance, 64, 20, true);
 		
+		RelicsAspectRegistry.registerItemAspectsFirst();
+		
 		proxy.registerKeybinds();
 		
 		MinecraftForge.EVENT_BUS.register(new RelicsUpdateHandler());
@@ -356,6 +357,10 @@ public class Main {
 		Config.shieldWait = RelicsConfigHandler.runicRechargeDelay;
 		Config.shieldCost = RelicsConfigHandler.runicCost;
 		Config.notificationDelay = RelicsConfigHandler.notificationDelay;
+		
+		if (Loader.isModLoaded("MineTweaker3")) {
+			MineTweakerIntegrator.init();
+		}
 		
 		ForgeChunkManager.setForcedChunkLoadingCallback(instance, new RelicsChunkLoadCallback());
 		

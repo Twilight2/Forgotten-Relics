@@ -1,38 +1,22 @@
 package com.integral.forgottenrelics.items;
 
-import java.awt.Color;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
-import com.integral.forgottenrelics.packets.BurstMessage;
+import com.integral.forgottenrelics.handlers.SuperpositionHandler;
 
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import thaumcraft.api.IWarpingGear;
-import thaumcraft.api.research.ScanResult;
-import thaumcraft.client.fx.beams.FXBeam;
-import thaumcraft.client.fx.beams.FXBeamWand;
-import thaumcraft.client.lib.PlayerNotifications;
-import thaumcraft.common.Thaumcraft;
-import thaumcraft.common.lib.network.PacketHandler;
-import thaumcraft.common.lib.network.playerdata.PacketResearchComplete;
-import thaumcraft.common.lib.research.ScanManager;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.item.ModItems;
 
 public class ItemGhastlySkull extends Item implements IWarpingGear {
 	
@@ -76,8 +60,10 @@ public class ItemGhastlySkull extends Item implements IWarpingGear {
 		look.add(vec.copy());
 		
 		if (world.isRemote) {
-			Main.log.info(Main.forgottenKnowledge);
+			//Main.log.info(Main.forgottenKnowledge);
 		}
+		
+		SuperpositionHandler.experimental();
 
  		return stack;
  		

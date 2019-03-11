@@ -1,13 +1,11 @@
 package com.integral.forgottenrelics.items;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
