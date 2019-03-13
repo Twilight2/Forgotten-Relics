@@ -70,6 +70,7 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 	private static final String TAG_RE_DIST = "reDist";
 	
 	private boolean verificationVariable = false;
+	private static boolean altMethods = RelicsConfigHandler.altTelekinesisAlgorithm;
 
 	public ItemTelekinesisTome() {
 		this.setMaxStackSize(1);
@@ -144,13 +145,12 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 	 }
 	 
 	 @SideOnly(Side.CLIENT)
-	 public boolean hasPressedLeftClick() {
+	 public boolean hasPressedAttackKey() {
 		 
-		 int LKM = Minecraft.getMinecraft().gameSettings.keyBindAttack.getKeyCodeDefault();
-		 if (Mouse.isButtonDown(0) & this.verificationVariable == false) {
+		 if (Minecraft.getMinecraft().gameSettings.keyBindAttack.getIsKeyPressed() & this.verificationVariable == false) {
 			 this.verificationVariable = true;
 			 return true;
-		 } else if (!Mouse.isButtonDown(0) & this.verificationVariable == true) {
+		 } else if (!Minecraft.getMinecraft().gameSettings.keyBindAttack.getIsKeyPressed() & this.verificationVariable == true) {
 			 this.verificationVariable = false;
 			 return false;
 		 } else
@@ -159,8 +159,7 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 	 
 	 @Override
 	 @SideOnly(Side.CLIENT)
-	 public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
-	 {
+	 public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		 if(GuiScreen.isShiftKeyDown()){
 			 par3List.add(StatCollector.translateToLocal("item.ItemTelekinesisTome1.lore")); 
 			 par3List.add(StatCollector.translateToLocal("item.ItemTelekinesisTome2.lore")); 
@@ -224,26 +223,24 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 		this.setTomeTag(player, TAG_TICKS_TILL_EXPIRE, ticksTillExpire);
 		this.setTomeTag(player, TAG_TICKS_COOLDOWN, ticksCooldown);
 		
-		/*
-		PotionEffect haste = player.getActivePotionEffect(Potion.digSpeed);
-		float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
-		if(player.getCurrentEquippedItem() == stack && player.swingProgress == check && !world.isRemote)
-			leftClick(player);
-		*/
-		
 		if (player.worldObj.isRemote) {
+		if (!this.altMethods) {
 			boolean attack = false;
 			
-		if (Mouse.isButtonDown(1) & player.getCurrentEquippedItem() == stack) {
+		if (Minecraft.getMinecraft().currentScreen == null)
+		if (Minecraft.getMinecraft().gameSettings.keyBindUseItem.getIsKeyPressed() & player.getCurrentEquippedItem() == stack) {
 			Main.packetInstance.sendToServer(new TelekinesisUseMessage());
 			this.onUsingTickAlt(stack, player, 0);
 			attack = true;
 		}
 		
-		if (attack & player.getCurrentEquippedItem() == stack & this.hasPressedLeftClick()) {
+		if (attack & player.getCurrentEquippedItem() == stack & this.hasPressedAttackKey()) 
 			Main.packetInstance.sendToServer(new TelekinesisAttackMessage(true));
-		} 
 		
+		} else {
+			if (player.getItemInUse() == stack & this.hasPressedAttackKey())
+				Main.packetInstance.sendToServer(new TelekinesisAttackMessage(true));
+		}
 		
 		}
 		
@@ -251,7 +248,7 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 	
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack) {
-		return EnumAction.none;
+		return EnumAction.bow;
 	}
 
 	@Override
@@ -259,7 +256,10 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 		return 72000;
 	}
 	
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {}
+	@Override
+	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
+		this.onUsingTickAlt(stack, player, count);
+	}
 	
 	//@Override
 	public void onUsingTickAlt(ItemStack stack, EntityPlayer player, int count) {
@@ -347,7 +347,8 @@ public class ItemTelekinesisTome extends Item implements IWarpingGear {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		//player.setItemInUse(stack, 72000);
+		if (this.altMethods)
+		player.setItemInUse(stack, 72000);
 		
 		
 		return stack;

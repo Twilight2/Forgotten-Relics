@@ -49,14 +49,14 @@ public class ItemVoidGrimoire extends Item implements IWarpingGear {
 	 public static final int OrdoCost = (int) (9 * RelicsConfigHandler.voidGrimoireVisMult);
 	 public static final int PerditioCost = (int) (16 * RelicsConfigHandler.voidGrimoireVisMult);
 	 
-	 static int localCooldown = 0;
+	 public static int localCooldown = 0;
 	 
 	 static HashMap<EntityPlayer, EntityLivingBase> targetList = new HashMap<EntityPlayer, EntityLivingBase>();
 
 	 public ItemVoidGrimoire() {
-		setMaxStackSize(1);
-		setUnlocalizedName("ItemVoidGrimoire");
-		setCreativeTab(Main.tabForgottenRelics);
+		this.setMaxStackSize(1);
+		this.setUnlocalizedName("ItemVoidGrimoire");
+		this.setCreativeTab(Main.tabForgottenRelics);
 	 }
 	
 	 @Override
@@ -88,8 +88,7 @@ public class ItemVoidGrimoire extends Item implements IWarpingGear {
 
 
 	 @Override
-	 public EnumRarity getRarity(ItemStack itemStack)
-	 {
+	 public EnumRarity getRarity(ItemStack itemStack) {
 		 return EnumRarity.epic;
 	 }
 	
@@ -107,15 +106,6 @@ public class ItemVoidGrimoire extends Item implements IWarpingGear {
 	@Override
 	public int getMaxItemUseDuration(ItemStack par1ItemStack) {
 		 return 100;
-	}
-	
-	@Override
-	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean b) {
-		
-		if (world.isRemote)
-			if (this.localCooldown > 0)
-				this.localCooldown--;
-		
 	}
 	
 	public void overthrow(EntityLivingBase entity, EntityPlayer overthrower) {
@@ -154,17 +144,6 @@ public class ItemVoidGrimoire extends Item implements IWarpingGear {
 			return;
 		}
 		
-		boolean UltimaSide;
-		
-		try {
-		if (MinecraftServer.getServer().isDedicatedServer())
-			UltimaSide = true;
-		else
-			UltimaSide = false;
-		} catch (NullPointerException ex) {
-			UltimaSide = false;
-		}
-		
 		
 		if (!this.targetList.containsKey(player)) {
 			this.targetList.put(player, null);
@@ -181,22 +160,11 @@ public class ItemVoidGrimoire extends Item implements IWarpingGear {
 			target.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 30, 100, true));
 		} catch (Exception ex) {}
 		
-		if (UltimaSide) {
-		
-		target.motionY = 0.09D;
+		target.motionY = 0.03D;
 		target.velocityChanged = true;
-		
+			
 		if (!player.worldObj.isRemote)
 			Main.packetInstance.sendToAllAround(new EntityMotionMessage(target.getEntityId(), target.motionX, target.motionY, target.motionZ, true), new TargetPoint(player.dimension, target.posX, target.posY, target.posZ, 64.0D));
-		
-		} else {
-			target.motionY = 0.03D;
-			target.velocityChanged = true;
-			
-			if (!player.worldObj.isRemote)
-				Main.packetInstance.sendToAllAround(new EntityMotionMessage(target.getEntityId(), target.motionX, target.motionY, target.motionZ, true), new TargetPoint(player.dimension, target.posX, target.posY, target.posZ, 64.0D));
-			
-		}
 		
 		
 		Vector3 thisPos = Vector3.fromEntityCenter(target);
@@ -223,7 +191,7 @@ public class ItemVoidGrimoire extends Item implements IWarpingGear {
         	SuperpositionHandler.setCasted(player, 30, false);
         	
         	if (player.worldObj.isRemote)
-        		this.localCooldown = 30;
+        		this.localCooldown = 60;
         }
         
 		}
@@ -231,8 +199,9 @@ public class ItemVoidGrimoire extends Item implements IWarpingGear {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		if (SuperpositionHandler.isOnCoodown(player))
-			return stack;
+		if (!world.isRemote)
+			if (SuperpositionHandler.isOnCoodown(player))
+				return stack;
 		
 		if (world.isRemote)
 			if (this.localCooldown != 0)

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.integral.forgottenrelics.Main;
 import com.integral.forgottenrelics.items.ItemFateTome;
+import com.integral.forgottenrelics.items.ItemVoidGrimoire;
 import com.integral.forgottenrelics.packets.ForgottenResearchMessage;
 import com.integral.forgottenrelics.packets.GuardianVanishMessage;
 import com.integral.forgottenrelics.packets.PacketVoidMessage;
@@ -11,6 +12,7 @@ import com.integral.forgottenrelics.packets.PacketVoidMessage;
 import baubles.common.lib.PlayerHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

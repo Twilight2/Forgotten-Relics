@@ -3,6 +3,7 @@ package com.integral.forgottenrelics.handlers;
 import org.lwjgl.input.Keyboard;
 
 import com.integral.forgottenrelics.Main;
+import com.integral.forgottenrelics.items.ItemVoidGrimoire;
 import com.integral.forgottenrelics.packets.DiscordKeybindMessage;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
@@ -35,6 +36,8 @@ public class RelicsKeybindHandler {
 		} else if (!this.discordRingKey.isPressed() & checkVariable == true) {
 			checkVariable = false;
 		}
+			if (ItemVoidGrimoire.localCooldown > 0)
+				ItemVoidGrimoire.localCooldown--;
 		
 	}
 	

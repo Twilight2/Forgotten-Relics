@@ -62,8 +62,6 @@ public class ItemGhastlySkull extends Item implements IWarpingGear {
 		if (world.isRemote) {
 			//Main.log.info(Main.forgottenKnowledge);
 		}
-		
-		SuperpositionHandler.experimental();
 
  		return stack;
  		

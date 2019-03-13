@@ -102,6 +102,7 @@ public class RelicsConfigHandler {
 	public static boolean forgottenKnowledgeOverridingEnabled;
 	
 	public static float guardianAntiAbuseRadius;
+	public static boolean altTelekinesisAlgorithm;
 	
 	public static String[] exampleOverrides = new String[] {"EldritchSpell[Thaumcraft:ItemEldritchObject:2]", "AdvancedMiningCharm[Botania:manaResource:5, ForgottenRelics:ItemMiningCharm:0, minecraft:diamond_pickaxe:0]", "TerrorCrown[minecraft:ender_eye:0, minecraft:nether_star:0, minecraft:golden_helmet:0, Botania:manaResource:15]"};
 	
@@ -146,6 +147,9 @@ public class RelicsConfigHandler {
 	    		"Whether or not overriding triggers by config should be enabled. If it's disabled, no overrides specified here would take effect.");
 	    
 	    config.addCustomCategoryComment("Justice Handler Overrides", overridesDesc);
+	    
+	    this.altTelekinesisAlgorithm = config.getBoolean("altTelekinesisAlgorithm", "Generic Config", false, 
+	    		"Whether or not Tome of Predestiny should be handled in alternative way, that uses vanilla .onUsingTick(). Basically, it just adds charging animation and slows player down while casting.");
 	    
 	    this.guardianAntiAbuseRadius = config.getFloat("guardianAntiAbuseRadius", "Generic Config", 16F, 0F, 1024F, 
 	    		"Defines the radius in which anti-abuse system of Guardian of Gaia checks for liquids. Set to 0 to disable it... and proclaim yourself as wuss.");
