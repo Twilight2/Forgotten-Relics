@@ -103,6 +103,7 @@ public class RelicsConfigHandler {
 	
 	public static float guardianAntiAbuseRadius;
 	public static boolean altTelekinesisAlgorithm;
+	public static boolean deificAmuletOnlyNegatesDebuffs;
 	
 	public static String[] exampleOverrides = new String[] {"EldritchSpell[Thaumcraft:ItemEldritchObject:2]", "AdvancedMiningCharm[Botania:manaResource:5, ForgottenRelics:ItemMiningCharm:0, minecraft:diamond_pickaxe:0]", "TerrorCrown[minecraft:ender_eye:0, minecraft:nether_star:0, minecraft:golden_helmet:0, Botania:manaResource:15]"};
 	
@@ -147,6 +148,9 @@ public class RelicsConfigHandler {
 	    		"Whether or not overriding triggers by config should be enabled. If it's disabled, no overrides specified here would take effect.");
 	    
 	    config.addCustomCategoryComment("Justice Handler Overrides", overridesDesc);
+	    
+	    this.deificAmuletOnlyNegatesDebuffs = config.getBoolean("deificAmuletOnlyNegatesDebuffs", "Generic Config", false, 
+	    		"Allows you to prevent Deific Amulet from dispelling positive potion effects, so that it would only cure debuffs.");
 	    
 	    this.altTelekinesisAlgorithm = config.getBoolean("altTelekinesisAlgorithm", "Generic Config", false, 
 	    		"Whether or not Tome of Predestiny should be handled in alternative way, that uses vanilla .onUsingTick(). Basically, it just adds charging animation and slows player down while casting.");

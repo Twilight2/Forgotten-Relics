@@ -136,6 +136,7 @@ item.ItemFalseJustice2.lore=§5наносимый и получаемый вам
 item.ItemFalseJustice3.lore=§5преобразуется в §6Истинный урон§5.
 
 item.ItemDeificAmulet1.lore=§5Иммунитет к большинству эффектов.
+item.ItemDeificAmulet1_alt.lore=§5Иммунитет к большинству дебаффов.
 item.ItemDeificAmulet2.lore=§5Тушит вас при возгорании.
 item.ItemDeificAmulet3.lore=§5Увеличенный период неуязвимости.
 item.ItemDeificAmulet4.lore=§5Восстанавливает дыхание под водой,

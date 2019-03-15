@@ -1,5 +1,7 @@
 package com.integral.forgottenrelics.items;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
@@ -8,6 +10,7 @@ import com.integral.forgottenrelics.handlers.SuperpositionHandler;
 
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiScreen;
@@ -16,6 +19,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -28,7 +33,7 @@ public class ItemDeificAmulet extends ItemBaubleBase implements IBauble {
 
  public ItemDeificAmulet() {
 	 super("ItemDeificAmulet");
-	 this.maxStackSize = 1;
+	 this.setMaxStackSize(1);
 	 this.setUnlocalizedName("ItemDeificAmulet");
 	 this.setCreativeTab(Main.tabForgottenRelics);
 
@@ -36,19 +41,21 @@ public class ItemDeificAmulet extends ItemBaubleBase implements IBauble {
 
 
  @Override
- public void registerIcons(IIconRegister iconRegister)
- {
- itemIcon = iconRegister.registerIcon("forgottenrelics:Deific_Amulet");
+ public void registerIcons(IIconRegister iconRegister) {
+	 itemIcon = iconRegister.registerIcon("forgottenrelics:Deific_Amulet");
  }
 
 
  @Override
  @SideOnly(Side.CLIENT)
- public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
- {
+ public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 	 if(GuiScreen.isShiftKeyDown()){
-		 if (RelicsConfigHandler.deificAmuletEffectImmunity)
-		 par3List.add(StatCollector.translateToLocal("item.ItemDeificAmulet1.lore")); 
+		 if (RelicsConfigHandler.deificAmuletEffectImmunity) {
+			 if (RelicsConfigHandler.deificAmuletOnlyNegatesDebuffs)
+				 par3List.add(StatCollector.translateToLocal("item.ItemDeificAmulet1_alt.lore"));
+			 else
+				 par3List.add(StatCollector.translateToLocal("item.ItemDeificAmulet1.lore")); 
+		 }
 		 par3List.add(StatCollector.translateToLocal("item.ItemDeificAmulet2.lore"));
 		 if (RelicsConfigHandler.deificAmuletInvincibility)
 		 par3List.add(StatCollector.translateToLocal("item.ItemDeificAmulet3.lore")); 
@@ -66,9 +73,8 @@ public class ItemDeificAmulet extends ItemBaubleBase implements IBauble {
 
 
  @Override
- public EnumRarity getRarity(ItemStack itemStack)
- {
- return EnumRarity.epic;
+ public EnumRarity getRarity(ItemStack itemStack) {
+	 return EnumRarity.epic;
  }
 
 @Override
@@ -82,8 +88,21 @@ public void onWornTick(ItemStack itemstack, EntityLivingBase entity) {
 	
 	if (!entity.worldObj.isRemote & entity instanceof EntityPlayer) {
 	
-	if (!(((EntityLivingBase) entity).getActivePotionEffects() == null) & RelicsConfigHandler.deificAmuletEffectImmunity) {
-		 ((EntityLivingBase) entity).clearActivePotions();
+	 if (entity.getActivePotionEffects() != null & RelicsConfigHandler.deificAmuletEffectImmunity) {
+		 
+		 if (RelicsConfigHandler.deificAmuletOnlyNegatesDebuffs) {
+		 Collection<PotionEffect> effects = new ArrayList<PotionEffect>(entity.getActivePotionEffects());
+		 
+		 for (PotionEffect effect : effects) {
+			int id = effect.getPotionID();
+			boolean badEffect = ((Boolean)ReflectionHelper.getPrivateValue(Potion.class, Potion.potionTypes[id], new String[]{"isBadEffect", "isBadEffect"})).booleanValue();
+			
+			if (badEffect)
+				entity.removePotionEffect(id);
+		 }
+		 } else {
+			 entity.clearActivePotions();
+		 }
 	 }
 	 
 	 if(entity.isBurning()) { entity.extinguish(); }

@@ -119,7 +119,7 @@ import thaumcraft.common.config.Config;
 public class Main {
 
 	public static final String MODID = "ForgottenRelics";
-	public static final String VERSION = "1.6.1";
+	public static final String VERSION = "1.6.2";
 	public static final String NAME = "Forgotten Relics";
 	
 	public static final String RELEASE_TYPE = "Beta";

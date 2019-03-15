@@ -136,10 +136,11 @@ item.ItemFalseJustice2.lore=§5you deal and all damage dealt to you
 item.ItemFalseJustice3.lore=§5is transformed into §6True Damage§5.
 
 item.ItemDeificAmulet1.lore=§5Immunity to most status effects.
+item.ItemDeificAmulet1_alt.lore=§5Immunity to most debuffs.
 item.ItemDeificAmulet2.lore=§5Extinguishes you when on fire.
 item.ItemDeificAmulet3.lore=§5Prolonged invincibility frames.
-item.ItemDeificAmulet4.lore=§5Replenishes air underwater at the
-item.ItemDeificAmulet5.lore=§5cost of §eAer§5 and §3Aqua§5 §6Vis§5.
+item.ItemDeificAmulet4.lore=§5Replenishes air underwater at
+item.ItemDeificAmulet5.lore=§5the cost of §eAer§5 and §3Aqua§5 §6Vis§5.
 
 item.ItemParadox1.lore=§5Deals random amount of damage within
 item.ItemParadox2.lore=§5specified range. For each hit, you also
