@@ -1,5 +1,6 @@
 package com.integral.forgottenrelics.items;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
@@ -61,6 +62,13 @@ public class ItemGhastlySkull extends Item implements IWarpingGear {
 		
 		if (world.isRemote) {
 			//Main.log.info(Main.forgottenKnowledge);
+			
+			List<List> selfContainedArray = new ArrayList<List>();
+			selfContainedArray.add(Main.darkRingDamageNegations);
+			selfContainedArray.add(selfContainedArray);
+			
+			Main.log.info("The array: " + selfContainedArray);
+			
 		}
 
  		return stack;

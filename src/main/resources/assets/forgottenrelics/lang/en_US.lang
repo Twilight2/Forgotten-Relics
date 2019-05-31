@@ -397,6 +397,9 @@ item.OblivionMode1.lore=§dLast Stack
 item.OblivionMode2.lore=§dExcess Absorption
 item.OblivionStoneDeactivated.lore=§dDeactivated
 
+item.OmegaCore1.lore=§5Provides infinite §6Vis§5 supply.
+item.OmegaCore2.lore=§5You are immortal while possesing it.
+
 ### RESEARCH CATEGORY ###
 
 tc.research_category.ForgottenRelics=Forgotten Relics

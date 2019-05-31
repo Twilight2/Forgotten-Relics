@@ -84,7 +84,8 @@ public class ItemOmegaCore extends Item {
  public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
  {
 	 if(GuiScreen.isShiftKeyDown()) {
-		 par3List.add(StatCollector.translateToLocal("item.FREmpty.lore")); 
+		 par3List.add(StatCollector.translateToLocal("item.OmegaCore1.lore")); 
+		 par3List.add(StatCollector.translateToLocal("item.OmegaCore2.lore")); 
 	 }
 	 else {
 		 par3List.add(StatCollector.translateToLocal("item.FRShiftTooltip.lore")); 

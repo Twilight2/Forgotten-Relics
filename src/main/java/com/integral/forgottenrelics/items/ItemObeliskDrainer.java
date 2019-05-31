@@ -113,7 +113,7 @@ public class ItemObeliskDrainer extends Item implements IWarpingGear, IRepairabl
 		 ItemStack randomWand = SuperpositionHandler.getRandomValidWand(SuperpositionHandler.wandSearch(player), randomAspect);
 		 
 		 if (randomWand != null)
-				((ItemWandCasting)randomWand.getItem()).addVis(randomWand, randomAspect, (int) ((5+(Math.random()*15))*RelicsConfigHandler.obeliskDrainerVisMult), true);
+				((ItemWandCasting)randomWand.getItem()).addVis(randomWand, randomAspect, (int) ((5.0+(Math.random()*15.0))*1.5*RelicsConfigHandler.obeliskDrainerVisMult), true);
 		 
 		 
 	 }

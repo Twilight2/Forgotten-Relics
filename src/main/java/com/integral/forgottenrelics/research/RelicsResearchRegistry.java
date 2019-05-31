@@ -146,7 +146,7 @@ public class RelicsResearchRegistry {
 	
 	public static void integrateResearch() {
 		
-		ResearchCategories.registerCategory("ForgottenRelics", new ResourceLocation("forgottenrelics:textures/items/Ghastly_Skull.png"), new ResourceLocation("thaumcraft:textures/gui/gui_researchback.png"));
+		ResearchCategories.registerCategory("ForgottenRelics", new ResourceLocation("forgottenrelics:textures/items/Apotheosis.png"), new ResourceLocation("thaumcraft:textures/gui/gui_researchback.png"));
 		
 		new ForgottenRelicsResearchItem("GenericTheory", "ForgottenRelics", new AspectList().add(Aspect.MIND, 4).add(Aspect.TOOL, 4).add(Aspect.MAGIC, 4).add(Aspect.CRAFT, 4), 0, 0, 1, eldritchTablet).setSpecial().setRound().setPages(new ResearchPage[]{ new ResearchPage("1"), new ResearchPage("2"), new ResearchPage("3"), new ResearchPage("4"), new ResearchPage("5") })
 		.setParentsHidden("INFUSION", "THAUMIUM")

@@ -396,6 +396,8 @@ item.OblivionMode1.lore=§dПоследний стак
 item.OblivionMode2.lore=§dЭксцессивное поглощение
 item.OblivionStoneDeactivated.lore=§dДеактивирован
 
+item.OmegaCore1.lore=§5Предоставляет бесконечный запас §6Вис§5.
+item.OmegaCore2.lore=§5Вы бессмертны при обладании этой реликвией.
 
 ### RESEARCH CATEGORY ###
 
