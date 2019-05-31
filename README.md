@@ -10,10 +10,10 @@ This addon brings up a variety of powerful relics, mostly oriented to expand the
 
 It was originally created by Integral. But, guess what? This nickname seems to be already taken almost everywhere. So he is also known as "Extegral", "VictorShadow", "VictorShadow_" and some more names.
 
-**To-Do List for the nearest future:**
-1. Implement the Wastelayer.
-2. Add some of relics themed around Runic Shield.
-3. Invent alternative Runic Shield handler (for previously mentioned relics).
-4. Review overall balancing.
+**TO-DO List for the nearest future:**
+1. TO-DO
+2. TO-DO
+3. TO-DO TO-DO
+4. TO-DO-DO-DO-DO-DO-DO
 
 **Funny Fact #192-17MK2:** Ironically, Superposition Handler has nothing to do with Ring of Superposition. Not directly, at least.
