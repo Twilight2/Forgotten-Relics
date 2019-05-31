@@ -10,10 +10,10 @@ This addon brings up a variety of powerful relics, mostly oriented to expand the
 
 It was originally created by Integral. But, guess what? This nickname seems to be already taken almost everywhere. So he is also known as "Extegral", "VictorShadow", "VictorShadow_" and some more names.
 
-**TO-DO List for the nearest future:**
-1. TO-DO
-2. TO-DO
-3. TO-DO TO-DO
-4. TO-DO-DO-DO-DO-DO-DO
+**To-Do List for the nearest future:**
+1. To-Do
+2. To-Do
+3. To-Do To-Do
+4. To-Do-Do-Do-Do-Do-Do
 
 **Funny Fact #192-17MK2:** Ironically, Superposition Handler has nothing to do with Ring of Superposition. Not directly, at least.
