@@ -291,6 +291,7 @@ item.ItemSoulTome9.lore=§6Использование Эдикта сильно 
 item.ItemDimensionalMirror1.lore=§5Запоминает текущую локацию и измерение при
 item.ItemDimensionalMirror2.lore=§5нажатии §6Shift§5+§6ПКМ§5.
 item.ItemDimensionalMirror3.lore=§5Всмотритесь в зеркало, что бы вернуться туда.
+item.ItemDimensionalMirror4.lore=§5Не может вернуть вас из §6Края.
 item.MirrorLoc.lore=§dСохранённая локация:
 item.MirrorX.lore= §6X: §5
 item.MirrorY.lore= §6Y: §5

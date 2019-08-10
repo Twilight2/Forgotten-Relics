@@ -3,6 +3,7 @@ package com.integral.forgottenrelics.items;
 import java.util.List;
 
 import com.integral.forgottenrelics.Main;
+import com.integral.forgottenrelics.handlers.ExtradimensionalTeleporter;
 import com.integral.forgottenrelics.handlers.RelicsConfigHandler;
 import com.integral.forgottenrelics.handlers.SuperpositionHandler;
 
@@ -18,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.DimensionManager;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 
@@ -48,8 +50,9 @@ public class ItemDimensionalMirror extends Item {
 	 if(GuiScreen.isShiftKeyDown()){
 		 par3List.add(StatCollector.translateToLocal("item.ItemDimensionalMirror1.lore")); 
 		 par3List.add(StatCollector.translateToLocal("item.ItemDimensionalMirror2.lore")); 
-		 par3List.add(StatCollector.translateToLocal("item.FREmpty.lore")); 
 		 par3List.add(StatCollector.translateToLocal("item.ItemDimensionalMirror3.lore")); 
+		 par3List.add(StatCollector.translateToLocal("item.FREmpty.lore")); 
+		 par3List.add(StatCollector.translateToLocal("item.ItemDimensionalMirror4.lore")); 
 	 }
 	 else {
 		 par3List.add(StatCollector.translateToLocal("item.FRShiftTooltip.lore")); 
@@ -113,10 +116,9 @@ public class ItemDimensionalMirror extends Item {
 			 SuperpositionHandler.imposeBurst(player.worldObj, player.dimension, vec.x, vec.y, vec.z, 1.25F);
 			 
 			 if (!player.worldObj.isRemote & player.dimension != dimension) {
-				 ((EntityPlayerMP)player).mcServer.getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) player, dimension);
-			 }
-				
-			 player.setPositionAndUpdate(x+0.5, y+0.5, z+0.5);
+				 ((EntityPlayerMP)player).mcServer.getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) player, dimension, new ExtradimensionalTeleporter(((EntityPlayerMP)player).mcServer.worldServerForDimension(dimension), x+0.5, y+0.5, z+0.5));
+			 } else
+				player.setPositionAndUpdate(x+0.5, y+0.5, z+0.5);
 				 
 			 player.worldObj.playSoundEffect(vec.x, vec.y, vec.z, "mob.endermen.portal", 1.0F, (float) (0.8F + (Math.random() * 0.2)));
 			 player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "mob.endermen.portal", 1.0F, (float) (0.8F + (Math.random() * 0.2)));
@@ -142,6 +144,8 @@ public class ItemDimensionalMirror extends Item {
 	 if (written & !player.isSneaking()) {
 		 
 		 if (!RelicsConfigHandler.interdimensionalMirror & player.dimension != ItemNBTHelper.getInt(stack, "IDimensionID", 0))
+			 return stack;
+		 if (player.dimension == 1 & ItemNBTHelper.getInt(stack, "IDimensionID", 0) != 1)
 			 return stack;
 		 
 		 player.setItemInUse(stack, stack.getMaxItemUseDuration());

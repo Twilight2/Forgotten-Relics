@@ -292,6 +292,7 @@ item.ItemSoulTome9.lore=§6You are greatly slowed down while casting.
 item.ItemDimensionalMirror1.lore=§5Allows you to store your current location
 item.ItemDimensionalMirror2.lore=§5and dimension by pressing §6Shift§5+§6Right-Click§5.
 item.ItemDimensionalMirror3.lore=§5Gaze into the mirror to return there.
+item.ItemDimensionalMirror4.lore=§5Can't retrieve you out of §6The End.
 item.MirrorLoc.lore=§dStored location:
 item.MirrorX.lore= §6X: §5
 item.MirrorY.lore= §6Y: §5
