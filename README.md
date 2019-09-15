@@ -1,6 +1,6 @@
 # Forgotten Relics
 
-**Current Version:** 1.7.2 Beta (Final)
+**Current Version:** 1.7.3 Beta (Final)
 
 **Minecraft Version:** 1.7.10
 

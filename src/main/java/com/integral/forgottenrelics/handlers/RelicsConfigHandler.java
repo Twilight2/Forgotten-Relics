@@ -179,8 +179,8 @@ public class RelicsConfigHandler {
 	    this.outerLandsCheckrate = config.getInt("outerLandsCheckrate", "Generic Config", 20, 1, 1024000, 
 	    		"Checkrate for Outer Lands anti-abuse system, if it's enabled. Measured in ticks. Setting this value to 20 means that it would check each player once in 20 ticks, or once per second.");
 	    
-	    this.outerLandsAntiAbuseDamage = config.getFloat("outerLandsAntiAbuseDamage", "Generic Config", 40000.0F, 0.0F, 512000.0F, 
-	    	"How much damage is dealt to player in Outer Lands if anti-abuse system is enabled and finds them out of maze. You may want to decrease this if you are getting there accidentally and want to do something about this before you are obliterated.");
+	    //this.outerLandsAntiAbuseDamage = config.getFloat("outerLandsAntiAbuseDamage", "Generic Config", 40000.0F, 0.0F, 512000.0F, 
+	    //	"How much damage is dealt to player in Outer Lands if anti-abuse system is enabled and finds them out of maze. You may want to decrease this if you are getting there accidentally and want to do something about this before you are obliterated.");
 	    
 	    this.outerLandsAntiAbuseEnabled = config.getBoolean("outerLandsAntiAbuseEnabled", "Generic Config", true, 
 	    		"Whether or not anti-abuse system for Outer Lands should be enabled. Disable if you like cheating or don't want it for some other reason.");

@@ -10,6 +10,7 @@ import com.integral.forgottenrelics.packets.GuardianVanishMessage;
 import com.integral.forgottenrelics.packets.PacketVoidMessage;
 
 import baubles.common.lib.PlayerHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
@@ -24,6 +25,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.Teleporter;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -36,6 +38,7 @@ import thaumcraft.common.Thaumcraft;
 import thaumcraft.common.config.Config;
 import thaumcraft.common.items.wands.WandManager;
 import thaumcraft.common.lib.research.ResearchManager;
+import thaumcraft.common.lib.world.dim.TeleporterThaumcraft;
 import vazkii.botania.common.achievement.ModAchievements;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -66,8 +69,8 @@ public class RelicsEventHandler {
 	@SubscribeEvent
 	public void livingTick(LivingEvent.LivingUpdateEvent event) {
 		
-		if (event.entity instanceof EntityPlayer & !event.entity.worldObj.isRemote) {
-			EntityPlayer player = (EntityPlayer) event.entity;
+		if (event.entity instanceof EntityPlayerMP & !event.entity.worldObj.isRemote) {
+			EntityPlayerMP player = (EntityPlayerMP) event.entity;
 			
 			/*
 			 * Handler used to prevent players from abusing the Outer Lands.
@@ -91,7 +94,10 @@ public class RelicsEventHandler {
 				MovingObjectPosition pos2 = player.worldObj.rayTraceBlocks(position2, down);
 				
 				if (pos1 == null || pos2 == null) {
-					player.attackEntityFrom(DamageSource.outOfWorld, RelicsConfigHandler.outerLandsAntiAbuseDamage);
+					player.timeUntilPortal = 100;
+					player.mcServer.getConfigurationManager().transferPlayerToDimension(player, 0, new TeleporterThaumcraft(FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0)));
+					
+					//player.attackEntityFrom(DamageSource.outOfWorld, RelicsConfigHandler.outerLandsAntiAbuseDamage);
 				}
 				
 			}
