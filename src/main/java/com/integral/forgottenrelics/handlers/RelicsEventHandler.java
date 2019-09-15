@@ -159,7 +159,7 @@ public class RelicsEventHandler {
 		
 	}
 	
-	@SubscribeEvent
+	@SubscribeEvent(priority=EventPriority.LOWEST)
 	public void miningStuff(PlayerEvent.BreakSpeed event) {
 		
 		/*

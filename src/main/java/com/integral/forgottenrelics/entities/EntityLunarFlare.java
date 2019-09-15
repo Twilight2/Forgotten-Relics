@@ -12,6 +12,7 @@ import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -86,8 +87,14 @@ public class EntityLunarFlare extends EntityThrowable implements IEntityAddition
         			Vector3 thisPos = Vector3.fromEntityCenter(this);
         			Vector3 diff = targetPos.copy().sub(thisPos);
        			 
-        			double proportion = 1/this.getDistanceToEntity(affectedEntities.get(counter));
-       			 	diff.multiply(0.2F + (proportion/16));
+        			diff.normalize();
+					diff.multiply(1.0/(affectedEntities.get(counter).getDistanceToEntity(this)));
+					 
+					 if (diff.mag() > 1.0)
+						 diff.normalize();
+					 
+					 if (affectedEntities.get(counter) instanceof IBossDisplayData)
+					 	diff.multiply(0.5D);
        			 
        			 	affectedEntities.get(counter).motionX += diff.x;
        			 	affectedEntities.get(counter).motionY += diff.y;

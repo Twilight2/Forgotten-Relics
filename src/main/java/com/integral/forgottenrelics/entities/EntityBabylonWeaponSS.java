@@ -14,9 +14,12 @@ import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import vazkii.botania.common.Botania;
@@ -128,12 +131,14 @@ public class EntityBabylonWeaponSS extends EntityThrowableCopy {
 						 Vector3 thisPos = Vector3.fromEntityCenter(this);
 						 Vector3 diff = targetPos.copy().sub(thisPos);
 						 
-						 double proportion = 1/this.getDistanceToEntity(living);
+						 diff.normalize();
+						 diff.multiply(1.0/(living.getDistanceToEntity(this)));
 						 
-						 if (proportion > 1.2D)
-							 proportion = 1.2D;
+						 if (diff.mag() > 1.0)
+							 diff.normalize();
 						 
-						 diff.multiply(0.2F + (proportion/8));
+						 if (living instanceof IBossDisplayData)
+						 	diff.multiply(0.5D);
 						 
 						 living.motionX += diff.x;
 						 living.motionY += diff.y;
@@ -172,12 +177,14 @@ public class EntityBabylonWeaponSS extends EntityThrowableCopy {
 			 Vector3 thisPos = Vector3.fromEntityCenter(this);
 			 Vector3 diff = targetPos.copy().sub(thisPos);
 			 
-			 double proportion = 1/this.getDistanceToEntity(targets.get(counterS));
+			 diff.normalize();
+			 diff.multiply(1.0/(targets.get(counterS).getDistanceToEntity(this)));
 			 
-			 if (proportion > 1.2D)
-				 proportion = 1.2D;
+			 if (diff.mag() > 1.0)
+				 diff.normalize();
 			 
-			 diff.multiply(0.1F + (proportion/8));
+			 if (targets.get(counterS) instanceof IBossDisplayData)
+				 diff.multiply(0.5D);
 			 
 			 targets.get(counterS).motionX += diff.x;
 			 targets.get(counterS).motionY += diff.y;
